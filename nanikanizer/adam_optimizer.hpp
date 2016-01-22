@@ -36,7 +36,14 @@ namespace nnk
 		template <class T>
 		class impl : public optimizer_impl_base<T>
 		{
+		private:
+
+			typedef optimizer_impl_base<T> base;
+
 		public:
+
+			typedef typename base::scalar_type scalar_type;
+			typedef typename base::tensor_type tensor_type;
 
 			impl(
 				scalar_type alpha,

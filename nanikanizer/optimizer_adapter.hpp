@@ -31,7 +31,7 @@ namespace nnk
 		std::unique_ptr<optimizer_impl_holder_base>
 			create_holder_impl(variable_expression_node<U>& variable) const
 		{
-			return std::make_unique<optimizer_impl_holder<U>>(variable, derived().create_impl<U>());;
+			return std::make_unique<optimizer_impl_holder<U>>(variable, derived().template create_impl<U>());;
 		}
 
 		const derived_type& derived() const

@@ -1,5 +1,4 @@
 #pragma once
-#include "layer.hpp"
 #include "optimizer_impl_holder_base.hpp"
 
 namespace nnk
@@ -13,7 +12,8 @@ namespace nnk
 		{
 		}
 
-		void add_parameter(layer& l)
+		template <class layer_type>
+		void add_parameter(layer_type& l)
 		{
 			l.enumerate_parameters(*this);
 		}

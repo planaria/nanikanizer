@@ -11,8 +11,7 @@ namespace nnk
 
 		typedef T scalar_type;
 		typedef std::valarray<scalar_type> tensor_type;
-		typedef expression_node<scalar_type> node_type;
-		typedef std::shared_ptr<node_type> node_pointer;
+		typedef std::shared_ptr<expression_node<scalar_type>> node_pointer;
 
 		const tensor_type& output() const
 		{

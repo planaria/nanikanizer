@@ -8,7 +8,15 @@ namespace nnk
 	template <class T>
 	class sigmoid_cross_entropy_expression_node : public expression_node<T>
 	{
+	private:
+
+		typedef expression_node<T> base;
+
 	public:
+
+		typedef typename base::scalar_type scalar_type;
+		typedef typename base::tensor_type tensor_type;
+		typedef typename base::node_pointer node_pointer;
 
 		explicit sigmoid_cross_entropy_expression_node(const node_pointer& base)
 			: base_(base)
@@ -22,13 +30,13 @@ namespace nnk
 
 		virtual void forward() override
 		{
-			if (output().size() != base_->output().size())
-				output().resize(base_->output().size());
+			if (this->output().size() != base_->output().size())
+				this->output().resize(base_->output().size());
 
 			for (std::size_t i = 0; i < base_->output().size(); ++i)
 			{
 				double x = base_->output()[i];
-				double& y = output()[i];
+				double& y = this->output()[i];
 
 				if (x < static_cast<scalar_type>(0.0))
 					y = -std::log1p(std::exp(x));
@@ -39,10 +47,10 @@ namespace nnk
 
 		virtual void backward() override
 		{
-			for (std::size_t i = 0; i < output_grad().size(); ++i)
+			for (std::size_t i = 0; i < this->output_grad().size(); ++i)
 			{
 				double x = base_->output()[i];
-				double dy = output_grad()[i];
+				double dy = this->output_grad()[i];
 				double& dx = base_->output_grad()[i];
 
 				if (x < static_cast<scalar_type>(0.0))

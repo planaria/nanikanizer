@@ -8,7 +8,15 @@ namespace nnk
 	template <class T>
 	class matrix_product_expression_node : public expression_node<T>
 	{
+	private:
+
+		typedef expression_node<T> base;
+
 	public:
+
+		typedef typename base::scalar_type scalar_type;
+		typedef typename base::tensor_type tensor_type;
+		typedef typename base::node_pointer node_pointer;
 
 		matrix_product_expression_node(
 			const node_pointer& lhs,
@@ -39,8 +47,8 @@ namespace nnk
 			BOOST_ASSERT(lhs_->output().size() == lhs_size_);
 			BOOST_ASSERT(rhs_->output().size() == rhs_size_);
 
-			if (output().size() != output_size_)
-				output().resize(output_size_);
+			if (this->output().size() != output_size_)
+				this->output().resize(output_size_);
 
 			std::size_t lhs_row_index = 0;
 			std::size_t output_index = 0;
@@ -54,11 +62,11 @@ namespace nnk
 					std::size_t lhs_index = lhs_row_index;
 					std::size_t rhs_index = rhs_col_index;
 
-					output()[output_index] = static_cast<scalar_type>(0.0);
+					this->output()[output_index] = static_cast<scalar_type>(0.0);
 
 					for (std::size_t k = 0; k < lhs_cols_; ++k)
 					{
-						output()[output_index] += lhs_->output()[lhs_index] * rhs_->output()[rhs_index];
+						this->output()[output_index] += lhs_->output()[lhs_index] * rhs_->output()[rhs_index];
 
 						++lhs_index;
 						rhs_index += rhs_cols_;
@@ -88,8 +96,8 @@ namespace nnk
 
 					for (std::size_t k = 0; k < lhs_cols_; ++k)
 					{
-						lhs_->output_grad()[lhs_index] += output_grad()[output_index] * rhs_->output()[rhs_index];
-						rhs_->output_grad()[rhs_index] += output_grad()[output_index] * lhs_->output()[lhs_index];
+						lhs_->output_grad()[lhs_index] += this->output_grad()[output_index] * rhs_->output()[rhs_index];
+						rhs_->output_grad()[rhs_index] += this->output_grad()[output_index] * lhs_->output()[lhs_index];
 
 						++lhs_index;
 						rhs_index += rhs_cols_;

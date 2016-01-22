@@ -9,7 +9,15 @@ namespace nnk
 	template <class T>
 	class pow2_expression_node : public expression_node<T>
 	{
+	private:
+
+		typedef expression_node<T> base;
+
 	public:
+
+		typedef typename base::scalar_type scalar_type;
+		typedef typename base::tensor_type tensor_type;
+		typedef typename base::node_pointer node_pointer;
 
 		explicit pow2_expression_node(const node_pointer& base)
 			: base_(base)
@@ -23,17 +31,17 @@ namespace nnk
 
 		virtual void forward() override
 		{
-			if (output().size() != base_->output().size())
-				output().resize(base_->output().size());
+			if (this->output().size() != base_->output().size())
+				this->output().resize(base_->output().size());
 
 			for (std::size_t i = 0; i < base_->output().size(); ++i)
-				output()[i] = pow2(base_->output()[i]);
+				this->output()[i] = pow2(base_->output()[i]);
 		}
 
 		virtual void backward() override
 		{
-			for (std::size_t i = 0; i < output_grad().size(); ++i)
-				base_->output_grad()[i] += static_cast<scalar_type>(2.0) * output_grad()[i] * base_->output()[i];
+			for (std::size_t i = 0; i < this->output_grad().size(); ++i)
+				base_->output_grad()[i] += static_cast<scalar_type>(2.0) * this->output_grad()[i] * base_->output()[i];
 		}
 
 		virtual void enumerate_children(const std::function<void(expression_node_base*)>& callback) override

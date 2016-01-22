@@ -1,9 +1,8 @@
 #pragma once
+#include "optimizer_base.hpp"
 
 namespace nnk
 {
-
-	class optimizer_base;
 
 	class layer
 	{

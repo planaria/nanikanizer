@@ -1,14 +1,11 @@
 #pragma once
 
-#pragma warning(push)
 #include <cstdint>
 #include <algorithm>
 #include <memory>
 #include <random>
 #include <valarray>
-#pragma warning(pop)
 
-#pragma warning(push)
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <boost/range/adaptor/reversed.hpp>
@@ -16,7 +13,6 @@
 #include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
-#pragma warning(pop)
 
 #include "expression.hpp"
 #include "variable.hpp"

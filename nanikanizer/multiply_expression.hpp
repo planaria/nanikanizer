@@ -9,7 +9,15 @@ namespace nnk
 	template <class T>
 	class multiply_expression_node : public expression_node<T>
 	{
+	private:
+
+		typedef expression_node<T> base;
+
 	public:
+
+		typedef typename base::scalar_type scalar_type;
+		typedef typename base::tensor_type tensor_type;
+		typedef typename base::node_pointer node_pointer;
 
 		multiply_expression_node(const node_pointer& lhs, const node_pointer& rhs)
 			: lhs_(lhs)
@@ -26,29 +34,29 @@ namespace nnk
 		{
 			if (lhs_->output().size() == 1)
 			{
-				if (output().size() != rhs_->output().size())
-					output().resize(rhs_->output().size());
+				if (this->output().size() != rhs_->output().size())
+					this->output().resize(rhs_->output().size());
 
 				for (std::size_t i = 0; i < rhs_->output().size(); ++i)
-					output()[i] = lhs_->output()[0] * rhs_->output()[i];
+					this->output()[i] = lhs_->output()[0] * rhs_->output()[i];
 			}
 			else if (rhs_->output().size() == 1)
 			{
-				if (output().size() != lhs_->output().size())
-					output().resize(lhs_->output().size());
+				if (this->output().size() != lhs_->output().size())
+					this->output().resize(lhs_->output().size());
 
 				for (std::size_t i = 0; i < lhs_->output().size(); ++i)
-					output()[i] = lhs_->output()[i] * rhs_->output()[0];
+					this->output()[i] = lhs_->output()[i] * rhs_->output()[0];
 			}
 			else
 			{
 				BOOST_ASSERT(lhs_->output().size() == rhs_->output().size());
 
-				if (output().size() != lhs_->output().size())
-					output().resize(lhs_->output().size());
+				if (this->output().size() != lhs_->output().size())
+					this->output().resize(lhs_->output().size());
 
 				for (std::size_t i = 0; i < lhs_->output().size(); ++i)
-					output()[i] = lhs_->output()[i] * rhs_->output()[i];
+					this->output()[i] = lhs_->output()[i] * rhs_->output()[i];
 			}
 		}
 
@@ -56,26 +64,26 @@ namespace nnk
 		{
 			if (lhs_->output().size() == 1)
 			{
-				for (std::size_t i = 0; i < output_grad().size(); ++i)
+				for (std::size_t i = 0; i < this->output_grad().size(); ++i)
 				{
-					lhs_->output_grad()[0] += output_grad()[i] * rhs_->output()[i];
-					rhs_->output_grad()[i] += output_grad()[i] * lhs_->output()[0];
+					lhs_->output_grad()[0] += this->output_grad()[i] * rhs_->output()[i];
+					rhs_->output_grad()[i] += this->output_grad()[i] * lhs_->output()[0];
 				}
 			}
 			else if (rhs_->output().size() == 1)
 			{
-				for (std::size_t i = 0; i < output_grad().size(); ++i)
+				for (std::size_t i = 0; i < this->output_grad().size(); ++i)
 				{
-					lhs_->output_grad()[i] += output_grad()[i] * rhs_->output()[0];
-					rhs_->output_grad()[0] += output_grad()[i] * lhs_->output()[i];
+					lhs_->output_grad()[i] += this->output_grad()[i] * rhs_->output()[0];
+					rhs_->output_grad()[0] += this->output_grad()[i] * lhs_->output()[i];
 				}
 			}
 			else
 			{
-				for (std::size_t i = 0; i < output_grad().size(); ++i)
+				for (std::size_t i = 0; i < this->output_grad().size(); ++i)
 				{
-					lhs_->output_grad()[i] += output_grad()[i] * rhs_->output()[i];
-					rhs_->output_grad()[i] += output_grad()[i] * lhs_->output()[i];
+					lhs_->output_grad()[i] += this->output_grad()[i] * rhs_->output()[i];
+					rhs_->output_grad()[i] += this->output_grad()[i] * lhs_->output()[i];
 				}
 			}
 		}
