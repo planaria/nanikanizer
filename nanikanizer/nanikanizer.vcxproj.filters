@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{9b5701f3-43f4-4735-af92-22f39d51f87e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\expression">
+      <UniqueIdentifier>{6b9e1c80-321f-46d8-a3cc-7fdab6f19f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\layer">
+      <UniqueIdentifier>{628f9cfa-bfd5-4fa0-a863-579462b7f0f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\optimizer">
+      <UniqueIdentifier>{e41d68ae-a31e-42bd-a7a4-ef8106a4e275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\util">
+      <UniqueIdentifier>{56c3cc00-5387-4222-9bcc-837a4f49224e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\optimizer\optimizers">
+      <UniqueIdentifier>{e6489c32-d99e-4710-9afc-bff869e0e405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\expression\expressions">
+      <UniqueIdentifier>{3e408a29-9c7a-405b-a8e8-d697ba476dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\layer\layers">
+      <UniqueIdentifier>{c6b46a41-8b44-4a72-9c71-6d7a7cbebb53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{5ba222d1-723a-4a85-9c21-881625a5b63f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nanikanizer.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="adadelta_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="adagrad_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="adam_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="evaluator.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="expression.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="expression_node.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="expression_node_base.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="layer.hpp">
+      <Filter>include\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="math_util.hpp">
+      <Filter>include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="optimizer_adapter.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="optimizer_base.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="optimizer_impl_base.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="optimizer_impl_holder.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="optimizer_impl_holder_base.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="sgd_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="rmsprop_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="abs_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="add_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="constant_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="divide_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_product_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="multiply_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="negate_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="pow2_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="relu_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="sigmoid_cross_entropy_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="sigmoid_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="sqrt_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="subtract_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="sum_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="tanh_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="variable_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="norm_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="linear_layer.hpp">
+      <Filter>include\layer\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="variable.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
