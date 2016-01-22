@@ -4,11 +4,11 @@
 namespace nnk
 {
 
-	class layer
+	class layer_base
 	{
 	public:
 
-		virtual ~layer()
+		virtual ~layer_base()
 		{
 		}
 

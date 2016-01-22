@@ -1,12 +1,12 @@
 #pragma once
-#include "layer.hpp"
+#include "layer_base.hpp"
 #include "variable.hpp"
 
 namespace nnk
 {
 
 	template <class T>
-	class linear_layer : public layer
+	class linear_layer : public layer_base
 	{
 	public:
 

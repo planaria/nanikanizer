@@ -167,7 +167,7 @@
     <ClInclude Include="expression.hpp" />
     <ClInclude Include="expression_node.hpp" />
     <ClInclude Include="expression_node_base.hpp" />
-    <ClInclude Include="layer.hpp" />
+    <ClInclude Include="layer_base.hpp" />
     <ClInclude Include="linear_layer.hpp" />
     <ClInclude Include="math_util.hpp" />
     <ClInclude Include="matrix_product_expression.hpp" />

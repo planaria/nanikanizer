@@ -57,9 +57,6 @@
     <ClInclude Include="expression_node_base.hpp">
       <Filter>include\expression</Filter>
     </ClInclude>
-    <ClInclude Include="layer.hpp">
-      <Filter>include\layer</Filter>
-    </ClInclude>
     <ClInclude Include="math_util.hpp">
       <Filter>include\util</Filter>
     </ClInclude>
@@ -140,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="variable.hpp">
       <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="layer_base.hpp">
+      <Filter>include\layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
