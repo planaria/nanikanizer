@@ -5,6 +5,7 @@
 #include <memory>
 #include <random>
 #include <valarray>
+#include <unordered_map>
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/topological_sort.hpp>

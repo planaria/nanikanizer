@@ -1,0 +1,22 @@
+language: cpp
+
+os:
+  - linux
+
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-precise-3.7
+      - ubuntu-toolchain-r-test
+      - boost-latest
+    packages:
+      - clang-3.7
+      - libboost-dev
+
+install:
+  - export CXX="clang++-3.7"
+  - export CC="clang-3.7"
+
+script:
+  - make
+  - make test

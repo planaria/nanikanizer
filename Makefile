@@ -1,4 +1,4 @@
-CC = clang++
+CXX ?= clang++
 
 CFLAGS = -std=c++14 -MMD -MP -Wall -Wextra
 CFLAGS_DEBUG = -g -O0
@@ -6,6 +6,7 @@ CFLAGS_RELEASE = -O3
 LDFLAGS = -stdlib=libstdc++
 
 buildtype := release
+
 ifeq ($(buildtype), debug)
 	CFLAGS += $(CFLAGS_DEBUG)
 else ifeq ($(buildtype), release)
@@ -15,11 +16,11 @@ else
 endif
 
 LIBS = 
-INCLUDE = -I .
+INCLUDE = -I. -I./ext/Catch/include
 
 TARGETDIR = ./bin/$(buildtype)
-TARGET = $(TARGETDIR)/$(shell basename `readlink -f .`)
-SRCDIR = ./nanikanizer
+TARGET = $(TARGETDIR)/nanikanizer_tests
+SRCDIR = ./tests
 
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 OBJDIR = ./obj/$(buildtype)
@@ -31,11 +32,15 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS) $(LIBS)
 	-mkdir -p $(TARGETDIR)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	-mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CXX) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+
+.PHONY: test
+test: $(TARGET)
+	$(TARGET)
 
 .PHONY: clean
 clean:

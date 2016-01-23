@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{52d6c902-1020-4cf1-8e7b-f534f70afe08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\tests">
+      <UniqueIdentifier>{c03895a9-0c9c-4c74-b332-7166540b7070}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="test_operators.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="test_linear_layer.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
