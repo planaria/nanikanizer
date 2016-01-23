@@ -44,70 +44,128 @@ namespace nnk
 
 		virtual void forward() override
 		{
-			BOOST_ASSERT(lhs_->output().size() == lhs_size_);
-			BOOST_ASSERT(rhs_->output().size() == rhs_size_);
-
-			if (this->output().size() != output_size_)
-				this->output().resize(output_size_);
-
-			std::size_t lhs_row_index = 0;
-			std::size_t output_index = 0;
-
-			for (std::size_t i = 0; i < lhs_rows_; ++i)
+			if (lhs_->output().size() == lhs_size_ &&
+				rhs_->output().size() == rhs_size_)
 			{
-				std::size_t rhs_col_index = 0;
+				if (this->output().size() != output_size_)
+					this->output().resize(output_size_);
 
-				for (std::size_t j = 0; j < rhs_cols_; ++j)
+				forward_impl(
+					&lhs_->output()[0],
+					&rhs_->output()[0],
+					&this->output()[0]);
+			}
+			else if (lhs_->output().size() == lhs_size_)
+			{
+				BOOST_ASSERT(rhs_->output().size() % rhs_size_ == 0);
+
+				std::size_t count = rhs_->output().size() / rhs_size_;
+				std::size_t total_output_size = output_size_ * count;
+
+				if (this->output().size() != total_output_size)
+					this->output().resize(total_output_size);
+
+				std::size_t rhs_index = 0;
+				std::size_t output_index = 0;
+
+				for (std::size_t i = 0; i < count; ++i)
 				{
-					std::size_t lhs_index = lhs_row_index;
-					std::size_t rhs_index = rhs_col_index;
+					forward_impl(
+						&lhs_->output()[0],
+						&rhs_->output()[rhs_index],
+						&this->output()[output_index]);
 
-					this->output()[output_index] = static_cast<scalar_type>(0.0);
-
-					for (std::size_t k = 0; k < lhs_cols_; ++k)
-					{
-						this->output()[output_index] += lhs_->output()[lhs_index] * rhs_->output()[rhs_index];
-
-						++lhs_index;
-						rhs_index += rhs_cols_;
-					}
-
-					++rhs_col_index;
-					++output_index;
+					rhs_index += rhs_size_;
+					output_index += output_size_;
 				}
+			}
+			else if (rhs_->output().size() == rhs_size_)
+			{
+				BOOST_ASSERT(lhs_->output().size() % lhs_size_ == 0);
 
-				lhs_row_index += lhs_cols_;
+				std::size_t count = lhs_->output().size() / lhs_size_;
+				std::size_t total_output_size = output_size_ * count;
+
+				if (this->output().size() != total_output_size)
+					this->output().resize(total_output_size);
+
+				std::size_t lhs_index = 0;
+				std::size_t output_index = 0;
+
+				for (std::size_t i = 0; i < count; ++i)
+				{
+					forward_impl(
+						&lhs_->output()[lhs_index],
+						&rhs_->output()[0],
+						&this->output()[output_index]);
+
+					lhs_index += lhs_size_;
+					output_index += output_size_;
+				}
+			}
+			else
+			{
+				BOOST_ASSERT(false);
 			}
 		}
 
 		virtual void backward() override
 		{
-			std::size_t lhs_row_index = 0;
-			std::size_t output_index = 0;
-
-			for (std::size_t i = 0; i < lhs_rows_; ++i)
+			if (lhs_->output().size() == lhs_size_ &&
+				rhs_->output().size() == rhs_size_)
 			{
-				std::size_t rhs_col_index = 0;
+				backward_impl(
+					&lhs_->output_grad()[0],
+					&rhs_->output_grad()[0],
+					&lhs_->output()[0],
+					&rhs_->output()[0],
+					&this->output_grad()[0]);
+			}
+			else if (lhs_->output().size() == lhs_size_)
+			{
+				std::size_t count = rhs_->output().size() / rhs_size_;
+				std::size_t total_output_size = output_size_ * count;
 
-				for (std::size_t j = 0; j < rhs_cols_; ++j)
+				std::size_t rhs_index = 0;
+				std::size_t output_index = 0;
+
+				for (std::size_t i = 0; i < count; ++i)
 				{
-					std::size_t lhs_index = lhs_row_index;
-					std::size_t rhs_index = rhs_col_index;
+					backward_impl(
+						&lhs_->output_grad()[0],
+						&rhs_->output_grad()[rhs_index],
+						&lhs_->output()[0],
+						&rhs_->output()[rhs_index],
+						&this->output_grad()[output_index]);
 
-					for (std::size_t k = 0; k < lhs_cols_; ++k)
-					{
-						lhs_->output_grad()[lhs_index] += this->output_grad()[output_index] * rhs_->output()[rhs_index];
-						rhs_->output_grad()[rhs_index] += this->output_grad()[output_index] * lhs_->output()[lhs_index];
-
-						++lhs_index;
-						rhs_index += rhs_cols_;
-					}
-
-					++rhs_col_index;
-					++output_index;
+					rhs_index += rhs_size_;
+					output_index += output_size_;
 				}
+			}
+			else if (rhs_->output().size() == rhs_size_)
+			{
+				std::size_t count = lhs_->output().size() / lhs_size_;
+				std::size_t total_output_size = output_size_ * count;
 
-				lhs_row_index += lhs_cols_;
+				std::size_t lhs_index = 0;
+				std::size_t output_index = 0;
+
+				for (std::size_t i = 0; i < count; ++i)
+				{
+					backward_impl(
+						&lhs_->output_grad()[lhs_index],
+						&rhs_->output_grad()[0],
+						&lhs_->output()[lhs_index],
+						&rhs_->output()[0],
+						&this->output_grad()[output_index]);
+
+					lhs_index += lhs_size_;
+					output_index += output_size_;
+				}
+			}
+			else
+			{
+				BOOST_ASSERT(false);
 			}
 		}
 
@@ -118,6 +176,69 @@ namespace nnk
 		}
 
 	private:
+
+		void forward_impl(const scalar_type* lhs, const scalar_type* rhs, scalar_type* output) const
+		{
+			std::size_t lhs_row_index = 0;
+			std::size_t output_index = 0;
+
+			for (std::size_t i = 0; i < lhs_rows_; ++i)
+			{
+				std::size_t rhs_col_index = 0;
+
+				for (std::size_t j = 0; j < rhs_cols_; ++j)
+				{
+					std::size_t lhs_index = lhs_row_index;
+					std::size_t rhs_index = rhs_col_index;
+
+					output[output_index] = static_cast<scalar_type>(0.0);
+
+					for (std::size_t k = 0; k < lhs_cols_; ++k)
+					{
+						output[output_index] += lhs[lhs_index] * rhs[rhs_index];
+
+						++lhs_index;
+						rhs_index += rhs_cols_;
+					}
+
+					++rhs_col_index;
+					++output_index;
+				}
+
+				lhs_row_index += lhs_cols_;
+			}
+		}
+
+		void backward_impl(scalar_type* lhs_grad, scalar_type* rhs_grad, const scalar_type* lhs, const scalar_type* rhs, const scalar_type* grad) const
+		{
+			std::size_t lhs_row_index = 0;
+			std::size_t output_index = 0;
+
+			for (std::size_t i = 0; i < lhs_rows_; ++i)
+			{
+				std::size_t rhs_col_index = 0;
+
+				for (std::size_t j = 0; j < rhs_cols_; ++j)
+				{
+					std::size_t lhs_index = lhs_row_index;
+					std::size_t rhs_index = rhs_col_index;
+
+					for (std::size_t k = 0; k < lhs_cols_; ++k)
+					{
+						lhs_grad[lhs_index] += grad[output_index] * rhs[rhs_index];
+						rhs_grad[rhs_index] += grad[output_index] * lhs[lhs_index];
+
+						++lhs_index;
+						rhs_index += rhs_cols_;
+					}
+
+					++rhs_col_index;
+					++output_index;
+				}
+
+				lhs_row_index += lhs_cols_;
+			}
+		}
 
 		node_pointer lhs_;
 		node_pointer rhs_;
