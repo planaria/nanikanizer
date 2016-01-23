@@ -11,13 +11,13 @@ namespace nnk
 	{
 	private:
 
-		typedef expression_node<T> base;
+		typedef expression_node<T> base_type;
 
 	public:
 
-		typedef typename base::scalar_type scalar_type;
-		typedef typename base::tensor_type tensor_type;
-		typedef typename base::node_pointer node_pointer;
+		typedef typename base_type::scalar_type scalar_type;
+		typedef typename base_type::tensor_type tensor_type;
+		typedef typename base_type::node_pointer node_pointer;
 
 		explicit abs_expression_node(const node_pointer& base)
 			: base_(base)

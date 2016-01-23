@@ -32,12 +32,12 @@ namespace nnk
 		{
 		private:
 
-			typedef optimizer_impl_base<T> base;
+			typedef optimizer_impl_base<T> base_type;
 
 		public:
 
-			typedef typename base::scalar_type scalar_type;
-			typedef typename base::tensor_type tensor_type;
+			typedef typename base_type::scalar_type scalar_type;
+			typedef typename base_type::tensor_type tensor_type;
 
 			explicit impl(
 				scalar_type alpha,

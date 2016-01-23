@@ -18,7 +18,6 @@
 #include "variable.hpp"
 #include "evaluator.hpp"
 
-#include "matrix_product_expression.hpp"
 #include "pow2_expression.hpp"
 #include "abs_expression.hpp"
 #include "sqrt_expression.hpp"
@@ -28,6 +27,7 @@
 #include "relu_expression.hpp"
 #include "tanh_expression.hpp"
 #include "sigmoid_cross_entropy_expression.hpp"
+#include "matrix_product_expression.hpp"
 
 #include "linear_layer.hpp"
 
