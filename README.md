@@ -4,17 +4,17 @@ An neural network library for C++
 ## Features
 
 ### Expressions
-  - Four arithmetic operations
+  - Four Arithmetic Operations
   - Abs
   - Square
-  - Square root
+  - Square Root
   - Sum
   - Norm
-  - Squared norm
+  - Squared Norm
   - Sigmoid
-  - Sigmoid cross entropy
+  - Sigmoid Cross Entropy
   - ReLU
-  - Matrix production
+  - Matrix Production
   - Convolution
   - Depth Concat
 
