@@ -15,6 +15,7 @@ An neural network library for C++
   - Sigmoid cross entropy
   - ReLU
   - Matrix production
+  - Convolution
 
 ### Optimizers
   - SGD

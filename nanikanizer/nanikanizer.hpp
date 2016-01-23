@@ -33,6 +33,7 @@
 #include "relu_expression.hpp"
 #include "tanh_expression.hpp"
 #include "matrix_product_expression.hpp"
+#include "convolution_2d_expression.hpp"
 
 #include "linear_layer.hpp"
 

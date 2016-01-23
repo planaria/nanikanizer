@@ -147,6 +147,9 @@
     <ClInclude Include="square_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
+    <ClInclude Include="convolution_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

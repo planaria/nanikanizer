@@ -27,6 +27,11 @@ namespace nnk
 			this->output() = value;
 		}
 
+		explicit variable_expression_node(std::size_t size)
+		{
+			this->output() = tensor_type(size);
+		}
+
 		virtual bool is_branch() override
 		{
 			return false;

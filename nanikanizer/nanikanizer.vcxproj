@@ -163,6 +163,7 @@
     <ClInclude Include="add_expression.hpp" />
     <ClInclude Include="binary_operator_expression.hpp" />
     <ClInclude Include="constant_expression.hpp" />
+    <ClInclude Include="convolution_2d_expression.hpp" />
     <ClInclude Include="divide_expression.hpp" />
     <ClInclude Include="evaluator.hpp" />
     <ClInclude Include="expression.hpp" />
