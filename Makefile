@@ -15,7 +15,7 @@ else
 endif
 
 LIBS = 
-INCLUDE = -I ./
+INCLUDE = -I .
 
 TARGETDIR = ./bin/$(buildtype)
 TARGET = $(TARGETDIR)/$(shell basename `readlink -f .`)
