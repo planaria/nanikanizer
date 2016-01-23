@@ -1,22 +1,12 @@
 #pragma once
 #include "expression_node.hpp"
 #include "constant_expression.hpp"
-#include "negate_expression.hpp"
-#include "add_expression.hpp"
-#include "subtract_expression.hpp"
-#include "multiply_expression.hpp"
-#include "divide_expression.hpp"
 
 namespace nnk
 {
 
 	template <class T>
 	class expression
-		: boost::addable<expression<T>
-		, boost::subtractable<expression<T>
-		, boost::multipliable<expression<T>
-		, boost::dividable<expression<T>
-		>>>>
 	{
 	public:
 		
@@ -47,35 +37,6 @@ namespace nnk
 
 		const expression& operator +()
 		{
-			return *this;
-		}
-
-		expression operator -() const
-		{
-			return expression(std::make_shared<negate_expression_node<scalar_type>>(root_));
-		}
-
-		expression& operator +=(const expression& rhs)
-		{
-			root_ = std::make_shared<add_expression_node<scalar_type>>(root_, rhs.root_);
-			return *this;
-		}
-
-		expression& operator -=(const expression& rhs)
-		{
-			root_ = std::make_shared<subtract_expression_node<scalar_type>>(root_, rhs.root_);
-			return *this;
-		}
-
-		expression& operator *=(const expression& rhs)
-		{
-			root_ = std::make_shared<multiply_expression_node<scalar_type>>(root_, rhs.root());
-			return *this;
-		}
-
-		expression& operator /=(const expression& rhs)
-		{
-			root_ = std::make_shared<divide_expression_node<scalar_type>>(root_, rhs.root_);
 			return *this;
 		}
 

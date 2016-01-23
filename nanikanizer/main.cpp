@@ -21,7 +21,7 @@ int main(int /*argc*/, char* /*argv*/[])
 
 		nnk::linear_layer<double> layer(3, 2);
 
-		auto loss = norm_sq(layer(x) - y);
+		auto loss = norm_sq(layer(x.expr()) - y.expr());
 
 		nnk::adam_optimizer optimizer;
 		optimizer.add_parameter(layer);

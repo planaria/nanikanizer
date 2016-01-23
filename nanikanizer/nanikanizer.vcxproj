@@ -161,6 +161,7 @@
     <ClInclude Include="adagrad_optimizer.hpp" />
     <ClInclude Include="adam_optimizer.hpp" />
     <ClInclude Include="add_expression.hpp" />
+    <ClInclude Include="binary_operator_expression.hpp" />
     <ClInclude Include="constant_expression.hpp" />
     <ClInclude Include="divide_expression.hpp" />
     <ClInclude Include="evaluator.hpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="subtract_expression.hpp" />
     <ClInclude Include="sum_expression.hpp" />
     <ClInclude Include="tanh_expression.hpp" />
+    <ClInclude Include="unary_operator_expression.hpp" />
     <ClInclude Include="variable.hpp" />
     <ClInclude Include="variable_expression.hpp" />
   </ItemGroup>

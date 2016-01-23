@@ -141,6 +141,12 @@
     <ClInclude Include="layer_base.hpp">
       <Filter>include\layer</Filter>
     </ClInclude>
+    <ClInclude Include="binary_operator_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="unary_operator_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

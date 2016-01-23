@@ -18,6 +18,11 @@
 #include "variable.hpp"
 #include "evaluator.hpp"
 
+#include "negate_expression.hpp"
+#include "add_expression.hpp"
+#include "subtract_expression.hpp"
+#include "multiply_expression.hpp"
+#include "divide_expression.hpp"
 #include "pow2_expression.hpp"
 #include "abs_expression.hpp"
 #include "sqrt_expression.hpp"

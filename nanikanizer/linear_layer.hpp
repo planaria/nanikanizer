@@ -41,7 +41,7 @@ namespace nnk
 
 		expression<scalar_type> operator ()(const expression<scalar_type>& v) const
 		{
-			return matrix_product(weight_.expr(), v, output_dimension_, input_dimension_, input_dimension_, 1) + bias_;
+			return matrix_product(weight_.expr(), v, output_dimension_, input_dimension_, input_dimension_, 1) + bias_.expr();
 		}
 
 	private:

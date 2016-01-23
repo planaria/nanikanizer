@@ -45,11 +45,6 @@ namespace nnk
 			return expression<scalar_type>(node_);
 		}
 
-		operator expression<scalar_type>() const
-		{
-			return expr();
-		}
-
 	private:
 
 		std::shared_ptr<node_type> node_;
