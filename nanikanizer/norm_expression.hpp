@@ -1,7 +1,7 @@
 #pragma once
 #include "expression.hpp"
 #include "sum_expression.hpp"
-#include "pow2_expression.hpp"
+#include "square_expression.hpp"
 #include "sqrt_expression.hpp"
 
 namespace nnk
@@ -10,7 +10,7 @@ namespace nnk
 	template <class T>
 	expression<T> norm_sq(const expression<T>& base)
 	{
-		return sum(pow2(base));
+		return sum(square(base));
 	}
 
 	template <class T>

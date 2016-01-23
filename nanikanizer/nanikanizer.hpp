@@ -23,7 +23,7 @@
 #include "subtract_expression.hpp"
 #include "multiply_expression.hpp"
 #include "divide_expression.hpp"
-#include "pow2_expression.hpp"
+#include "square_expression.hpp"
 #include "abs_expression.hpp"
 #include "sqrt_expression.hpp"
 #include "sum_expression.hpp"

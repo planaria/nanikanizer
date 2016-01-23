@@ -10,7 +10,7 @@ namespace nnk
 	}
 
 	template <class T>
-	T pow2(const T& x, typename std::enable_if<std::is_floating_point<T>::value>::type* = 0)
+	T square(const T& x, typename std::enable_if<std::is_floating_point<T>::value>::type* = 0)
 	{
 		return x * x;
 	}
@@ -21,7 +21,7 @@ namespace nnk
 		T result = T();
 
 		for (std::size_t i = 0; i < values.size(); ++i)
-			result += pow2(values[i]);
+			result += square(values[i]);
 
 		return result;
 	}

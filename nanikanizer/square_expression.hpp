@@ -5,13 +5,13 @@
 namespace nnk
 {
 
-	struct pow2_operator
+	struct square_operator
 	{
 
 		template <class T>
 		static T forward(T x)
 		{
-			return pow2(x);
+			return square(x);
 		}
 
 		template <class T>
@@ -23,9 +23,9 @@ namespace nnk
 	};
 
 	template <class T>
-	expression<T> pow2(const expression<T>& base)
+	expression<T> square(const expression<T>& base)
 	{
-		return unary_operator<pow2_operator>(base);
+		return unary_operator<square_operator>(base);
 	}
 
 }

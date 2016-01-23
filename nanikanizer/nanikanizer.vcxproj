@@ -181,7 +181,7 @@
     <ClInclude Include="optimizer_impl_base.hpp" />
     <ClInclude Include="optimizer_impl_holder.hpp" />
     <ClInclude Include="optimizer_impl_holder_base.hpp" />
-    <ClInclude Include="pow2_expression.hpp" />
+    <ClInclude Include="square_expression.hpp" />
     <ClInclude Include="relu_expression.hpp" />
     <ClInclude Include="rmsprop_optimizer.hpp" />
     <ClInclude Include="sgd_optimizer.hpp" />

@@ -102,9 +102,6 @@
     <ClInclude Include="negate_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
-    <ClInclude Include="pow2_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
     <ClInclude Include="relu_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
@@ -145,6 +142,9 @@
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
     <ClInclude Include="unary_operator_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="square_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
   </ItemGroup>
