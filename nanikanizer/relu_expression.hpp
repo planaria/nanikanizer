@@ -15,7 +15,7 @@ namespace nnk
 		}
 
 		template <class T>
-		static void backward(T& x_grad, T x, T y, T y_grad)
+		static void backward(T& x_grad, T x, T /*y*/, T y_grad)
 		{
 			if(x >= static_cast<T>(0.0))
 				x_grad += y_grad;

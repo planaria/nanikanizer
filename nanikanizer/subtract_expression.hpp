@@ -14,7 +14,7 @@ namespace nnk
 		}
 
 		template <class T>
-		static void backward(T& lhs_grad, T& rhs_grad, T lhs, T rhs, T y, T y_grad)
+		static void backward(T& lhs_grad, T& rhs_grad, T /*lhs*/, T /*rhs*/, T /*y*/, T y_grad)
 		{
 			lhs_grad += y_grad;
 			rhs_grad -= y_grad;

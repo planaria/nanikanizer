@@ -14,7 +14,7 @@ namespace nnk
 		}
 
 		template <class T>
-		static void backward(T& x_grad, T x, T y, T y_grad)
+		static void backward(T& x_grad, T x, T /*y*/, T y_grad)
 		{
 			x_grad += static_cast<T>(0.5) * y_grad / std::sqrt(x);
 		}
