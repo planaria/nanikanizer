@@ -16,6 +16,7 @@ An neural network library for C++
   - ReLU
   - Matrix production
   - Convolution
+  - Depth Concat
 
 ### Optimizers
   - SGD

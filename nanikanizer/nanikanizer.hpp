@@ -34,6 +34,7 @@
 #include "tanh_expression.hpp"
 #include "matrix_product_expression.hpp"
 #include "convolution_2d_expression.hpp"
+#include "depth_concat_expression.hpp"
 
 #include "linear_layer.hpp"
 
