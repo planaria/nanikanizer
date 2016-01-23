@@ -18,5 +18,4 @@ install:
   - export CC="clang-3.7"
 
 script:
-  - make
-  - make test
+  - make && make test
