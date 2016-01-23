@@ -124,7 +124,6 @@ namespace nnk
 			else if (lhs_->output().size() == lhs_size_)
 			{
 				std::size_t count = rhs_->output().size() / rhs_size_;
-				std::size_t total_output_size = output_size_ * count;
 
 				std::size_t rhs_index = 0;
 				std::size_t output_index = 0;
@@ -145,7 +144,6 @@ namespace nnk
 			else if (rhs_->output().size() == rhs_size_)
 			{
 				std::size_t count = lhs_->output().size() / lhs_size_;
-				std::size_t total_output_size = output_size_ * count;
 
 				std::size_t lhs_index = 0;
 				std::size_t output_index = 0;
