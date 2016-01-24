@@ -11,7 +11,6 @@
 #include <boost/graph/topological_sort.hpp>
 #include <boost/range/adaptor/reversed.hpp>
 #include <boost/function_output_iterator.hpp>
-#include <boost/operators.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
 
