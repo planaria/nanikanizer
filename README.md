@@ -7,15 +7,10 @@ An neural network library for C++
 
 ### Expressions
   - Four Arithmetic Operations
-  - Abs
-  - Square
-  - Square Root
-  - Sum
-  - Norm
-  - Squared Norm
-  - Sigmoid
+  - Abs, Square, Square Root
+  - Sum, Norm, Squared Norm
+  - Sigmoid, Tanh, ReLU
   - Sigmoid Cross Entropy
-  - ReLU
   - Matrix Production
   - Matrix Transpose
   - Convolution
