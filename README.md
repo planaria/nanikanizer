@@ -17,6 +17,7 @@ An neural network library for C++
   - Sigmoid Cross Entropy
   - ReLU
   - Matrix Production
+  - Matrix Transpose
   - Convolution
   - Depth Concat
 

@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <nanikanizer/nanikanizer.hpp>
 
-TEST_CASE("layer", "linear_layer")
+TEST_CASE("linear_layer")
 {
 	std::vector<std::pair<std::valarray<double>, std::valarray<double>>> data =
 	{

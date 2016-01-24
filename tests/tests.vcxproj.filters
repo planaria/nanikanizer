@@ -18,6 +18,9 @@
     <ClCompile Include="operators_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="matrix_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

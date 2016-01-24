@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <nanikanizer/nanikanizer.hpp>
 
-TEST_CASE("expression," "negate")
+TEST_CASE("negate")
 {
 	nnk::variable<double> x = { 2.0 };
 
@@ -20,7 +20,7 @@ TEST_CASE("expression," "negate")
 	CHECK(x.node()->output_grad()[0] == Approx(-1.0));
 }
 
-TEST_CASE("expression," "add")
+TEST_CASE("add")
 {
 	nnk::variable<double> x1 = { 1.0 };
 	nnk::variable<double> x2 = { 2.0 };
@@ -43,7 +43,7 @@ TEST_CASE("expression," "add")
 	CHECK(x2.node()->output_grad()[0] == Approx(1.0));
 }
 
-TEST_CASE("expression," "subtract")
+TEST_CASE("subtract")
 {
 	nnk::variable<double> x1 = { 1.0 };
 	nnk::variable<double> x2 = { 2.0 };
@@ -66,7 +66,7 @@ TEST_CASE("expression," "subtract")
 	CHECK(x2.node()->output_grad()[0] == Approx(-1.0));
 }
 
-TEST_CASE("expression," "multiply")
+TEST_CASE("multiply")
 {
 	nnk::variable<double> x1 = { 2.0 };
 	nnk::variable<double> x2 = { 3.0 };
@@ -89,7 +89,7 @@ TEST_CASE("expression," "multiply")
 	CHECK(x2.node()->output_grad()[0] == Approx(2.0));
 }
 
-TEST_CASE("expression," "divide")
+TEST_CASE("divide")
 {
 	nnk::variable<double> x1 = { 2.0 };
 	nnk::variable<double> x2 = { 3.0 };

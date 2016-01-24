@@ -174,6 +174,7 @@
     <ClInclude Include="linear_layer.hpp" />
     <ClInclude Include="math_util.hpp" />
     <ClInclude Include="matrix_product_expression.hpp" />
+    <ClInclude Include="matrix_transpose_expression.hpp" />
     <ClInclude Include="multiply_expression.hpp" />
     <ClInclude Include="nanikanizer.hpp" />
     <ClInclude Include="negate_expression.hpp" />
