@@ -12,10 +12,10 @@
     <ClCompile Include="test_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="test_operators.cpp">
+    <ClCompile Include="linear_layer_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
-    <ClCompile Include="test_linear_layer.cpp">
+    <ClCompile Include="operators_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
   </ItemGroup>

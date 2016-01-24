@@ -142,9 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="test_linear_layer.cpp" />
+    <ClCompile Include="linear_layer_test.cpp" />
     <ClCompile Include="test_main.cpp" />
-    <ClCompile Include="test_operators.cpp" />
+    <ClCompile Include="operators_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
