@@ -4,7 +4,7 @@
 namespace nnk
 {
 
-	class layer_base
+	class layer_base : boost::noncopyable
 	{
 	public:
 
