@@ -16,7 +16,7 @@ else
 endif
 
 LIBS = 
-INCLUDE = -I. -I./ext/Catch/include
+INCLUDE = -I./include -I./ext/Catch/include
 
 TARGETDIR = ./bin/$(buildtype)
 TARGET = $(TARGETDIR)/nanikanizer_tests

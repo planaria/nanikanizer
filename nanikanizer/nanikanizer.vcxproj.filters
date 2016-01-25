@@ -33,142 +33,136 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="nanikanizer.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="adadelta_optimizer.hpp">
-      <Filter>include\optimizer\optimizers</Filter>
-    </ClInclude>
-    <ClInclude Include="adagrad_optimizer.hpp">
-      <Filter>include\optimizer\optimizers</Filter>
-    </ClInclude>
-    <ClInclude Include="adam_optimizer.hpp">
-      <Filter>include\optimizer\optimizers</Filter>
-    </ClInclude>
-    <ClInclude Include="evaluator.hpp">
-      <Filter>include\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="expression.hpp">
-      <Filter>include\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="expression_node.hpp">
-      <Filter>include\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="expression_node_base.hpp">
-      <Filter>include\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="math_util.hpp">
-      <Filter>include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="optimizer_adapter.hpp">
-      <Filter>include\optimizer</Filter>
-    </ClInclude>
-    <ClInclude Include="optimizer_base.hpp">
-      <Filter>include\optimizer</Filter>
-    </ClInclude>
-    <ClInclude Include="optimizer_impl_base.hpp">
-      <Filter>include\optimizer</Filter>
-    </ClInclude>
-    <ClInclude Include="optimizer_impl_holder.hpp">
-      <Filter>include\optimizer</Filter>
-    </ClInclude>
-    <ClInclude Include="optimizer_impl_holder_base.hpp">
-      <Filter>include\optimizer</Filter>
-    </ClInclude>
-    <ClInclude Include="sgd_optimizer.hpp">
-      <Filter>include\optimizer\optimizers</Filter>
-    </ClInclude>
-    <ClInclude Include="rmsprop_optimizer.hpp">
-      <Filter>include\optimizer\optimizers</Filter>
-    </ClInclude>
-    <ClInclude Include="abs_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="add_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="constant_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="divide_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_product_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="multiply_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="negate_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="relu_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="sigmoid_cross_entropy_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="sigmoid_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="sqrt_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="subtract_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="sum_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="tanh_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="variable_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="norm_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="linear_layer.hpp">
-      <Filter>include\layer\layers</Filter>
-    </ClInclude>
-    <ClInclude Include="variable.hpp">
-      <Filter>include\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="layer_base.hpp">
-      <Filter>include\layer</Filter>
-    </ClInclude>
-    <ClInclude Include="binary_operator_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="unary_operator_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="square_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="convolution_2d_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="depth_concat_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_transpose_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="pooling_2d_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="max_pooling_2d_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="sum_pooling_2d_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\nanikanizer\abs_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\add_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\binary_operator_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\constant_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\convolution_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\depth_concat_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\divide_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\matrix_product_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\matrix_transpose_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\max_pooling_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\multiply_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\negate_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\norm_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\pooling_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\relu_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\sigmoid_cross_entropy_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\sigmoid_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\sqrt_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\square_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\subtract_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\sum_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\sum_pooling_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\tanh_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\unary_operator_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\variable_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\linear_layer.hpp">
+      <Filter>include\layer\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\evaluator.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\expression.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\expression_node.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\expression_node_base.hpp">
+      <Filter>include\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\optimizer_adapter.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\optimizer_base.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\optimizer_impl_base.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\optimizer_impl_holder.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\optimizer_impl_holder_base.hpp">
+      <Filter>include\optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\adadelta_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\adagrad_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\adam_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\rmsprop_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\sgd_optimizer.hpp">
+      <Filter>include\optimizer\optimizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\math_util.hpp">
+      <Filter>include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\nanikanizer.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
