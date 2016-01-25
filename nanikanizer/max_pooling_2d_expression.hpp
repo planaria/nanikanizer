@@ -22,7 +22,7 @@ namespace nnk
 				{
 					T value = x[index];
 
-					if (i == 0 && j == 0 || result < value)
+					if ((i == 0 && j == 0) || result < value)
 						result = value;
 
 					index += depth;

@@ -31,7 +31,7 @@ namespace nnk
 		}
 
 		template <class T>
-		static void backward(T* x_grad, const T* x, std::size_t height, std::size_t width, std::size_t stride, std::size_t depth, T y, T y_grad)
+		static void backward(T* x_grad, const T* /*x*/, std::size_t height, std::size_t width, std::size_t stride, std::size_t depth, T /*y*/, T /*y_grad*/)
 		{
 			std::size_t row_index = 0;
 
