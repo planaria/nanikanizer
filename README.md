@@ -31,7 +31,7 @@ An neural network library for C++
 
 ### External Libraries
   - Boost C++ Libraries (>= 1.60)
-  - Catch <https://github.com/philsquared/Catch>
+  - [Catch](https://github.com/philsquared/Catch) (for test)
 
 ## License
 The BSD 3-Clause License (see `LICENSE` file)

@@ -24,6 +24,15 @@
     <ClCompile Include="pooling_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="unary_functions_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="norm_functions.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="activation_functions.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

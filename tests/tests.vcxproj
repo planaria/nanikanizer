@@ -142,6 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="activation_functions.cpp" />
+    <ClCompile Include="norm_functions.cpp" />
+    <ClCompile Include="unary_functions_test.cpp" />
     <ClCompile Include="linear_layer_test.cpp" />
     <ClCompile Include="matrix_test.cpp" />
     <ClCompile Include="pooling_test.cpp" />
