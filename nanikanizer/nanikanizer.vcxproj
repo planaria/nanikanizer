@@ -175,6 +175,7 @@
     <ClInclude Include="math_util.hpp" />
     <ClInclude Include="matrix_product_expression.hpp" />
     <ClInclude Include="matrix_transpose_expression.hpp" />
+    <ClInclude Include="max_pooling_2d_expression.hpp" />
     <ClInclude Include="multiply_expression.hpp" />
     <ClInclude Include="nanikanizer.hpp" />
     <ClInclude Include="negate_expression.hpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="optimizer_impl_base.hpp" />
     <ClInclude Include="optimizer_impl_holder.hpp" />
     <ClInclude Include="optimizer_impl_holder_base.hpp" />
+    <ClInclude Include="pooling_2d_expression.hpp" />
     <ClInclude Include="square_expression.hpp" />
     <ClInclude Include="relu_expression.hpp" />
     <ClInclude Include="rmsprop_optimizer.hpp" />
@@ -193,6 +195,7 @@
     <ClInclude Include="sqrt_expression.hpp" />
     <ClInclude Include="subtract_expression.hpp" />
     <ClInclude Include="sum_expression.hpp" />
+    <ClInclude Include="sum_pooling_2d_expression.hpp" />
     <ClInclude Include="tanh_expression.hpp" />
     <ClInclude Include="unary_operator_expression.hpp" />
     <ClInclude Include="variable.hpp" />

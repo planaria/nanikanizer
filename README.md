@@ -11,9 +11,9 @@ An neural network library for C++
   - Sum, Norm, Squared Norm
   - Sigmoid, Tanh, ReLU
   - Sigmoid Cross Entropy
-  - Matrix Production
-  - Matrix Transpose
+  - Matrix Production, Matrix Transpose
   - Convolution
+  - Max-Pooling, Sum-Pooling
   - Depth Concat
 
 ### Optimizers

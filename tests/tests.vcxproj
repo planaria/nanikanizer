@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="linear_layer_test.cpp" />
     <ClCompile Include="matrix_test.cpp" />
+    <ClCompile Include="pooling_test.cpp" />
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="operators_test.cpp" />
   </ItemGroup>

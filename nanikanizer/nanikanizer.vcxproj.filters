@@ -156,6 +156,15 @@
     <ClInclude Include="matrix_transpose_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
+    <ClInclude Include="pooling_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="max_pooling_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="sum_pooling_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
