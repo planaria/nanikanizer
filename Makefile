@@ -1,6 +1,6 @@
 CXX ?= clang++
 
-CFLAGS = -std=c++14 -MMD -MP -Wall -Wextra -fopenmp
+CFLAGS = -std=c++14 -MMD -MP -Wall -Wextra #-fopenmp=libomp
 CFLAGS_DEBUG = -g -O0
 CFLAGS_RELEASE = -O3
 LDFLAGS =
