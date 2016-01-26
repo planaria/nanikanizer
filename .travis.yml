@@ -12,6 +12,7 @@ addons:
     packages:
       - clang-3.7
       - libboost-dev
+      - g++-multilib
 
 install:
   - export CXX="clang++-3.7"
