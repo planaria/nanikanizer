@@ -83,9 +83,6 @@
     <ClInclude Include="..\include\nanikanizer\relu_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\nanikanizer\sigmoid_cross_entropy_expression.hpp">
-      <Filter>include\expression\expressions</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\nanikanizer\sigmoid_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
@@ -163,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="..\include\nanikanizer\nanikanizer.hpp">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\cross_entropy_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\softmax_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,8 +9,8 @@ An neural network library for C++
   - Four Arithmetic Operations
   - Abs, Square, Square Root
   - Sum, Norm, Squared Norm
-  - Sigmoid, Tanh, ReLU
-  - Sigmoid Cross Entropy
+  - Sigmoid, Tanh, ReLU, Softmax
+  - Cross-Entropy Error
   - Matrix Production, Matrix Transpose
   - Convolution
   - Max-Pooling, Sum-Pooling

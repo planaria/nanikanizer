@@ -190,8 +190,9 @@
     <ClInclude Include="..\include\nanikanizer\relu_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\rmsprop_optimizer.hpp" />
     <ClInclude Include="..\include\nanikanizer\sgd_optimizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\sigmoid_cross_entropy_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\cross_entropy_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\sigmoid_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\softmax_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\sqrt_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\square_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\subtract_expression.hpp" />
