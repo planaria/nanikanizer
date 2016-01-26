@@ -68,7 +68,8 @@ namespace nnk
 				std::size_t rhs_index = 0;
 				std::size_t output_index = 0;
 
-				for (std::size_t i = 0; i < count; ++i)
+				#pragma omp parallel for schedule(static)
+				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					forward_impl(
 						&lhs_->output()[0],
@@ -92,7 +93,8 @@ namespace nnk
 				std::size_t lhs_index = 0;
 				std::size_t output_index = 0;
 
-				for (std::size_t i = 0; i < count; ++i)
+				#pragma omp parallel for schedule(static)
+				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					forward_impl(
 						&lhs_->output()[lhs_index],
@@ -128,7 +130,8 @@ namespace nnk
 				std::size_t rhs_index = 0;
 				std::size_t output_index = 0;
 
-				for (std::size_t i = 0; i < count; ++i)
+				#pragma omp parallel for schedule(static)
+				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					backward_impl(
 						&lhs_->output_grad()[0],
@@ -148,7 +151,8 @@ namespace nnk
 				std::size_t lhs_index = 0;
 				std::size_t output_index = 0;
 
-				for (std::size_t i = 0; i < count; ++i)
+				#pragma omp parallel for schedule(static)
+				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					backward_impl(
 						&lhs_->output_grad()[lhs_index],
@@ -177,64 +181,102 @@ namespace nnk
 
 		void forward_impl(const scalar_type* lhs, const scalar_type* rhs, scalar_type* output) const
 		{
-			std::size_t lhs_row_index = 0;
-			std::size_t output_index = 0;
-
-			for (std::size_t i = 0; i < lhs_rows_; ++i)
+			if (rhs_cols_ == 1)
 			{
-				std::size_t rhs_col_index = 0;
+				std::size_t lhs_row_index = 0;
 
-				for (std::size_t j = 0; j < rhs_cols_; ++j)
+				for (std::size_t i = 0; i < lhs_rows_; ++i)
 				{
-					std::size_t lhs_index = lhs_row_index;
-					std::size_t rhs_index = rhs_col_index;
-
-					output[output_index] = static_cast<scalar_type>(0.0);
+					output[i] = static_cast<scalar_type>(0.0);
 
 					for (std::size_t k = 0; k < lhs_cols_; ++k)
-					{
-						output[output_index] += lhs[lhs_index] * rhs[rhs_index];
+						output[i] += lhs[lhs_row_index + k] * rhs[k];
 
-						++lhs_index;
-						rhs_index += rhs_cols_;
+					lhs_row_index += lhs_cols_;
+				}
+			}
+			else
+			{
+				std::size_t lhs_row_index = 0;
+				std::size_t output_index = 0;
+
+				for (std::size_t i = 0; i < lhs_rows_; ++i)
+				{
+					std::size_t rhs_col_index = 0;
+
+					for (std::size_t j = 0; j < rhs_cols_; ++j)
+					{
+						std::size_t lhs_index = lhs_row_index;
+						std::size_t rhs_index = rhs_col_index;
+
+						output[output_index] = static_cast<scalar_type>(0.0);
+
+						for (std::size_t k = 0; k < lhs_cols_; ++k)
+						{
+							output[output_index] += lhs[lhs_index] * rhs[rhs_index];
+
+							++lhs_index;
+							rhs_index += rhs_cols_;
+						}
+
+						++rhs_col_index;
+						++output_index;
 					}
 
-					++rhs_col_index;
-					++output_index;
+					lhs_row_index += lhs_cols_;
 				}
-
-				lhs_row_index += lhs_cols_;
 			}
 		}
 
 		void backward_impl(scalar_type* lhs_grad, scalar_type* rhs_grad, const scalar_type* lhs, const scalar_type* rhs, const scalar_type* grad) const
 		{
-			std::size_t lhs_row_index = 0;
-			std::size_t output_index = 0;
-
-			for (std::size_t i = 0; i < lhs_rows_; ++i)
+			if (rhs_cols_ == 1)
 			{
-				std::size_t rhs_col_index = 0;
+				std::size_t lhs_row_index = 0;
 
-				for (std::size_t j = 0; j < rhs_cols_; ++j)
+				for (std::size_t i = 0; i < lhs_rows_; ++i)
 				{
 					std::size_t lhs_index = lhs_row_index;
-					std::size_t rhs_index = rhs_col_index;
+					scalar_type g = grad[i];
 
 					for (std::size_t k = 0; k < lhs_cols_; ++k)
 					{
-						lhs_grad[lhs_index] += grad[output_index] * rhs[rhs_index];
-						rhs_grad[rhs_index] += grad[output_index] * lhs[lhs_index];
-
-						++lhs_index;
-						rhs_index += rhs_cols_;
+						lhs_grad[lhs_row_index + k] += g * rhs[k];
+						rhs_grad[k] += g * lhs[lhs_row_index + k];
 					}
 
-					++rhs_col_index;
-					++output_index;
+					lhs_row_index += lhs_cols_;
 				}
+			}
+			else
+			{
+				std::size_t lhs_row_index = 0;
+				std::size_t output_index = 0;
 
-				lhs_row_index += lhs_cols_;
+				for (std::size_t i = 0; i < lhs_rows_; ++i)
+				{
+					std::size_t rhs_col_index = 0;
+
+					for (std::size_t j = 0; j < rhs_cols_; ++j)
+					{
+						std::size_t lhs_index = lhs_row_index;
+						std::size_t rhs_index = rhs_col_index;
+
+						for (std::size_t k = 0; k < lhs_cols_; ++k)
+						{
+							lhs_grad[lhs_index] += grad[output_index] * rhs[rhs_index];
+							rhs_grad[rhs_index] += grad[output_index] * lhs[lhs_index];
+
+							++lhs_index;
+							rhs_index += rhs_cols_;
+						}
+
+						++rhs_col_index;
+						++output_index;
+					}
+
+					lhs_row_index += lhs_cols_;
+				}
 			}
 		}
 
