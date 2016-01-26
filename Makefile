@@ -3,7 +3,7 @@ CXX ?= clang++
 CFLAGS = -std=c++14 -MMD -MP -Wall -Wextra -fopenmp
 CFLAGS_DEBUG = -g -O0
 CFLAGS_RELEASE = -O3
-LDFLAGS = -lpthread
+LDFLAGS =
 
 buildtype := release
 
