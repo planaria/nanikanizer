@@ -46,7 +46,7 @@ namespace nnk
 
 			for (std::size_t i = 0; i < count; ++i)
 			{
-				scalar_type sum = scalar_type();
+				scalar_type sum = static_cast<scalar_type>(1.0e-6);
 
 				for (std::size_t j = 0; j < block_size; ++j)
 					sum += base_->output()[base_index + j];
@@ -69,7 +69,7 @@ namespace nnk
 
 			for (std::size_t i = 0; i < count; ++i)
 			{
-				scalar_type sum = scalar_type();
+				scalar_type sum = static_cast<scalar_type>(1.0e-6);
 
 				for (std::size_t j = 0; j < block_size; ++j)
 					sum += base_->output()[base_index + j];
