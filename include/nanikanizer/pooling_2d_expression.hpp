@@ -75,15 +75,19 @@ namespace nnk
 
 					for (std::size_t w = 0; w < output_width_; ++w)
 					{
-						this->output()[output_index] = OP::forward(
-							&base_->output()[base_index],
-							filter_height_,
-							filter_width_,
-							input_stride_,
-							input_depth_);
+						for (std::size_t d = 0; d < input_depth_; ++d)
+						{
+							this->output()[output_index] = OP::forward(
+								&base_->output()[base_index + d],
+								filter_height_,
+								filter_width_,
+								input_stride_,
+								input_depth_);
+
+							++output_index;
+						}
 
 						base_index += input_col_span_;
-						++output_index;
 					}
 
 					base_row_index += input_row_span_;
@@ -107,18 +111,22 @@ namespace nnk
 
 					for (std::size_t w = 0; w < output_width_; ++w)
 					{
-						OP::backward(
-							&base_->output_grad()[base_index],
-							&base_->output()[base_index],
-							filter_height_,
-							filter_width_,
-							input_stride_,
-							input_depth_,
-							this->output()[output_index],
-							this->output_grad()[output_index]);
+						for (std::size_t d = 0; d < input_depth_; ++d)
+						{
+							OP::backward(
+								&base_->output_grad()[base_index + d],
+								&base_->output()[base_index + d],
+								filter_height_,
+								filter_width_,
+								input_stride_,
+								input_depth_,
+								this->output()[output_index],
+								this->output_grad()[output_index]);
+
+							++output_index;
+						}
 
 						base_index += input_col_span_;
-						++output_index;
 					}
 
 					base_row_index += input_row_span_;
