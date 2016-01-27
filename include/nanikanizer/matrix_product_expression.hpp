@@ -65,19 +65,13 @@ namespace nnk
 				if (this->output().size() != total_output_size)
 					this->output().resize(total_output_size);
 
-				std::size_t rhs_index = 0;
-				std::size_t output_index = 0;
-
 				#pragma omp parallel for schedule(static)
 				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					forward_impl(
 						&lhs_->output()[0],
-						&rhs_->output()[rhs_index],
-						&this->output()[output_index]);
-
-					rhs_index += rhs_size_;
-					output_index += output_size_;
+						&rhs_->output()[rhs_size_ * i],
+						&this->output()[output_size_ * i]);
 				}
 			}
 			else if (rhs_->output().size() == rhs_size_)
@@ -90,19 +84,13 @@ namespace nnk
 				if (this->output().size() != total_output_size)
 					this->output().resize(total_output_size);
 
-				std::size_t lhs_index = 0;
-				std::size_t output_index = 0;
-
 				#pragma omp parallel for schedule(static)
 				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					forward_impl(
-						&lhs_->output()[lhs_index],
+						&lhs_->output()[lhs_size_ * i],
 						&rhs_->output()[0],
-						&this->output()[output_index]);
-
-					lhs_index += lhs_size_;
-					output_index += output_size_;
+						&this->output()[output_size_ * i]);
 				}
 			}
 			else
@@ -127,42 +115,30 @@ namespace nnk
 			{
 				std::size_t count = rhs_->output().size() / rhs_size_;
 
-				std::size_t rhs_index = 0;
-				std::size_t output_index = 0;
-
 				#pragma omp parallel for schedule(static)
 				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					backward_impl(
 						&lhs_->output_grad()[0],
-						&rhs_->output_grad()[rhs_index],
+						&rhs_->output_grad()[rhs_size_ * i],
 						&lhs_->output()[0],
-						&rhs_->output()[rhs_index],
-						&this->output_grad()[output_index]);
-
-					rhs_index += rhs_size_;
-					output_index += output_size_;
+						&rhs_->output()[rhs_size_ * i],
+						&this->output_grad()[output_size_ * i]);
 				}
 			}
 			else if (rhs_->output().size() == rhs_size_)
 			{
 				std::size_t count = lhs_->output().size() / lhs_size_;
 
-				std::size_t lhs_index = 0;
-				std::size_t output_index = 0;
-
 				#pragma omp parallel for schedule(static)
 				for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 				{
 					backward_impl(
-						&lhs_->output_grad()[lhs_index],
+						&lhs_->output_grad()[lhs_size_ * i],
 						&rhs_->output_grad()[0],
-						&lhs_->output()[lhs_index],
+						&lhs_->output()[lhs_size_ * i],
 						&rhs_->output()[0],
-						&this->output_grad()[output_index]);
-
-					lhs_index += lhs_size_;
-					output_index += output_size_;
+						&this->output_grad()[output_size_ * i]);
 				}
 			}
 			else
