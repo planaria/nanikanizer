@@ -10,6 +10,16 @@ namespace nnk
 	}
 
 	template <class T>
+	T clamp(T x, T min, T max)
+	{
+		if (x < min)
+			return min;
+		if (max < x)
+			return max;
+		return x;
+	}
+
+	template <class T>
 	T square(const T& x, typename std::enable_if<std::is_floating_point<T>::value>::type* = 0)
 	{
 		return x * x;
