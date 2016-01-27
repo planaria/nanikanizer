@@ -54,19 +54,28 @@ namespace nnk
 
 			virtual void update(tensor_type& x, const tensor_type& grad) override
 			{
-				r_ = lerp(norm_sq(grad), r_, gamma_);
+				if (!initialized_)
+				{
+					r_.resize(x.size(), static_cast<scalar_type>(0.0));
+					initialized_ = true;
+				}
 
 				for (std::size_t i = 0; i < grad.size(); ++i)
-					x[i] -= alpha_ / (std::sqrt(r_) + eps_) * grad[i];
+				{
+					r_[i] = lerp(square(grad[i]), r_[i], gamma_);
+					x[i] -= alpha_ / (std::sqrt(r_[i]) + eps_) * grad[i];
+				}
 			}
 
 		private:
+
+			bool initialized_ = false;
 
 			scalar_type alpha_;
 			scalar_type gamma_;
 			scalar_type eps_;
 
-			scalar_type r_ = 0.0;
+			tensor_type r_;
 
 		};
 

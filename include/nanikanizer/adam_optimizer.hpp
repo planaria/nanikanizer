@@ -62,6 +62,7 @@ namespace nnk
 				if (!initialized_)
 				{
 					v_.resize(x.size(), static_cast<scalar_type>(0.0));
+					r_.resize(x.size(), static_cast<scalar_type>(0.0));
 					initialized_ = true;
 				}
 
@@ -69,16 +70,16 @@ namespace nnk
 				beta2t_ *= beta2_;
 
 				for (std::size_t i = 0; i < grad.size(); ++i)
+				{
+					r_[i] = lerp(square(grad[i]), r_[i], beta2_);
 					v_[i] = lerp(grad[i], v_[i], beta1_);
 
-				r_ = lerp(norm_sq(grad), r_, beta2_);
+					scalar_type v_ratio = static_cast<scalar_type>(1.0) - beta1t_;
+					scalar_type r_ratio = static_cast<scalar_type>(1.0) - beta2t_;
+					scalar_type scale = alpha_ / v_ratio / (std::sqrt(r_[i] / r_ratio) + eps_);
 
-				scalar_type v_ratio = static_cast<scalar_type>(1.0) - beta1t_;
-				scalar_type r_ratio = static_cast<scalar_type>(1.0) - beta2t_;
-				scalar_type scale = alpha_ / v_ratio / (std::sqrt(r_ / r_ratio) + eps_);
-
-				for (std::size_t i = 0; i < grad.size(); ++i)
 					x[i] -= v_[i] * scale;
+				}
 			}
 
 		private:
@@ -91,7 +92,7 @@ namespace nnk
 			scalar_type eps_;
 
 			tensor_type v_;
-			scalar_type r_ = static_cast<scalar_type>(0.0);
+			tensor_type r_;
 			scalar_type beta1t_ = static_cast<scalar_type>(1.0);
 			scalar_type beta2t_ = static_cast<scalar_type>(1.0);
 

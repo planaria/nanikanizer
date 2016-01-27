@@ -51,16 +51,19 @@ namespace nnk
 			{
 				if (!initialized_)
 				{
+					r_.resize(x.size(), static_cast<scalar_type>(0.0));
 					v_.resize(x.size(), static_cast<scalar_type>(0.0));
+					s_.resize(x.size(), static_cast<scalar_type>(0.0));
 					initialized_ = true;
 				}
 
-				r_ = lerp(norm_sq(grad), r_, gamma_);
-
 				for (std::size_t i = 0; i < grad.size(); ++i)
-					v_[i] = (std::sqrt(s_) + eps_) / (std::sqrt(r_) + eps_) * grad[i];
+				{
+					r_[i] = lerp(square(grad[i]), r_[i], gamma_);
+					v_[i] = (std::sqrt(s_[i]) + eps_) / (std::sqrt(r_[i]) + eps_) * grad[i];
+					s_[i] = lerp(square(v_[i]), s_[i], gamma_);
+				}
 
-				s_ = lerp(norm_sq(v_), s_, gamma_);
 				x -= v_;
 			}
 
@@ -71,9 +74,9 @@ namespace nnk
 			scalar_type gamma_;
 			scalar_type eps_;
 
-			scalar_type r_ = 0.0;
+			tensor_type r_;
 			tensor_type v_;
-			scalar_type s_ = 0;
+			tensor_type s_;
 
 		};
 

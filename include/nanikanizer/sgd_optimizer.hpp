@@ -9,7 +9,7 @@ namespace nnk
 	{
 	public:
 
-		explicit sgd_optimizer(double alpha = 0.001)
+		explicit sgd_optimizer(double alpha = 0.01)
 			: alpha_(alpha)
 		{
 		}
