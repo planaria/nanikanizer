@@ -23,6 +23,11 @@ namespace nnk
 			this->output() = value;
 		}
 
+		constant_expression_node(scalar_type value)
+		{
+			this->output() = { value };
+		}
+
 		virtual bool is_branch() override
 		{
 			return false;
