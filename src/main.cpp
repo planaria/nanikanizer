@@ -57,24 +57,27 @@ int main(int /*argc*/, char* /*argv*/[])
 			}
 		}
 
-		std::vector<std::valarray<float>> ids;
+		std::size_t id_size = 10;
 
-		for (std::size_t i = 0; i < 10; ++i)
+		std::vector<std::valarray<float>> ids(id_size);
+
+		for (std::size_t i = 0; i < id_size; ++i)
 		{
-			std::valarray<float> id(10);
+			std::valarray<float> id(id_size);
 			id[i] = 1.0f;
-
-			ids.push_back(id);
+			ids[i] = id;
 		}
 
 		nnk::linear_layer<float> l1(75, 6);
 		nnk::linear_layer<float> l2(150, 16);
 		nnk::linear_layer<float> l3(400, 120);
 		nnk::linear_layer<float> l4(120, 84);
-		nnk::linear_layer<float> l5(84, 10);
+		nnk::linear_layer<float> l5(84, id_size);
 
-		nnk::variable<float> x1;
-		nnk::variable<float> y;
+		std::size_t batch_size = 100;
+
+		nnk::variable<float> x1(batch_size * whole_size);
+		nnk::variable<float> y(batch_size * id_size);
 
 		auto x2 = nnk::convolution_2d(x1.expr(), 32, 32, 3, 5, 5);
 		auto x3 = nnk::relu(l1(x2));
@@ -84,7 +87,7 @@ int main(int /*argc*/, char* /*argv*/[])
 		auto x7 = nnk::max_pooling_2d(x6, 10, 10, 16, 2, 2);
 		auto x8 = nnk::relu(l3(x7));
 		auto x9 = nnk::relu(l4(x8));
-		auto x10 = nnk::softmax(l5(x9));
+		auto x10 = nnk::softmax(sigmoid(l5(x9)), id_size);
 		auto loss = nnk::cross_entropy(x10 - y.expr());
 
 		nnk::evaluator<float> ev(loss);
@@ -99,30 +102,49 @@ int main(int /*argc*/, char* /*argv*/[])
 		std::mt19937 generator;
 		std::uniform_int<std::size_t> index_generator(0, images.size() - 1);
 
+		std::vector<int> answers(batch_size);
+
 		while (true)
 		{
 			optimizer.zero_grads();
 
-			float total_loss = 0.0f;
-
-			for (std::size_t i = 0; i < 100; ++i)
+			for (std::size_t i = 0; i < batch_size; ++i)
 			{
 				std::size_t index = index_generator(generator);
 				const image_type& image = images[index];
 
-				x1.value() = image.second;
-				y.value() = ids[image.first];
+				answers[i] = image.first;
 
-				//const auto& r = x10.root()->output();
-				//for (std::size_t i = 0; i < r.size(); ++i)
-				//	std::cout << r[i] << " ";
-				//std::cout << std::endl;
+				for (std::size_t j = 0; j < whole_size; ++j)
+					x1.value()[i * whole_size + j] = image.second[j];
 
-				total_loss += ev.forward()[0];
-				ev.backward();
+				for (std::size_t j = 0; j < id_size; ++j)
+					y.value()[i * id_size + j] = ids[image.first][j];
 			}
 
-			std::cout << total_loss << std::endl;
+			double loss_value = ev.forward()[0];
+			ev.backward();
+
+			const auto& r = x10.root()->output();
+
+			std::size_t count_ok = 0;
+			std::size_t count_ng = 0;
+
+			for (std::size_t i = 0; i < batch_size; ++i)
+			{
+				auto begin = &r[i * id_size];
+				auto end = begin + id_size;
+				auto it = std::max_element(begin, end);
+				std::size_t ans = it - begin;
+
+				if (ans == answers[i])
+					++count_ok;
+				else
+					++count_ng;
+			}
+
+			double rate = static_cast<double>(count_ok) / static_cast<double>(count_ok + count_ng);
+			std::cout << std::fixed << std::setprecision(5) << loss_value << " " << rate << std::endl;
 
 			optimizer.update();
 		}

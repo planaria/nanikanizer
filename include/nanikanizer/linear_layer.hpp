@@ -14,8 +14,8 @@ namespace nnk
 		typedef std::valarray<scalar_type> tensor_type;
 
 		linear_layer(
-			int input_dimension,
-			int output_dimension,
+			std::size_t input_dimension,
+			std::size_t output_dimension,
 			scalar_type weight_scale = static_cast<scalar_type>(1.0))
 			: input_dimension_(input_dimension)
 			, output_dimension_(output_dimension)
@@ -46,8 +46,8 @@ namespace nnk
 
 	private:
 
-		int input_dimension_;
-		int output_dimension_;
+		std::size_t input_dimension_;
+		std::size_t output_dimension_;
 
 		variable<scalar_type> weight_;
 		variable<scalar_type> bias_;
