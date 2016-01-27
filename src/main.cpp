@@ -50,8 +50,8 @@ int main(int /*argc*/, char* /*argv*/[])
 					values[i * 3 + 2] = static_cast<float>(static_cast<unsigned char>(data[i + channel_size * 2]));
 				}
 
-				values /= 128.0;
-				values -= 1.0;
+				values -= values.sum() / values.size();
+				values /= (values * values).sum() / values.size();
 
 				images.push_back(image_type(type, values));
 			}
