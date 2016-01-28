@@ -77,11 +77,11 @@ int main(int /*argc*/, char* /*argv*/[])
 
 		std::vector<named_optimizer_type> optimizers =
 		{
-			//std::make_pair("SGD", std::make_shared<nnk::sgd_optimizer>()),
-			//std::make_pair("AdaGrad", std::make_shared<nnk::adagrad_optimizer>()),
-			//std::make_pair("RMSProp", std::make_shared<nnk::rmsprop_optimizer>()),
+			std::make_pair("SGD", std::make_shared<nnk::sgd_optimizer>()),
+			std::make_pair("AdaGrad", std::make_shared<nnk::adagrad_optimizer>()),
+			std::make_pair("RMSProp", std::make_shared<nnk::rmsprop_optimizer>()),
 			std::make_pair("AdaDelta", std::make_shared<nnk::adadelta_optimizer>()),
-			//std::make_pair("Adam", std::make_shared<nnk::adam_optimizer>()),
+			std::make_pair("Adam", std::make_shared<nnk::adam_optimizer>()),
 		};
 
 		for (auto& key_value : optimizers)
