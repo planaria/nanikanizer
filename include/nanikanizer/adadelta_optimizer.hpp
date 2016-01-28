@@ -60,7 +60,7 @@ namespace nnk
 				for (std::size_t i = 0; i < grad.size(); ++i)
 				{
 					r_[i] = lerp(square(grad[i]), r_[i], gamma_);
-					v_[i] = (std::sqrt(s_[i]) + eps_) / (std::sqrt(r_[i]) + eps_) * grad[i];
+					v_[i] = std::sqrt((s_[i] + eps_) / (r_[i] + eps_)) * grad[i];
 					s_[i] = lerp(square(v_[i]), s_[i], gamma_);
 				}
 
