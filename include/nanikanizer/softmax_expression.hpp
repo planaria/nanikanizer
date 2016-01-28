@@ -46,13 +46,22 @@ namespace nnk
 
 			for (std::size_t i = 0; i < count; ++i)
 			{
-				scalar_type sum = static_cast<scalar_type>(1.0e-6);
+				scalar_type max = -std::numeric_limits<scalar_type>::max();
 
 				for (std::size_t j = 0; j < block_size; ++j)
-					sum += base_->output()[base_index + j];
+					max = std::max(max, base_->output()[base_index + j]);
+
+				scalar_type sum = scalar_type();
 
 				for (std::size_t j = 0; j < block_size; ++j)
-					this->output()[base_index + j] = base_->output()[base_index + j] / sum;
+				{
+					scalar_type t = std::exp(base_->output()[base_index + j] - max);
+					this->output()[base_index + j] = t;
+					sum += t;
+				}
+
+				for (std::size_t j = 0; j < block_size; ++j)
+					this->output()[base_index + j] /= sum;
 
 				base_index += block_size;
 			}
@@ -62,6 +71,9 @@ namespace nnk
 		{
 			std::size_t block_size = enable_block_ ? block_size_ : base_->output().size();
 
+			if (temp_.size() != block_size)
+				temp_.resize(block_size);
+
 			BOOST_ASSERT(base_->output().size() % block_size == 0);
 			std::size_t count = base_->output().size() / block_size;
 
@@ -69,13 +81,17 @@ namespace nnk
 
 			for (std::size_t i = 0; i < count; ++i)
 			{
-				scalar_type sum = static_cast<scalar_type>(1.0e-6);
+				scalar_type sum = scalar_type();
 
 				for (std::size_t j = 0; j < block_size; ++j)
-					sum += base_->output()[base_index + j];
+				{
+					scalar_type t = this->output()[base_index + j] * this->output_grad()[base_index + j];
+					temp_[j] = t;
+					sum += t;
+				}
 
 				for (std::size_t j = 0; j < block_size; ++j)
-					base_->output_grad()[base_index + j] += this->output_grad()[base_index + j] / sum;
+					base_->output_grad()[base_index + j] += temp_[j] - this->output()[base_index + j] * sum;
 
 				base_index += block_size;
 			}
@@ -92,6 +108,8 @@ namespace nnk
 
 		std::size_t block_size_;
 		bool enable_block_;
+
+		tensor_type temp_;
 
 	};
 

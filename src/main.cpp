@@ -28,12 +28,9 @@ int main(int /*argc*/, char* /*argv*/[])
 		std::vector<char> data(whole_size);
 		std::valarray<float> values(whole_size);
 
-		std::vector<char> buffer(8 * 1024 * 1024);
-
 		for (const std::string& file : input_files)
 		{
 			std::ifstream is(file.c_str(), std::ios_base::binary);
-			is.rdbuf()->pubsetbuf(buffer.data(), buffer.size());
 
 			while (true)
 			{
@@ -68,85 +65,101 @@ int main(int /*argc*/, char* /*argv*/[])
 			ids[i] = id;
 		}
 
-		nnk::linear_layer<float> l1(75, 6);
-		nnk::linear_layer<float> l2(150, 16);
-		nnk::linear_layer<float> l3(400, 120);
-		nnk::linear_layer<float> l4(120, 84);
-		nnk::linear_layer<float> l5(84, id_size);
+		typedef std::pair<std::string, std::shared_ptr<nnk::optimizer_base>> named_optimizer_type;
 
-		std::size_t batch_size = 100;
-
-		nnk::variable<float> x1(batch_size * whole_size);
-		nnk::variable<float> y(batch_size * id_size);
-
-		auto x2 = nnk::convolution_2d(x1.expr(), 32, 32, 3, 5, 5);
-		auto x3 = nnk::relu(l1(x2));
-		auto x4 = nnk::max_pooling_2d(x3, 28, 28, 6, 2, 2);
-		auto x5 = nnk::convolution_2d(x4, 14, 14, 6, 5, 5);
-		auto x6 = nnk::relu(l2(x5));
-		auto x7 = nnk::max_pooling_2d(x6, 10, 10, 16, 2, 2);
-		auto x8 = nnk::relu(l3(x7));
-		auto x9 = nnk::relu(l4(x8));
-		auto x10 = nnk::softmax(sigmoid(l5(x9)), id_size);
-		auto loss = nnk::cross_entropy(x10 - y.expr());
-
-		nnk::evaluator<float> ev(loss);
-
-		nnk::adam_optimizer optimizer;
-		optimizer.add_parameter(l1);
-		optimizer.add_parameter(l2);
-		optimizer.add_parameter(l3);
-		optimizer.add_parameter(l4);
-		optimizer.add_parameter(l5);
-
-		std::mt19937 generator;
-		std::uniform_int<std::size_t> index_generator(0, images.size() - 1);
-
-		std::vector<int> answers(batch_size);
-
-		while (true)
+		std::vector<named_optimizer_type> optimizers =
 		{
-			optimizer.zero_grads();
+			std::make_pair("SGD", std::make_shared<nnk::sgd_optimizer>()),
+			std::make_pair("AdaGrad", std::make_shared<nnk::adagrad_optimizer>()),
+			std::make_pair("RMSProp", std::make_shared<nnk::rmsprop_optimizer>()),
+			std::make_pair("AdaDelta", std::make_shared<nnk::adadelta_optimizer>()),
+			std::make_pair("Adam", std::make_shared<nnk::adam_optimizer>()),
+		};
 
-			for (std::size_t i = 0; i < batch_size; ++i)
+		for (auto& key_value : optimizers)
+		{
+			std::ofstream os(key_value.first + ".log");
+
+			os << key_value.first << "\n";
+
+			nnk::linear_layer<float> l1(75, 6);
+			nnk::linear_layer<float> l2(150, 16);
+			nnk::linear_layer<float> l3(400, 120);
+			nnk::linear_layer<float> l4(120, 84);
+			nnk::linear_layer<float> l5(84, id_size);
+
+			std::size_t batch_size = 900;
+
+			nnk::variable<float> x1(batch_size * whole_size);
+			nnk::variable<float> y(batch_size * id_size);
+
+			auto x2 = nnk::convolution_2d(x1.expr(), 32, 32, 3, 5, 5);
+			auto x3 = nnk::relu(l1(x2));
+			auto x4 = nnk::max_pooling_2d(x3, 28, 28, 6, 2, 2);
+			auto x5 = nnk::convolution_2d(x4, 14, 14, 6, 5, 5);
+			auto x6 = nnk::relu(l2(x5));
+			auto x7 = nnk::max_pooling_2d(x6, 10, 10, 16, 2, 2);
+			auto x8 = nnk::relu(l3(x7));
+			auto x9 = nnk::relu(l4(x8));
+			auto x10 = nnk::softmax(l5(x9), id_size);
+			auto loss = nnk::cross_entropy(x10 - y.expr());
+
+			nnk::evaluator<float> ev(loss);
+
+			auto& optimizer = *key_value.second;
+
+			optimizer.add_parameter(l1);
+			optimizer.add_parameter(l2);
+			optimizer.add_parameter(l3);
+			optimizer.add_parameter(l4);
+			optimizer.add_parameter(l5);
+
+			std::mt19937 generator;
+			std::uniform_int<std::size_t> index_generator(0, images.size() - 1);
+
+			std::vector<int> answers(batch_size);
+
+			for (std::size_t i = 0; i < 1000; ++i)
 			{
-				std::size_t index = index_generator(generator);
-				const image_type& image = images[index];
+				optimizer.zero_grads();
 
-				answers[i] = image.first;
+				for (std::size_t i = 0; i < batch_size; ++i)
+				{
+					std::size_t index = index_generator(generator);
+					const image_type& image = images[index];
 
-				for (std::size_t j = 0; j < whole_size; ++j)
-					x1.value()[i * whole_size + j] = image.second[j];
+					answers[i] = image.first;
 
-				for (std::size_t j = 0; j < id_size; ++j)
-					y.value()[i * id_size + j] = ids[image.first][j];
+					for (std::size_t j = 0; j < whole_size; ++j)
+						x1.value()[i * whole_size + j] = image.second[j];
+
+					for (std::size_t j = 0; j < id_size; ++j)
+						y.value()[i * id_size + j] = ids[image.first][j];
+				}
+
+				double loss_value = ev.forward()[0];
+				ev.backward();
+
+				const auto& r = x10.root()->output();
+
+				std::size_t count_ok = 0;
+
+				for (std::size_t i = 0; i < batch_size; ++i)
+				{
+					auto begin = &r[i * id_size];
+					auto end = begin + id_size;
+					auto it = std::max_element(begin, end);
+					std::size_t ans = it - begin;
+
+					if (ans == answers[i])
+						++count_ok;
+				}
+
+				double rate = static_cast<double>(count_ok) / static_cast<double>(batch_size);
+				os << std::fixed << std::setprecision(5) << loss_value << "\t" << rate << "\n";
+
+				optimizer.update();
 			}
-
-			double loss_value = ev.forward()[0];
-			ev.backward();
-
-			const auto& r = x10.root()->output();
-
-			std::size_t count_ok = 0;
-			std::size_t count_ng = 0;
-
-			for (std::size_t i = 0; i < batch_size; ++i)
-			{
-				auto begin = &r[i * id_size];
-				auto end = begin + id_size;
-				auto it = std::max_element(begin, end);
-				std::size_t ans = it - begin;
-
-				if (ans == answers[i])
-					++count_ok;
-				else
-					++count_ng;
-			}
-
-			double rate = static_cast<double>(count_ok) / static_cast<double>(count_ok + count_ng);
-			std::cout << std::fixed << std::setprecision(5) << loss_value << " " << rate << std::endl;
-
-			optimizer.update();
 		}
 	}
 	catch (std::exception& e)
