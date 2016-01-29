@@ -200,6 +200,7 @@
     <ClInclude Include="..\include\nanikanizer\sum_pooling_2d_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\tanh_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\unary_operator_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\variable.hpp" />
     <ClInclude Include="..\include\nanikanizer\variable_expression.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
