@@ -39,6 +39,16 @@ namespace nnk
 			optimizer.add_parameter(bias_);
 		}
 
+		expression<scalar_type> weight()
+		{
+			return weight_.expr();
+		}
+
+		expression<scalar_type> bias()
+		{
+			return bias_.expr();
+		}
+
 		expression<scalar_type> operator ()(const expression<scalar_type>& v) const
 		{
 			return matrix_product(weight_.expr(), v, output_dimension_, input_dimension_, input_dimension_, 1) + bias_.expr();
