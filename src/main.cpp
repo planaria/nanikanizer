@@ -102,8 +102,8 @@ int main(int /*argc*/, char* /*argv*/[])
 
 			std::size_t batch_size = 900;
 
-			nnk::variable<float> x1(batch_size * whole_size);
-			nnk::variable<float> y(batch_size * id_size);
+			nnk::variable<float> x1;
+			nnk::variable<float> y;
 
 			auto x2 = nnk::convolution_2d(x1.expr(), 32, 32, 3, 5, 5);
 			auto x3 = nnk::relu(l1(x2));
@@ -138,56 +138,51 @@ int main(int /*argc*/, char* /*argv*/[])
 			std::mt19937 generator;
 			std::uniform_int<std::size_t> index_generator(0, data_images.size() - 1);
 
-			std::vector<int> answers(batch_size);
-
-			for (std::size_t i = 0; i < 1000; ++i)
+			for (std::size_t i = 0; i < 100; ++i)
 			{
-				optimizer.zero_grads();
+				x1.value().resize(batch_size * whole_size);
+				y.value().resize(batch_size * id_size);
 
-				for (std::size_t i = 0; i < batch_size; ++i)
+				for (std::size_t j = 0; j < 300; ++j)
 				{
-					std::size_t index = index_generator(generator);
-					const image_type& image = data_images[index];
+					for (std::size_t k = 0; k < batch_size; ++k)
+					{
+						std::size_t index = index_generator(generator);
+						const image_type& image = data_images[index];
 
-					answers[i] = image.first;
+						for (std::size_t l = 0; l < whole_size; ++l)
+							x1.value()[k * whole_size + l] = image.second[l];
 
-					for (std::size_t j = 0; j < whole_size; ++j)
-						x1.value()[i * whole_size + j] = image.second[j];
+						for (std::size_t l = 0; l < id_size; ++l)
+							y.value()[k * id_size + l] = ids[image.first][l];
+					}
 
-					for (std::size_t j = 0; j < id_size; ++j)
-						y.value()[i * id_size + j] = ids[image.first][j];
+					optimizer.zero_grads();
+
+					double loss_value = ev.forward()[0];
+					ev.backward();
+
+					std::cout << loss_value << std::endl;
+					os << loss_value << std::endl;
+
+					optimizer.update();
 				}
-
-				double loss_value = ev.forward()[0];
-				ev.backward();
 
 				std::size_t count_ok = 0;
 
-				for (std::size_t i = 0; i < batch_size; ++i)
-					if (get_answer(i) == answers[i])
+				for (const auto& image : test_images)
+				{
+					x1.value() = image.second;
+
+					ev.forward();
+
+					if (get_answer(0) == image.first)
 						++count_ok;
+				}
 
-				std::cout << loss_value << std::endl;
-				os << loss_value << std::endl;
-
-				optimizer.update();
+				double rate = static_cast<double>(count_ok) / static_cast<double>(test_images.size());
+				std::cout << "rate: " << rate << std::endl;
 			}
-
-			std::size_t count_ok = 0;
-
-			for (const auto& image : test_images)
-			{
-				x1.value() = image.second;
-
-				ev.forward();
-
-				if (get_answer(0) == image.first)
-					++count_ok;
-			}
-
-			double rate = static_cast<double>(count_ok) / static_cast<double>(test_images.size());
-			std::cout << "rate: " << rate << std::endl;
-			os << "rate: " << rate << std::endl;
 		}
 	}
 	catch (std::exception& e)
