@@ -114,7 +114,16 @@ int main(int /*argc*/, char* /*argv*/[])
 			auto x8 = nnk::relu(l3(x7));
 			auto x9 = nnk::relu(l4(x8));
 			auto x10 = nnk::softmax(l5(x9), id_size);
-			auto loss = nnk::cross_entropy(x10 - y.expr());
+			auto x11 = nnk::cross_entropy(x10 - y.expr());
+
+			auto reg =
+				nnk::sum(nnk::abs(l1.weight())) +
+				nnk::sum(nnk::abs(l2.weight())) +
+				nnk::sum(nnk::abs(l3.weight())) +
+				nnk::sum(nnk::abs(l4.weight())) +
+				nnk::sum(nnk::abs(l5.weight()));
+
+			auto loss = x11 + reg * nnk::expression<float>(0.1f);
 
 			auto get_answer = [&](std::size_t index)
 			{
@@ -143,7 +152,9 @@ int main(int /*argc*/, char* /*argv*/[])
 				x1.value().resize(batch_size * whole_size);
 				y.value().resize(batch_size * id_size);
 
-				for (std::size_t j = 0; j < 300; ++j)
+				float last_loss = 0.0f;
+
+				for (std::size_t j = 0; j < 100; ++j)
 				{
 					for (std::size_t k = 0; k < batch_size; ++k)
 					{
@@ -159,11 +170,8 @@ int main(int /*argc*/, char* /*argv*/[])
 
 					optimizer.zero_grads();
 
-					double loss_value = ev.forward()[0];
+					last_loss = ev.forward()[0];
 					ev.backward();
-
-					std::cout << loss_value << std::endl;
-					os << loss_value << std::endl;
 
 					optimizer.update();
 				}
@@ -181,7 +189,8 @@ int main(int /*argc*/, char* /*argv*/[])
 				}
 
 				double rate = static_cast<double>(count_ok) / static_cast<double>(test_images.size());
-				std::cout << "rate: " << rate << std::endl;
+				std::cout << last_loss << "\t" << rate << std::endl;
+				os << last_loss << "\t" << rate << std::endl;
 			}
 		}
 	}
