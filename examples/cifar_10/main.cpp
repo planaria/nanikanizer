@@ -113,6 +113,9 @@ int main(int /*argc*/, char* /*argv*/[])
 		std::mt19937 generator;
 		std::uniform_int<std::size_t> index_generator(0, data_images.size() - 1);
 
+		std::cout << "Loss,Rate" << std::endl;
+		std::cout << std::fixed << std::setprecision(5);
+
 		for (std::size_t i = 0; i < 100; ++i)
 		{
 			x0.value().resize(batch_size * nnk::cifar_10::whole_size);
@@ -155,9 +158,7 @@ int main(int /*argc*/, char* /*argv*/[])
 			}
 
 			double rate = static_cast<double>(count_ok) / static_cast<double>(test_images.size());
-
-			std::cout << std::fixed << std::setprecision(5);
-			std::cout << last_loss << "\t" << rate << std::endl;
+			std::cout << last_loss << "," << rate << std::endl;
 		}
 	}
 	catch (std::exception& e)
