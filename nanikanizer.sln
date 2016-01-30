@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nanikanizer", "src\nanikanizer.vcxproj", "{B5D1BBF0-4C47-4E74-B021-35BAA3F5F008}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{D8FB1C4B-395F-434C-AB25-883A264594C7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cifar_10", "examples\cifar_10\cifar_10.vcxproj", "{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,8 +35,19 @@ Global
 		{B5D1BBF0-4C47-4E74-B021-35BAA3F5F008}.Release|x64.Build.0 = Release|x64
 		{B5D1BBF0-4C47-4E74-B021-35BAA3F5F008}.Release|x86.ActiveCfg = Release|Win32
 		{B5D1BBF0-4C47-4E74-B021-35BAA3F5F008}.Release|x86.Build.0 = Release|Win32
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Debug|x64.ActiveCfg = Debug|x64
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Debug|x64.Build.0 = Debug|x64
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Debug|x86.ActiveCfg = Debug|Win32
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Debug|x86.Build.0 = Debug|Win32
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Release|x64.ActiveCfg = Release|x64
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Release|x64.Build.0 = Release|x64
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Release|x86.ActiveCfg = Release|Win32
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0FF17AB7-CAEE-4004-9A9D-BBF684E8A484} = {D8FB1C4B-395F-434C-AB25-883A264594C7}
 	EndGlobalSection
 EndGlobal
