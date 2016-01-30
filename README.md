@@ -1,8 +1,6 @@
 # nanikanizer
 An neural network library for C++
 
-[![Build Status](https://travis-ci.org/planaria/nanikanizer.svg?branch=master)](https://travis-ci.org/planaria/nanikanizer)
-
 ## Features
 - Expression-based network description
 - Header-only `#include <nanikanizer/nanikanizer.hpp>`
