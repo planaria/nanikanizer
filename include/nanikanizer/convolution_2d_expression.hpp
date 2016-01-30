@@ -64,12 +64,11 @@ namespace nnk
 			if (this->output().size() != total_output_size)
 				this->output().resize(total_output_size);
 
-			std::size_t output_index = 0;
-			std::size_t base_while_index = 0;
-
-			for (std::size_t i = 0; i < count; ++i)
+			#pragma omp parallel for schedule(static)
+			for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 			{
-				std::size_t base_row_index = base_while_index;
+				std::size_t output_index = i * output_size_;
+				std::size_t base_row_index = i * input_size_;
 
 				for (std::size_t h = 0; h < output_height_; ++h)
 				{
@@ -95,8 +94,6 @@ namespace nnk
 
 					base_row_index += input_stride_;
 				}
-
-				base_while_index += input_size_;
 			}
 		}
 
@@ -105,12 +102,11 @@ namespace nnk
 			BOOST_ASSERT(base_->output().size() % input_size_ == 0);
 			std::size_t count = base_->output().size() / input_size_;
 
-			std::size_t output_index = 0;
-			std::size_t base_while_index = 0;
-
-			for (std::size_t i = 0; i < count; ++i)
+			#pragma omp parallel for schedule(static)
+			for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 			{
-				std::size_t base_row_index = base_while_index;
+				std::size_t output_index = i * output_size_;
+				std::size_t base_row_index = i * input_size_;
 
 				for (std::size_t h = 0; h < output_height_; ++h)
 				{
@@ -136,8 +132,6 @@ namespace nnk
 
 					base_row_index += input_stride_;
 				}
-
-				base_while_index += input_size_;
 			}
 		}
 
