@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <fstream>
 #include <algorithm>
 #include <memory>
 #include <random>
