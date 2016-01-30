@@ -170,6 +170,9 @@
     <ClInclude Include="..\include\nanikanizer\variable.hpp">
       <Filter>include\expression</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\cifar_util.hpp">
+      <Filter>include\util</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\nanikanizer\id_util.hpp">
       <Filter>include\util</Filter>
     </ClInclude>

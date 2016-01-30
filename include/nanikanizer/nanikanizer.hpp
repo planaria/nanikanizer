@@ -49,3 +49,4 @@
 #include "adam_optimizer.hpp"
 
 #include "id_util.hpp"
+#include "cifar_util.hpp"

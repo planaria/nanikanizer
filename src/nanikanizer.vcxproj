@@ -164,6 +164,7 @@
     <ClInclude Include="..\include\nanikanizer\adam_optimizer.hpp" />
     <ClInclude Include="..\include\nanikanizer\add_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\binary_operator_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\cifar_util.hpp" />
     <ClInclude Include="..\include\nanikanizer\constant_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\convolution_2d_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\depth_concat_expression.hpp" />
