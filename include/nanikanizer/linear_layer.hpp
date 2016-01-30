@@ -39,14 +39,14 @@ namespace nnk
 			optimizer.add_parameter(bias_);
 		}
 
-		expression<scalar_type> weight()
+		variable<scalar_type>& weight()
 		{
-			return weight_.expr();
+			return weight_;
 		}
 
-		expression<scalar_type> bias()
+		variable<scalar_type>& bias()
 		{
-			return bias_.expr();
+			return bias_;
 		}
 
 		expression<scalar_type> operator ()(const expression<scalar_type>& v) const

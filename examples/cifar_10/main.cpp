@@ -78,13 +78,13 @@ int main(int /*argc*/, char* /*argv*/[])
 		// 10
 
 		auto reg =
-			nnk::sum(nnk::abs(l1.weight())) +
-			nnk::sum(nnk::abs(l2.weight())) +
-			nnk::sum(nnk::abs(l3.weight())) +
-			nnk::sum(nnk::abs(l4.weight())) +
-			nnk::sum(nnk::abs(l5.weight())) +
-			nnk::sum(nnk::abs(l6.weight())) +
-			nnk::sum(nnk::abs(l7.weight()));
+			nnk::sum(nnk::abs(l1.weight().expr())) +
+			nnk::sum(nnk::abs(l2.weight().expr())) +
+			nnk::sum(nnk::abs(l3.weight().expr())) +
+			nnk::sum(nnk::abs(l4.weight().expr())) +
+			nnk::sum(nnk::abs(l5.weight().expr())) +
+			nnk::sum(nnk::abs(l6.weight().expr())) +
+			nnk::sum(nnk::abs(l7.weight().expr()));
 
 		auto loss = nnk::cross_entropy(x - y.expr()) + reg * nnk::expression<float>(0.1f);
 
