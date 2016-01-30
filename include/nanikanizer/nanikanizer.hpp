@@ -47,3 +47,5 @@
 #include "rmsprop_optimizer.hpp"
 #include "adadelta_optimizer.hpp"
 #include "adam_optimizer.hpp"
+
+#include "id_util.hpp"
