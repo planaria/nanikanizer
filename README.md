@@ -3,7 +3,8 @@ An neural network library for C++
 
 ## Features
 - Expression-based network description
-- Header-only `#include <nanikanizer/nanikanizer.hpp>`
+- Header-only  
+  `#include <nanikanizer/nanikanizer.hpp>`
 
 ### Expressions
 - Four Arithmetic Operations
@@ -30,7 +31,7 @@ An neural network library for C++
 - Visual Studio 2015
 
 ### External Libraries
-- Boost C++ Libraries (>= 1.60)
+- Boost C++ Libraries (>= 1.60.0)
 - [Catch](https://github.com/philsquared/Catch) (for test)
 
 ## License
