@@ -30,6 +30,11 @@ namespace nnk
 		{
 		}
 
+		expression(const std::initializer_list<scalar_type>& value)
+			: root_(std::make_shared<constant_expression_node<scalar_type>>(value))
+		{
+		}
+
 		expression(scalar_type value)
 			: root_(std::make_shared<constant_expression_node<scalar_type>>(value))
 		{
