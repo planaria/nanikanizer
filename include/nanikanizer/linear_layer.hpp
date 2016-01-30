@@ -6,12 +6,16 @@ namespace nnk
 {
 
 	template <class T>
-	class linear_layer : public layer_base
+	class linear_layer : public layer_base<T>
 	{
+	private:
+
+		typedef layer_base<T> base_type;
+
 	public:
 
-		typedef T scalar_type;
-		typedef std::valarray<scalar_type> tensor_type;
+		typedef typename base_type::scalar_type scalar_type;
+		typedef typename base_type::tensor_type tensor_type;
 
 		linear_layer(
 			std::size_t input_dimension,
@@ -49,7 +53,7 @@ namespace nnk
 			return bias_;
 		}
 
-		expression<scalar_type> operator ()(const expression<scalar_type>& v) const
+		virtual expression<scalar_type> forward(const expression<scalar_type>& v) const override
 		{
 			return matrix_product(weight_.expr(), v, output_dimension_, input_dimension_, input_dimension_, 1) + bias_.expr();
 		}

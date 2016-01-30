@@ -50,31 +50,31 @@ int main(int /*argc*/, char* /*argv*/[])
 		// 32 * 32 * 3
 		x = nnk::convolution_2d(x, 32, 32, 3, 3, 3);
 		// 30 * 30 * 27
-		x = nnk::relu(l1(x));
+		x = nnk::relu(l1.forward(x));
 		// 30 * 30 * 6
 		x = nnk::convolution_2d(x, 30, 30, 6, 3, 3);
 		// 28 * 28 * 54
-		x = nnk::relu(l2(x));
+		x = nnk::relu(l2.forward(x));
 		// 28 * 28 * 12
 		x = nnk::max_pooling_2d(x, 28, 28, 12, 2, 2);
 		// 14 * 14 * 12
 		x = nnk::convolution_2d(x, 14, 14, 12, 3, 3);
 		// 12 * 12 * 108
-		x = nnk::relu(l3(x));
+		x = nnk::relu(l3.forward(x));
 		// 12 * 12 * 64
 		x = nnk::convolution_2d(x, 12, 12, 64, 3, 3);
 		// 10 * 10 * 576
-		x = nnk::relu(l4(x));
+		x = nnk::relu(l4.forward(x));
 		// 10 * 10 * 64
 		x = nnk::max_pooling_2d(x, 10, 10, 64, 2, 2);
 		// 5 * 5 * 64
 		x = nnk::convolution_2d(x, 5, 5, 64, 3, 3);
 		// 3 * 3 * 576
-		x = nnk::relu(l5(x));
+		x = nnk::relu(l5.forward(x));
 		// 3 * 3 * 32 = 288
-		x = nnk::relu(l6(x));
+		x = nnk::relu(l6.forward(x));
 		// 32
-		x = nnk::softmax(l7(x), id_size);
+		x = nnk::softmax(l7.forward(x), id_size);
 		// 10
 
 		auto reg =
