@@ -23,9 +23,9 @@ int main(int /*argc*/, char* /*argv*/[])
 		std::vector<nnk::cifar_10::tagged_image> test_images;
 
 		for (const std::string& file : data_files)
-			nnk::cifar_10::load_images(file, std::back_inserter(data_images));
+			nnk::cifar_10::load_images(file, true, std::back_inserter(data_images));
 
-		nnk::cifar_10::load_images(test_file, std::back_inserter(test_images));
+		nnk::cifar_10::load_images(test_file, true, std::back_inserter(test_images));
 
 		std::size_t id_size = 10;
 

@@ -11,7 +11,7 @@ namespace nnk
 		static const std::size_t whole_size = channel_size * 3;
 
 		template <class Iterator>
-		void load_images(const std::string& file, Iterator it)
+		void load_images(const std::string& file, bool normalize, Iterator it)
 		{
 			std::ifstream is(file, std::ios_base::binary);
 
@@ -33,8 +33,11 @@ namespace nnk
 					values[i * 3 + 2] = static_cast<float>(static_cast<unsigned char>(buffer[i + channel_size * 2]));
 				}
 
-				values -= values.sum() / values.size();
-				values /= (values * values).sum() / values.size();
+				if (normalize)
+				{
+					values -= values.sum() / values.size();
+					values /= (values * values).sum() / values.size();
+				}
 
 				*it++ = tagged_image(type, values);
 			}
