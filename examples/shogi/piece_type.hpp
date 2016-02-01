@@ -66,4 +66,30 @@ namespace shogi
 		return type;
 	}
 
+	inline std::ostream& operator <<(std::ostream& os, piece_type type)
+	{
+		static const char* name[] =
+		{
+			"",
+			"‰¤",
+			"‹à",
+			"‹â",
+			"¬‹â",
+			"Œj",
+			"¬Œj",
+			"",
+			"¬",
+			"Šp",
+			"”n",
+			"”ò",
+			"—´",
+			"•à",
+			"‚Æ",
+		};
+
+		os << name[static_cast<std::int8_t>(type)];
+
+		return os;
+	}
+
 }

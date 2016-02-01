@@ -11,6 +11,7 @@ namespace shogi
 
 		typedef std::array<piece, 9> row_type;
 		typedef std::array<row_type, 9> table_type;
+		typedef std::array<std::uint8_t, 15> hand_type;
 
 		game()
 		{
@@ -70,6 +71,16 @@ namespace shogi
 			return table_;
 		}
 
+		const hand_type& hand1() const
+		{
+			return hand1_;
+		}
+
+		const hand_type& hand2() const
+		{
+			return hand2_;
+		}
+
 		bool move(int org_row, int org_col, int new_row, int new_org, bool promote)
 		{
 			BOOST_ASSERT(org_row >= 0 && org_row < 9);
@@ -93,13 +104,35 @@ namespace shogi
 
 		table_type table_;
 
-		std::array<std::uint8_t, 15> hand1_;
-		std::array<std::uint8_t, 15> hand2_;
+		hand_type hand1_ = {};
+		hand_type hand2_ = {};
 
 	};
 
+	inline void print_hand(std::ostream& os, const game::hand_type& hand)
+	{
+		bool first = true;
+
+		for (std::size_t i = 0; i < static_cast<std::size_t>(piece_type::end); ++i)
+		{
+			std::uint32_t num = hand[i];
+			if (num != 0)
+			{
+				if (!first)
+					os << " ";
+
+				os << static_cast<piece_type>(i) << num;
+
+				first = false;
+			}
+		}
+	}
+
 	inline std::ostream& operator <<(std::ostream& os, game& g)
 	{
+		print_hand(os, g.hand1());
+		std::cout << "\n";
+
 		os << "„¡„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¢\n";
 
 		for (int i = 0; i < 9; ++i)
@@ -116,6 +149,9 @@ namespace shogi
 		}
 
 		os << "„¤„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„£\n";
+
+		print_hand(os, g.hand2());
+		std::cout << "\n";
 
 		return os;
 	}
