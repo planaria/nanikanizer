@@ -4,8 +4,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="piece.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="piece_type.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{ed0c2023-35bb-4deb-b799-26b03a1dde5a}</UniqueIdentifier>
+      <UniqueIdentifier>{89a373e7-c719-446d-bf78-fe6360d178cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
