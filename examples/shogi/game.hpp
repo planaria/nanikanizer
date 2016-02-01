@@ -13,13 +13,15 @@ namespace shogi
 		typedef std::array<row_type, 9> table_type;
 		typedef std::array<std::uint8_t, 15> hand_type;
 
-		game()
+		explicit game(bool initial_turn = false)
 		{
-			reset();
+			reset(initial_turn);
 		}
 
-		void reset()
+		void reset(bool initial_turn = false)
 		{
+			turn_ = initial_turn;
+
 			for (auto& row : table_)
 				std::fill(row.begin(), row.end(), piece());
 
@@ -81,12 +83,26 @@ namespace shogi
 			return hand2_;
 		}
 
-		bool move(int org_row, int org_col, int new_row, int new_org, bool promote)
+		bool move(int org_row, int org_col, int new_row, int new_col, bool promote)
 		{
 			BOOST_ASSERT(org_row >= 0 && org_row < 9);
 			BOOST_ASSERT(org_col >= 0 && org_col < 9);
 			BOOST_ASSERT(new_row >= 0 && new_row < 9);
-			BOOST_ASSERT(new_org >= 0 && new_org < 9);
+			BOOST_ASSERT(new_col >= 0 && new_col < 9);
+
+			piece& org_piece = table_[org_row][org_col];
+			piece& new_piece = table_[new_row][new_col];
+
+			if (org_piece.type() == piece_type::none)
+				return false;
+
+			if (org_piece.side() != turn_)
+				return false;
+
+			int dx = new_col - org_col;
+			int dy = new_row - org_row;
+			if (!is_piece_movable(org_piece, dx, dy))
+				return false;
 
 			return false;
 		}
@@ -106,6 +122,8 @@ namespace shogi
 
 		hand_type hand1_ = {};
 		hand_type hand2_ = {};
+
+		bool turn_;
 
 	};
 

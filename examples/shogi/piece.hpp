@@ -34,6 +34,16 @@ namespace shogi
 
 	};
 
+	inline bool is_piece_movable(piece p, int dx, int dy)
+	{
+		BOOST_ASSERT(std::abs(dx) < 9);
+		BOOST_ASSERT(std::abs(dy) < 9);
+
+		// TODO
+
+		return false;
+	}
+
 	inline std::ostream& operator <<(std::ostream& os, piece p)
 	{
 		if (p.type() == piece_type::none)
