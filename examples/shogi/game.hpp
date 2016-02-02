@@ -237,7 +237,7 @@ namespace shogi
 
 			if (type == piece_type::fuhyo)
 			{
-				const piece& forward_piece = state.table[row + turn_ ? 1 : -1][col];
+				const piece& forward_piece = state.table[row + (turn_ ? 1 : -1)][col];
 				if(forward_piece == piece(piece_type::ousho, !turn_) && is_checkmate(state))
 					return action_result::failed;
 			}
