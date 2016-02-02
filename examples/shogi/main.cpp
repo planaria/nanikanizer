@@ -9,7 +9,7 @@ int main(int /*argc*/, char* /*argv*/[])
 	{
 		shogi::game g;
 
-		std::cout << g << std::endl;
+		std::cout << g.state() << std::endl;
 	}
 	catch (std::exception& e)
 	{

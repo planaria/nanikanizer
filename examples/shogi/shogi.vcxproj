@@ -156,9 +156,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="action_result.hpp" />
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="game_state.hpp" />
     <ClInclude Include="piece.hpp" />
     <ClInclude Include="piece_type.hpp" />
+    <ClInclude Include="util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

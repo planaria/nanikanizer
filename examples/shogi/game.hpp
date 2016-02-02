@@ -1,6 +1,9 @@
 #pragma once
 #include <array>
 #include "piece.hpp"
+#include "game_state.hpp"
+#include "action_result.hpp"
+#include "util.hpp"
 
 namespace shogi
 {
@@ -8,10 +11,6 @@ namespace shogi
 	class game
 	{
 	public:
-
-		typedef std::array<piece, 9> row_type;
-		typedef std::array<row_type, 9> table_type;
-		typedef std::array<std::uint8_t, 15> hand_type;
 
 		explicit game(bool initial_turn = false)
 		{
@@ -22,156 +21,245 @@ namespace shogi
 		{
 			turn_ = initial_turn;
 
-			for (auto& row : table_)
-				std::fill(row.begin(), row.end(), piece());
+			state_.table[0][0] = piece(piece_type::kyosha, true);
+			state_.table[0][1] = piece(piece_type::keima, true);
+			state_.table[0][2] = piece(piece_type::ginsho, true);
+			state_.table[0][3] = piece(piece_type::kinsho, true);
+			state_.table[0][4] = piece(piece_type::ousho, true);
+			state_.table[0][5] = piece(piece_type::kinsho, true);
+			state_.table[0][6] = piece(piece_type::ginsho, true);
+			state_.table[0][7] = piece(piece_type::keima, true);
+			state_.table[0][8] = piece(piece_type::kyosha, true);
+			state_.table[1][1] = piece(piece_type::hisha, true);
+			state_.table[1][7] = piece(piece_type::kaku, true);
+			state_.table[2][0] = piece(piece_type::fuhyo, true);
+			state_.table[2][1] = piece(piece_type::fuhyo, true);
+			state_.table[2][2] = piece(piece_type::fuhyo, true);
+			state_.table[2][3] = piece(piece_type::fuhyo, true);
+			state_.table[2][4] = piece(piece_type::fuhyo, true);
+			state_.table[2][5] = piece(piece_type::fuhyo, true);
+			state_.table[2][6] = piece(piece_type::fuhyo, true);
+			state_.table[2][7] = piece(piece_type::fuhyo, true);
+			state_.table[2][8] = piece(piece_type::fuhyo, true);
 
-			table_[0][0] = piece(piece_type::kyosha, true);
-			table_[0][1] = piece(piece_type::keima, true);
-			table_[0][2] = piece(piece_type::ginsho, true);
-			table_[0][3] = piece(piece_type::kinsho, true);
-			table_[0][4] = piece(piece_type::ousho, true);
-			table_[0][5] = piece(piece_type::kinsho, true);
-			table_[0][6] = piece(piece_type::ginsho, true);
-			table_[0][7] = piece(piece_type::keima, true);
-			table_[0][8] = piece(piece_type::kyosha, true);
-			table_[1][1] = piece(piece_type::hisha, true);
-			table_[1][7] = piece(piece_type::kaku, true);
-			table_[2][0] = piece(piece_type::fuhyo, true);
-			table_[2][1] = piece(piece_type::fuhyo, true);
-			table_[2][2] = piece(piece_type::fuhyo, true);
-			table_[2][3] = piece(piece_type::fuhyo, true);
-			table_[2][4] = piece(piece_type::fuhyo, true);
-			table_[2][5] = piece(piece_type::fuhyo, true);
-			table_[2][6] = piece(piece_type::fuhyo, true);
-			table_[2][7] = piece(piece_type::fuhyo, true);
-			table_[2][8] = piece(piece_type::fuhyo, true);
+			state_.table[6][0] = piece(piece_type::fuhyo, false);
+			state_.table[6][1] = piece(piece_type::fuhyo, false);
+			state_.table[6][2] = piece(piece_type::fuhyo, false);
+			state_.table[6][3] = piece(piece_type::fuhyo, false);
+			state_.table[6][4] = piece(piece_type::fuhyo, false);
+			state_.table[6][5] = piece(piece_type::fuhyo, false);
+			state_.table[6][6] = piece(piece_type::fuhyo, false);
+			state_.table[6][7] = piece(piece_type::fuhyo, false);
+			state_.table[6][8] = piece(piece_type::fuhyo, false);
+			state_.table[7][1] = piece(piece_type::kaku, false);
+			state_.table[7][7] = piece(piece_type::hisha, false);
+			state_.table[8][0] = piece(piece_type::kyosha, false);
+			state_.table[8][1] = piece(piece_type::keima, false);
+			state_.table[8][2] = piece(piece_type::ginsho, false);
+			state_.table[8][3] = piece(piece_type::kinsho, false);
+			state_.table[8][4] = piece(piece_type::ousho, false);
+			state_.table[8][5] = piece(piece_type::kinsho, false);
+			state_.table[8][6] = piece(piece_type::ginsho, false);
+			state_.table[8][7] = piece(piece_type::keima, false);
+			state_.table[8][8] = piece(piece_type::kyosha, false);
 
-			table_[6][0] = piece(piece_type::fuhyo, false);
-			table_[6][1] = piece(piece_type::fuhyo, false);
-			table_[6][2] = piece(piece_type::fuhyo, false);
-			table_[6][3] = piece(piece_type::fuhyo, false);
-			table_[6][4] = piece(piece_type::fuhyo, false);
-			table_[6][5] = piece(piece_type::fuhyo, false);
-			table_[6][6] = piece(piece_type::fuhyo, false);
-			table_[6][7] = piece(piece_type::fuhyo, false);
-			table_[6][8] = piece(piece_type::fuhyo, false);
-			table_[7][1] = piece(piece_type::kaku, false);
-			table_[7][7] = piece(piece_type::hisha, false);
-			table_[8][0] = piece(piece_type::kyosha, false);
-			table_[8][1] = piece(piece_type::keima, false);
-			table_[8][2] = piece(piece_type::ginsho, false);
-			table_[8][3] = piece(piece_type::kinsho, false);
-			table_[8][4] = piece(piece_type::ousho, false);
-			table_[8][5] = piece(piece_type::kinsho, false);
-			table_[8][6] = piece(piece_type::ginsho, false);
-			table_[8][7] = piece(piece_type::keima, false);
-			table_[8][8] = piece(piece_type::kyosha, false);
+			state_count_.clear();
+
+			++state_count_[state_];
 		}
 
-		const table_type& table() const
+		const game_state& state() const
 		{
-			return table_;
+			return state_;
 		}
 
-		const hand_type& hand1() const
+		action_result test_move(int org_row, int org_col, int new_row, int new_col) const
 		{
-			return hand1_;
+			game_state temp_state = state_;
+			return move_impl(temp_state, org_row, org_col, new_row, new_col, false);
 		}
 
-		const hand_type& hand2() const
+		action_result move(int org_row, int org_col, int new_row, int new_col, bool promote)
 		{
-			return hand2_;
+			game_state temp_state = state_;
+			action_result result = move_impl(temp_state, org_row, org_col, new_row, new_col, promote);
+
+			if (result == action_result::succeeded)
+			{
+				state_ = temp_state;
+				++state_count_[state_];
+				turn_ = !turn_;
+			}
+
+			return result;
 		}
 
-		bool move(int org_row, int org_col, int new_row, int new_col, bool promote)
+		action_result test_put(piece_type type, int row, int col) const
+		{
+			game_state temp_state = state_;
+			return put_impl(temp_state, type, row, col);
+		}
+
+		action_result put(piece_type type, int row, int col)
+		{
+			game_state temp_state = state_;
+			action_result result = put_impl(temp_state, type, row, col);
+
+			if (result == action_result::succeeded)
+			{
+				state_ = temp_state;
+				++state_count_[state_];
+				turn_ = !turn_;
+			}
+
+			return result;
+		}
+
+	private:
+
+		action_result move_impl(game_state& state, int org_row, int org_col, int new_row, int new_col, bool promote) const
 		{
 			BOOST_ASSERT(org_row >= 0 && org_row < 9);
 			BOOST_ASSERT(org_col >= 0 && org_col < 9);
 			BOOST_ASSERT(new_row >= 0 && new_row < 9);
 			BOOST_ASSERT(new_col >= 0 && new_col < 9);
 
-			piece& org_piece = table_[org_row][org_col];
-			piece& new_piece = table_[new_row][new_col];
+			piece& org_piece = state.table[org_row][org_col];
+			piece& new_piece = state.table[new_row][new_col];
 
 			if (org_piece.type() == piece_type::none)
-				return false;
+				return action_result::failed;
 
 			if (org_piece.side() != turn_)
-				return false;
+				return action_result::failed;
 
 			int dx = new_col - org_col;
 			int dy = new_row - org_row;
 			if (!is_piece_movable(org_piece, dx, dy))
-				return false;
+				return action_result::failed;
 
-			return false;
+			switch (org_piece.type())
+			{
+			case piece_type::kaku:
+			case piece_type::ryuma:
+			case piece_type::hisha:
+			case piece_type::ryuou:
+			case piece_type::kyosha:
+			{
+				int sign_dx = sign(dx);
+				int sign_dy = sign(dy);
+				int x = org_col + sign_dx;
+				int y = org_row + sign_dy;
+
+				while (x != new_col || y != new_row)
+				{
+					const piece& p = state.table[y][x];
+
+					if (p.type() != piece_type::none)
+						return action_result::failed;
+
+					x += sign_dx;
+					y += sign_dy;
+				}
+
+				break;
+			}
+			}
+
+			if (new_piece.type() != piece_type::none)
+			{
+				if (new_piece.side() == turn_)
+					return action_result::failed;
+
+				hand_type& hand = turn_ ? state.hand2 : state.hand1;
+				++hand[static_cast<std::size_t>(original(new_piece.type()))];
+			}
+
+			new_piece = org_piece;
+			org_piece = piece();
+
+			if (!promote)
+			{
+				switch (new_piece.type())
+				{
+				case piece_type::keima:
+					if ((!turn_ && new_row <= 1) || (turn_ && new_row >= 7))
+						promote = true;
+					break;
+				case piece_type::kyosha:
+				case piece_type::fuhyo:
+					if ((!turn_ && new_row == 0) || (turn_ && new_row == 8))
+						promote = true;
+					break;
+				}
+			}
+
+			if (promote && ((!turn_ && new_row <= 2) || (turn_ && new_row >= 6)))
+				new_piece = piece(promoted(new_piece.type()), new_piece.side());
+
+			auto count_it = state_count_.find(state);
+			if (count_it != state_count_.end() && count_it->second == 3)
+				return action_result::failed;
+
+			return action_result::succeeded;
 		}
 
-		bool put(piece_type type, int row, int col)
+		action_result put_impl(game_state& state, piece_type type, int row, int col) const
 		{
 			BOOST_ASSERT(type == original(type));
 			BOOST_ASSERT(row >= 0 && row < 9);
 			BOOST_ASSERT(col >= 0 && col < 9);
 
-			return false;
+			hand_type& hand = turn_ ? state.hand2 : state.hand1;
+			std::uint8_t& num = hand[static_cast<std::size_t>(type)];
+
+			if (num == 0)
+				return action_result::failed;
+
+			piece& new_piece = state.table[row][col];
+			if (new_piece.type() != piece_type::none)
+				return action_result::failed;
+
+			switch (type)
+			{
+			case piece_type::keima:
+				if ((!turn_ && row <= 1) || (turn_ && row >= 7))
+					return action_result::failed;
+				break;
+			case piece_type::kyosha:
+			case piece_type::fuhyo:
+				if ((!turn_ && row == 0) || (turn_ && row == 8))
+					return action_result::failed;
+				break;
+			}
+
+			new_piece = piece(type, turn_);
+
+			if (type == piece_type::fuhyo)
+			{
+				const piece& forward_piece = state.table[row + turn_ ? 1 : -1][col];
+				if(forward_piece == piece(piece_type::ousho, !turn_) && is_checkmate(state))
+					return action_result::failed;
+			}
+
+			auto count_it = state_count_.find(state);
+			if (count_it != state_count_.end() && count_it->second == 3)
+				return action_result::failed;
+
+			return action_result::succeeded;
 		}
 
-	private:
+		bool is_checkmate(const game_state& state) const
+		{
+			// TODO
+			return true;
+		}
 
-		table_type table_;
-
-		hand_type hand1_ = {};
-		hand_type hand2_ = {};
-
+		game_state state_;
 		bool turn_;
 
+		std::unordered_map<game_state, std::uint8_t> state_count_;
+
 	};
-
-	inline void print_hand(std::ostream& os, const game::hand_type& hand)
-	{
-		bool first = true;
-
-		for (std::size_t i = 0; i < static_cast<std::size_t>(piece_type::end); ++i)
-		{
-			std::uint32_t num = hand[i];
-			if (num != 0)
-			{
-				if (!first)
-					os << " ";
-
-				os << static_cast<piece_type>(i) << num;
-
-				first = false;
-			}
-		}
-	}
-
-	inline std::ostream& operator <<(std::ostream& os, game& g)
-	{
-		print_hand(os, g.hand1());
-		std::cout << "\n";
-
-		os << "„¡„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„Ÿ„Ÿ„¢\n";
-
-		for (int i = 0; i < 9; ++i)
-		{
-			if(i != 0)
-				os << "„¥„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„Ÿ„Ÿ„§\n";
-
-			os << "„ ";
-
-			for (auto& p : g.table()[i])
-				os << p << "„ ";
-
-			os << "\n";
-		}
-
-		os << "„¤„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„Ÿ„Ÿ„£\n";
-
-		print_hand(os, g.hand2());
-		std::cout << "\n";
-
-		return os;
-	}
 
 }

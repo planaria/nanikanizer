@@ -13,6 +13,15 @@
     <ClInclude Include="piece_type.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="util.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="game_state.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="action_result.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
