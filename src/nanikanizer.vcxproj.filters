@@ -179,5 +179,8 @@
     <ClInclude Include="..\include\nanikanizer\layer_base.hpp">
       <Filter>include\layer</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\bidirectional_linear_layer.hpp">
+      <Filter>include\layer\layers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
