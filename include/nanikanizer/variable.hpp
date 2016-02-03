@@ -30,11 +30,6 @@ namespace nnk
 		{
 		}
 
-		variable(scalar_type value)
-			: node_(std::make_shared<node_type>(value))
-		{
-		}
-
 		explicit variable(std::size_t size)
 			: node_(std::make_shared<node_type>(size))
 		{

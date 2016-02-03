@@ -27,11 +27,6 @@ namespace nnk
 			this->output() = value;
 		}
 
-		variable_expression_node(scalar_type value)
-		{
-			this->output() = { value };
-		}
-
 		explicit variable_expression_node(std::size_t size)
 		{
 			this->output() = tensor_type(size);

@@ -35,11 +35,6 @@ namespace nnk
 		{
 		}
 
-		expression(scalar_type value)
-			: root_(std::make_shared<constant_expression_node<scalar_type>>(value))
-		{
-		}
-
 		const node_pointer& root() const
 		{
 			return root_;
