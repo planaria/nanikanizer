@@ -233,7 +233,18 @@ namespace shogi
 				break;
 			}
 
+			if (type == piece_type::fuhyo)
+			{
+				for (std::size_t i = 0; i < 9; ++i)
+				{
+					const piece& p = state.table[i][col];
+					if (p == piece(piece_type::fuhyo, turn_))
+						return action_result::failed;
+				}
+			}
+
 			new_piece = piece(type, turn_);
+			--num;
 
 			if (type == piece_type::fuhyo)
 			{
