@@ -26,9 +26,9 @@ int main(int /*argc*/, char* /*argv*/[])
 			16.0,
 		};
 
-		nnk::variable<double> a = 0.0;
-		nnk::variable<double> b = 0.0;
-		nnk::variable<double> c = 0.0;
+		nnk::variable<double> a = { 0.0 };
+		nnk::variable<double> b = { 0.0 };
+		nnk::variable<double> c = { 0.0 };
 
 		auto fx = a.expr() * x * x + b.expr() * x + c.expr();
 		auto loss = nnk::norm_sq(fx - y);

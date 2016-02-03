@@ -86,7 +86,7 @@ int main(int /*argc*/, char* /*argv*/[])
 			nnk::sum(nnk::abs(l6.weight().expr())) +
 			nnk::sum(nnk::abs(l7.weight().expr()));
 
-		auto loss = nnk::cross_entropy(x - y.expr()) + reg * nnk::expression<float>(0.1f);
+		auto loss = nnk::cross_entropy(x - y.expr()) + reg * nnk::expression<float>({ 0.1f });
 
 		auto get_answer = [&](std::size_t index)
 		{
