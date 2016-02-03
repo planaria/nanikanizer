@@ -171,6 +171,9 @@ namespace shogi
 				if (new_piece.side() == turn_)
 					return action_result::failed;
 
+				if (new_piece.type() == piece_type::ousho)
+					return action_result::win;
+
 				hand_type& hand = turn_ ? state.hand2 : state.hand1;
 				++hand[static_cast<std::size_t>(original(new_piece.type()))];
 			}
