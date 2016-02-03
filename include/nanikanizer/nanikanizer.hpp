@@ -42,6 +42,7 @@
 #include "depth_concat_expression.hpp"
 
 #include "linear_layer.hpp"
+#include "bidirectional_linear_layer.hpp"
 
 #include "sgd_optimizer.hpp"
 #include "adagrad_optimizer.hpp"
