@@ -6,6 +6,7 @@ namespace shogi
 {
 
 	class piece
+		: boost::equality_comparable<piece>
 	{
 	public:
 
@@ -31,6 +32,7 @@ namespace shogi
 
 		bool side() const
 		{
+			BOOST_ASSERT(type() != piece_type::none);
 			return data_ < 0;
 		}
 

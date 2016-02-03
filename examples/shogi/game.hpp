@@ -84,7 +84,7 @@ namespace shogi
 			game_state temp_state = state_;
 			action_result result = move_impl(temp_state, org_row, org_col, new_row, new_col, promote);
 
-			if (result == action_result::succeeded)
+			if (result != action_result::failed)
 			{
 				state_ = temp_state;
 				++state_count_[state_];
@@ -105,7 +105,7 @@ namespace shogi
 			game_state temp_state = state_;
 			action_result result = put_impl(temp_state, type, row, col);
 
-			if (result == action_result::succeeded)
+			if (result != action_result::failed)
 			{
 				state_ = temp_state;
 				++state_count_[state_];
@@ -166,13 +166,14 @@ namespace shogi
 			}
 			}
 
+			piece_type got_piece_type = piece_type::none;
+
 			if (new_piece.type() != piece_type::none)
 			{
 				if (new_piece.side() == turn_)
 					return action_result::failed;
 
-				if (new_piece.type() == piece_type::ousho)
-					return action_result::win;
+				got_piece_type = new_piece.type();
 
 				hand_type& hand = turn_ ? state.hand2 : state.hand1;
 				++hand[static_cast<std::size_t>(original(new_piece.type()))];
@@ -203,6 +204,9 @@ namespace shogi
 			auto count_it = state_count_.find(state);
 			if (count_it != state_count_.end() && count_it->second == 3)
 				return action_result::failed;
+
+			if (got_piece_type == piece_type::ousho)
+				return action_result::win;
 
 			return action_result::succeeded;
 		}
