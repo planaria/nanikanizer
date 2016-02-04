@@ -119,10 +119,9 @@ namespace shogi
 
 		action_result move_impl(game_state& state, int org_row, int org_col, int new_row, int new_col, bool promote) const
 		{
-			BOOST_ASSERT(org_row >= 0 && org_row < 9);
-			BOOST_ASSERT(org_col >= 0 && org_col < 9);
-			BOOST_ASSERT(new_row >= 0 && new_row < 9);
-			BOOST_ASSERT(new_col >= 0 && new_col < 9);
+			if (org_row < 0 || org_row >= 9 || org_col < 0 || org_col >= 9 ||
+				new_row < 0 || new_row >= 9 || new_col < 0 || new_col >= 9)
+				return action_result::failed;
 
 			piece& org_piece = state.table[org_row][org_col];
 			piece& new_piece = state.table[new_row][new_col];
@@ -214,8 +213,9 @@ namespace shogi
 		action_result put_impl(game_state& state, piece_type type, int row, int col) const
 		{
 			BOOST_ASSERT(type == original(type));
-			BOOST_ASSERT(row >= 0 && row < 9);
-			BOOST_ASSERT(col >= 0 && col < 9);
+
+			if (row < 0 || row >= 9 || col < 0 || col >= 9)
+				return action_result::failed;
 
 			hand_type& hand = turn_ ? state.hand2 : state.hand1;
 			std::uint8_t& num = hand[static_cast<std::size_t>(type)];
