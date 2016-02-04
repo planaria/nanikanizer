@@ -155,7 +155,6 @@ namespace shogi
 
 }
 
-
 namespace std
 {
 
