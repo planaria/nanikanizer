@@ -22,6 +22,9 @@
     <ClInclude Include="action_result.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="enumerate_next.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

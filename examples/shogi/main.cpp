@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <nanikanizer/nanikanizer.hpp>
 #include "game.hpp"
+#include "enumerate_next.hpp"
 
 namespace shogi
 {

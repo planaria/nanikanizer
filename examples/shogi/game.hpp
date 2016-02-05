@@ -73,6 +73,11 @@ namespace shogi
 			return state_;
 		}
 
+		bool turn() const
+		{
+			return turn_;
+		}
+
 		action_result test_move(int org_row, int org_col, int new_row, int new_col) const
 		{
 			game_state temp_state = state_;
