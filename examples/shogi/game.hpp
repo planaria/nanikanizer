@@ -2,7 +2,6 @@
 #include <array>
 #include "piece.hpp"
 #include "game_state.hpp"
-#include "action_result.hpp"
 #include "util.hpp"
 
 namespace shogi
@@ -78,18 +77,18 @@ namespace shogi
 			return turn_;
 		}
 
-		action_result test_move(int org_row, int org_col, int new_row, int new_col) const
+		bool test_move(int org_row, int org_col, int new_row, int new_col) const
 		{
 			game_state temp_state = state_;
 			return move_impl(temp_state, org_row, org_col, new_row, new_col, false);
 		}
 
-		action_result move(int org_row, int org_col, int new_row, int new_col, bool promote)
+		bool move(int org_row, int org_col, int new_row, int new_col, bool promote)
 		{
 			game_state temp_state = state_;
-			action_result result = move_impl(temp_state, org_row, org_col, new_row, new_col, promote);
+			bool result = move_impl(temp_state, org_row, org_col, new_row, new_col, promote);
 
-			if (result != action_result::failed)
+			if (result)
 			{
 				state_ = temp_state;
 				++state_count_[state_];
@@ -99,18 +98,18 @@ namespace shogi
 			return result;
 		}
 
-		action_result test_put(piece_type type, int row, int col) const
+		bool test_put(piece_type type, int row, int col) const
 		{
 			game_state temp_state = state_;
 			return put_impl(temp_state, type, row, col);
 		}
 
-		action_result put(piece_type type, int row, int col)
+		bool put(piece_type type, int row, int col)
 		{
 			game_state temp_state = state_;
-			action_result result = put_impl(temp_state, type, row, col);
+			bool result = put_impl(temp_state, type, row, col);
 
-			if (result != action_result::failed)
+			if (result)
 			{
 				state_ = temp_state;
 				++state_count_[state_];
@@ -122,25 +121,25 @@ namespace shogi
 
 	private:
 
-		action_result move_impl(game_state& state, int org_row, int org_col, int new_row, int new_col, bool promote) const
+		bool move_impl(game_state& state, int org_row, int org_col, int new_row, int new_col, bool promote) const
 		{
 			if (org_row < 0 || org_row >= 9 || org_col < 0 || org_col >= 9 ||
 				new_row < 0 || new_row >= 9 || new_col < 0 || new_col >= 9)
-				return action_result::failed;
+				return false;
 
 			piece& org_piece = state.table[org_row][org_col];
 			piece& new_piece = state.table[new_row][new_col];
 
 			if (org_piece.type() == piece_type::none)
-				return action_result::failed;
+				return false;
 
 			if (org_piece.side() != turn_)
-				return action_result::failed;
+				return false;
 
 			int dx = new_col - org_col;
 			int dy = new_row - org_row;
 			if (!is_piece_movable(org_piece, dx, dy))
-				return action_result::failed;
+				return false;
 
 			switch (org_piece.type())
 			{
@@ -160,7 +159,7 @@ namespace shogi
 					const piece& p = state.table[y][x];
 
 					if (p.type() != piece_type::none)
-						return action_result::failed;
+						return false;
 
 					x += sign_dx;
 					y += sign_dy;
@@ -170,14 +169,10 @@ namespace shogi
 			}
 			}
 
-			piece_type got_piece_type = piece_type::none;
-
 			if (new_piece.type() != piece_type::none)
 			{
 				if (new_piece.side() == turn_)
-					return action_result::failed;
-
-				got_piece_type = new_piece.type();
+					return false;
 
 				hand_type& hand = turn_ ? state.hand2 : state.hand1;
 				++hand[static_cast<std::size_t>(original(new_piece.type()))];
@@ -207,41 +202,38 @@ namespace shogi
 
 			auto count_it = state_count_.find(state);
 			if (count_it != state_count_.end() && count_it->second == 3)
-				return action_result::failed;
+				return false;
 
-			if (got_piece_type == piece_type::ousho)
-				return action_result::win;
-
-			return action_result::succeeded;
+			return true;
 		}
 
-		action_result put_impl(game_state& state, piece_type type, int row, int col) const
+		bool put_impl(game_state& state, piece_type type, int row, int col) const
 		{
 			BOOST_ASSERT(type == original(type));
 
 			if (row < 0 || row >= 9 || col < 0 || col >= 9)
-				return action_result::failed;
+				return false;
 
 			hand_type& hand = turn_ ? state.hand2 : state.hand1;
 			std::uint8_t& num = hand[static_cast<std::size_t>(type)];
 
 			if (num == 0)
-				return action_result::failed;
+				return false;
 
 			piece& new_piece = state.table[row][col];
 			if (new_piece.type() != piece_type::none)
-				return action_result::failed;
+				return false;
 
 			switch (type)
 			{
 			case piece_type::keima:
 				if ((!turn_ && row <= 1) || (turn_ && row >= 7))
-					return action_result::failed;
+					return false;
 				break;
 			case piece_type::kyosha:
 			case piece_type::fuhyo:
 				if ((!turn_ && row == 0) || (turn_ && row == 8))
-					return action_result::failed;
+					return false;
 				break;
 			}
 
@@ -251,7 +243,7 @@ namespace shogi
 				{
 					const piece& p = state.table[i][col];
 					if (p == piece(piece_type::fuhyo, turn_))
-						return action_result::failed;
+						return false;
 				}
 			}
 
@@ -262,14 +254,14 @@ namespace shogi
 			{
 				const piece& forward_piece = state.table[row + (turn_ ? 1 : -1)][col];
 				if(forward_piece == piece(piece_type::ousho, !turn_) && is_checkmate(state))
-					return action_result::failed;
+					return false;
 			}
 
 			auto count_it = state_count_.find(state);
 			if (count_it != state_count_.end() && count_it->second == 3)
-				return action_result::failed;
+				return false;
 
-			return action_result::succeeded;
+			return true;
 		}
 
 		bool is_checkmate(const game_state& state) const

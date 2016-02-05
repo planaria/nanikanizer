@@ -18,6 +18,21 @@ namespace shogi
 				std::fill(row.begin(), row.end(), piece());
 		}
 
+		bool is_win() const
+		{
+			return hand1[static_cast<std::size_t>(piece_type::ousho)] != 0;
+		}
+
+		bool is_lose() const
+		{
+			return hand2[static_cast<std::size_t>(piece_type::ousho)] != 0;
+		}
+
+		bool is_finished() const
+		{
+			return is_win() || is_lose();
+		}
+
 		table_type table;
 		hand_type hand1 = {};
 		hand_type hand2 = {};

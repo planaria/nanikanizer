@@ -18,7 +18,7 @@ namespace shogi
 
 				auto try_move = [&](int new_row, int new_col)
 				{
-					if (g.test_move(row, col, new_row, new_col) == action_result::failed)
+					if (!g.test_move(row, col, new_row, new_col))
 						return false;
 
 					game next = g;
@@ -167,7 +167,7 @@ namespace shogi
 					if (p.type() != piece_type::none)
 						continue;
 
-					if (g.test_put(type, row, col) == action_result::failed)
+					if (!g.test_put(type, row, col))
 						continue;
 
 					game next = g;

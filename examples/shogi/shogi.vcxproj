@@ -156,7 +156,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="action_result.hpp" />
     <ClInclude Include="enumerate_next.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="game_state.hpp" />

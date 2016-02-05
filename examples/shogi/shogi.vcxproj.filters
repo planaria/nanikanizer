@@ -19,9 +19,6 @@
     <ClInclude Include="game_state.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="action_result.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="enumerate_next.hpp">
       <Filter>src</Filter>
     </ClInclude>
