@@ -14,8 +14,58 @@ namespace shogi
 
 		game_state()
 		{
+			reset();
+		}
+
+		void reset()
+		{
 			for (auto& row : table)
 				std::fill(row.begin(), row.end(), piece());
+
+			table[0][0] = piece(piece_type::kyosha, true);
+			table[0][1] = piece(piece_type::keima, true);
+			table[0][2] = piece(piece_type::ginsho, true);
+			table[0][3] = piece(piece_type::kinsho, true);
+			table[0][4] = piece(piece_type::ousho, true);
+			table[0][5] = piece(piece_type::kinsho, true);
+			table[0][6] = piece(piece_type::ginsho, true);
+			table[0][7] = piece(piece_type::keima, true);
+			table[0][8] = piece(piece_type::kyosha, true);
+			table[1][1] = piece(piece_type::hisha, true);
+			table[1][7] = piece(piece_type::kaku, true);
+			table[2][0] = piece(piece_type::fuhyo, true);
+			table[2][1] = piece(piece_type::fuhyo, true);
+			table[2][2] = piece(piece_type::fuhyo, true);
+			table[2][3] = piece(piece_type::fuhyo, true);
+			table[2][4] = piece(piece_type::fuhyo, true);
+			table[2][5] = piece(piece_type::fuhyo, true);
+			table[2][6] = piece(piece_type::fuhyo, true);
+			table[2][7] = piece(piece_type::fuhyo, true);
+			table[2][8] = piece(piece_type::fuhyo, true);
+
+			table[6][0] = piece(piece_type::fuhyo, false);
+			table[6][1] = piece(piece_type::fuhyo, false);
+			table[6][2] = piece(piece_type::fuhyo, false);
+			table[6][3] = piece(piece_type::fuhyo, false);
+			table[6][4] = piece(piece_type::fuhyo, false);
+			table[6][5] = piece(piece_type::fuhyo, false);
+			table[6][6] = piece(piece_type::fuhyo, false);
+			table[6][7] = piece(piece_type::fuhyo, false);
+			table[6][8] = piece(piece_type::fuhyo, false);
+			table[7][1] = piece(piece_type::kaku, false);
+			table[7][7] = piece(piece_type::hisha, false);
+			table[8][0] = piece(piece_type::kyosha, false);
+			table[8][1] = piece(piece_type::keima, false);
+			table[8][2] = piece(piece_type::ginsho, false);
+			table[8][3] = piece(piece_type::kinsho, false);
+			table[8][4] = piece(piece_type::ousho, false);
+			table[8][5] = piece(piece_type::kinsho, false);
+			table[8][6] = piece(piece_type::ginsho, false);
+			table[8][7] = piece(piece_type::keima, false);
+			table[8][8] = piece(piece_type::kyosha, false);
+
+			std::fill(hand1.begin(), hand1.end(), 0);
+			std::fill(hand2.begin(), hand2.end(), 0);
 		}
 
 		bool is_win() const

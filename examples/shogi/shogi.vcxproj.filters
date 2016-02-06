@@ -19,7 +19,10 @@
     <ClInclude Include="game_state.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="enumerate_next.hpp">
+    <ClInclude Include="action.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="enumerate_action.hpp">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include <array>
 #include "piece.hpp"
 #include "game_state.hpp"
+#include "action.hpp"
 #include "util.hpp"
 
 namespace shogi
@@ -18,52 +19,9 @@ namespace shogi
 
 		void reset(bool initial_turn = false)
 		{
+			state_.reset();
 			turn_ = initial_turn;
-
-			state_.table[0][0] = piece(piece_type::kyosha, true);
-			state_.table[0][1] = piece(piece_type::keima, true);
-			state_.table[0][2] = piece(piece_type::ginsho, true);
-			state_.table[0][3] = piece(piece_type::kinsho, true);
-			state_.table[0][4] = piece(piece_type::ousho, true);
-			state_.table[0][5] = piece(piece_type::kinsho, true);
-			state_.table[0][6] = piece(piece_type::ginsho, true);
-			state_.table[0][7] = piece(piece_type::keima, true);
-			state_.table[0][8] = piece(piece_type::kyosha, true);
-			state_.table[1][1] = piece(piece_type::hisha, true);
-			state_.table[1][7] = piece(piece_type::kaku, true);
-			state_.table[2][0] = piece(piece_type::fuhyo, true);
-			state_.table[2][1] = piece(piece_type::fuhyo, true);
-			state_.table[2][2] = piece(piece_type::fuhyo, true);
-			state_.table[2][3] = piece(piece_type::fuhyo, true);
-			state_.table[2][4] = piece(piece_type::fuhyo, true);
-			state_.table[2][5] = piece(piece_type::fuhyo, true);
-			state_.table[2][6] = piece(piece_type::fuhyo, true);
-			state_.table[2][7] = piece(piece_type::fuhyo, true);
-			state_.table[2][8] = piece(piece_type::fuhyo, true);
-
-			state_.table[6][0] = piece(piece_type::fuhyo, false);
-			state_.table[6][1] = piece(piece_type::fuhyo, false);
-			state_.table[6][2] = piece(piece_type::fuhyo, false);
-			state_.table[6][3] = piece(piece_type::fuhyo, false);
-			state_.table[6][4] = piece(piece_type::fuhyo, false);
-			state_.table[6][5] = piece(piece_type::fuhyo, false);
-			state_.table[6][6] = piece(piece_type::fuhyo, false);
-			state_.table[6][7] = piece(piece_type::fuhyo, false);
-			state_.table[6][8] = piece(piece_type::fuhyo, false);
-			state_.table[7][1] = piece(piece_type::kaku, false);
-			state_.table[7][7] = piece(piece_type::hisha, false);
-			state_.table[8][0] = piece(piece_type::kyosha, false);
-			state_.table[8][1] = piece(piece_type::keima, false);
-			state_.table[8][2] = piece(piece_type::ginsho, false);
-			state_.table[8][3] = piece(piece_type::kinsho, false);
-			state_.table[8][4] = piece(piece_type::ousho, false);
-			state_.table[8][5] = piece(piece_type::kinsho, false);
-			state_.table[8][6] = piece(piece_type::ginsho, false);
-			state_.table[8][7] = piece(piece_type::keima, false);
-			state_.table[8][8] = piece(piece_type::kyosha, false);
-
 			state_count_.clear();
-
 			++state_count_[state_];
 		}
 
@@ -117,6 +75,22 @@ namespace shogi
 			}
 
 			return result;
+		}
+
+		bool apply(const action& act)
+		{
+			if (act.type() == typeid(move_action))
+			{
+				const move_action& a = boost::get<move_action>(act);
+				return move(a.org_row, a.org_col, a.new_row, a.new_col, a.promote);
+			}
+			else if (act.type() == typeid(put_action))
+			{
+				const put_action& a = boost::get<put_action>(act);
+				return put(a.type, a.row, a.col);
+			}
+
+			return false;
 		}
 
 	private:

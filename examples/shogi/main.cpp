@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <nanikanizer/nanikanizer.hpp>
 #include "game.hpp"
-#include "enumerate_next.hpp"
+#include "enumerate_action.hpp"
 
 namespace shogi
 {
@@ -53,7 +53,7 @@ namespace shogi
 		BOOST_ASSERT(data_index == num_piece);
 	}
 
-	void apply(float* data, const game_state& state)
+	void apply(float* data, const game_state& state, bool side)
 	{
 		std::fill_n(data, input_size, 0.0f);
 
@@ -63,9 +63,9 @@ namespace shogi
 		{
 			for (std::size_t col = 0; col < 9; ++col)
 			{
-				const piece& p = state.table[row][col];
+				const piece& p = state.table[side ? 8 - row : row][side ? 8 - col : col];
 				std::size_t index = static_cast<std::size_t>(p.type());
-				if (p != piece() && p.side())
+				if (p != piece() && p.side() != side)
 					index += 14;
 
 				data[data_index + index] = 1.0f;
@@ -74,14 +74,58 @@ namespace shogi
 			}
 		}
 
-		apply(data + data_index, state.hand1);
+		apply(data + data_index, side ? state.hand2 : state.hand1);
 		data_index += num_piece;
 
-		apply(data + data_index, state.hand2);
+		apply(data + data_index, side ? state.hand1 : state.hand2);
 		data_index += num_piece;
 
 		BOOST_ASSERT(data_index == input_size);
 	}
+
+	class random_state_generator
+	{
+	public:
+
+		void generate(float* data)
+		{
+			//std::cout << game_.state() << std::endl;
+
+			apply(data, game_.state(), game_.turn());
+
+			if (game_.state().is_finished())
+			{
+				game_.reset();
+				return;
+			}
+
+			action_buffer_.clear();
+			enumerate_action(game_, std::back_inserter(action_buffer_));
+
+			std::uniform_int<std::size_t> distribution(0, action_buffer_.size() - 1);
+			std::size_t index = distribution(generator_);
+			const action& act = action_buffer_[index];
+
+			game_.apply(act);
+		}
+
+		void generate(float* data, std::size_t size)
+		{
+			for (std::size_t i = 0; i < size; ++i)
+			{
+				generate(data);
+				data += input_size;
+			}
+		}
+
+	private:
+
+		std::mt19937 generator_;
+
+		game game_;
+		std::vector<action> action_buffer_;
+
+	};
 
 }
 

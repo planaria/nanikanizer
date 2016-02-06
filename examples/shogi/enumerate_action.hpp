@@ -5,7 +5,7 @@ namespace shogi
 {
 
 	template <class Iterator>
-	void enumerate_next(const game& g, Iterator it)
+	void enumerate_action(const game& g, Iterator it)
 	{
 		for (int row = 0; row < 9; ++row)
 		{
@@ -21,10 +21,8 @@ namespace shogi
 					if (!g.test_move(row, col, new_row, new_col))
 						return false;
 
-					game next = g;
-					next.move(row, col, new_row, new_col, true);
-
-					*it++ = std::move(next);
+					*it++ = move_action{ row, col, new_row, new_col, false };
+					*it++ = move_action{ row, col, new_row, new_col, true };
 					return true;
 				};
 
@@ -170,10 +168,7 @@ namespace shogi
 					if (!g.test_put(type, row, col))
 						continue;
 
-					game next = g;
-					next.put(type, row, col);
-
-					*it++ = std::move(next);
+					*it++ = put_action{ type, row, col };;
 				}
 			}
 		}
