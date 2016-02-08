@@ -25,6 +25,12 @@
     <ClInclude Include="enumerate_action.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="apply_state.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="random_state_generator.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

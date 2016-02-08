@@ -159,11 +159,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="action.hpp" />
+    <ClInclude Include="apply_state.hpp" />
     <ClInclude Include="enumerate_action.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="game_state.hpp" />
     <ClInclude Include="piece.hpp" />
     <ClInclude Include="piece_type.hpp" />
+    <ClInclude Include="random_state_generator.hpp" />
     <ClInclude Include="util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,131 +3,8 @@
 #include <nanikanizer/nanikanizer.hpp>
 #include "game.hpp"
 #include "enumerate_action.hpp"
-
-namespace shogi
-{
-
-	static const std::size_t num_ousho = 2;
-	static const std::size_t num_kinsho = 4;
-	static const std::size_t num_ginsho = 4;
-	static const std::size_t num_keima = 4;
-	static const std::size_t num_kyosha = 4;
-	static const std::size_t num_kaku = 2;
-	static const std::size_t num_hisha = 2;
-	static const std::size_t num_fusho = 18;
-
-	static const std::size_t num_piece =
-		num_ousho + num_kinsho + num_ginsho + num_keima +
-		num_kyosha + num_kaku + num_hisha + num_fusho;
-
-	static const std::size_t input_size = 9 * 9 * 29 + num_piece * 2;
-
-	void apply(float* data, const hand_type& hand)
-	{
-		std::size_t data_index = 0;
-
-		for (std::size_t i = 0; i < num_ousho; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::ousho)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_kinsho; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::kinsho)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_ginsho; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::ginsho)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_keima; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::keima)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_kyosha; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::kyosha)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_kaku; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::kaku)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_hisha; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::hisha)] > i ? 1.0f : 0.0f;
-
-		for (std::size_t i = 0; i < num_fusho; ++i)
-			data[data_index++] = hand[static_cast<std::size_t>(piece_type::fuhyo)] > i ? 1.0f : 0.0f;
-
-		BOOST_ASSERT(data_index == num_piece);
-	}
-
-	void apply(float* data, const game_state& state, bool side)
-	{
-		std::fill_n(data, input_size, 0.0f);
-
-		std::size_t data_index = 0;
-
-		for (std::size_t row = 0; row < 9; ++row)
-		{
-			for (std::size_t col = 0; col < 9; ++col)
-			{
-				const piece& p = state.table[side ? 8 - row : row][side ? 8 - col : col];
-				std::size_t index = static_cast<std::size_t>(p.type());
-				if (p != piece() && p.side() != side)
-					index += 14;
-
-				data[data_index + index] = 1.0f;
-
-				data_index += 29;
-			}
-		}
-
-		apply(data + data_index, side ? state.hand2 : state.hand1);
-		data_index += num_piece;
-
-		apply(data + data_index, side ? state.hand1 : state.hand2);
-		data_index += num_piece;
-
-		BOOST_ASSERT(data_index == input_size);
-	}
-
-	class random_state_generator
-	{
-	public:
-
-		void generate(float* data)
-		{
-			//std::cout << game_.state() << std::endl;
-
-			apply(data, game_.state(), game_.turn());
-
-			if (game_.state().is_finished())
-			{
-				game_.reset();
-				return;
-			}
-
-			action_buffer_.clear();
-			enumerate_action(game_, std::back_inserter(action_buffer_));
-
-			std::uniform_int<std::size_t> distribution(0, action_buffer_.size() - 1);
-			std::size_t index = distribution(generator_);
-			const action& act = action_buffer_[index];
-
-			game_.apply(act);
-		}
-
-		void generate(float* data, std::size_t size)
-		{
-			for (std::size_t i = 0; i < size; ++i)
-			{
-				generate(data);
-				data += input_size;
-			}
-		}
-
-	private:
-
-		std::mt19937 generator_;
-
-		game game_;
-		std::vector<action> action_buffer_;
-
-	};
-
-}
+#include "apply_state.hpp"
+#include "random_state_generator.hpp"
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -135,15 +12,41 @@ int main(int /*argc*/, char* /*argv*/[])
 
 	try
 	{
-		game g;
+		random_state_generator gen;
 
-		nnk::variable<float> input(input_size);
+		nnk::variable<float> input;
+		nnk::linear_layer<float> l1(input_size, 1500);
 
-		nnk::bidirectional_linear_layer<float> l1(input_size, 1000);
+		auto x1 = input.expr();
+		auto x2 = nnk::sigmoid(l1.forward(x1));
 
-		nnk::expression<float> x = input.expr();
+		{
+			nnk::linear_layer<float> l1_backward(1500, input_size);
 
-		apply(&input.value()[0], g.state());
+			auto x1_ = nnk::sigmoid(l1_backward.forward(x2));
+			auto loss = nnk::cross_entropy(x1_ - x1);
+
+			nnk::adam_optimizer optimizer;
+			optimizer.add_parameter(l1);
+			optimizer.add_parameter(l1_backward);
+
+			nnk::evaluator<float> ev(loss);
+
+			std::size_t batch_size = 100;
+			input.value().resize(input_size * batch_size);
+
+			while (true)
+			{
+				optimizer.zero_grads();
+
+				gen.generate(&input.value()[0], batch_size);
+
+				std::cout << ev.forward()[0] << std::endl;
+				ev.backward();
+
+				optimizer.update();
+			}
+		}
 	}
 	catch (std::exception& e)
 	{
