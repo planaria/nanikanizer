@@ -25,6 +25,8 @@ int main(int /*argc*/, char* /*argv*/[])
 			std::size_t repeat,
 			const fs::path& cache)
 		{
+			fs::ofstream log(fs::change_extension(cache, ".log"));
+
 			if (fs::exists(cache))
 			{
 				fs::ifstream is(cache, std::ios_base::binary);
@@ -52,7 +54,7 @@ int main(int /*argc*/, char* /*argv*/[])
 
 					gen.generate(&input.value()[0], batch_size);
 
-					std::cout << i << "," << ev.forward()[0] << std::endl;
+					log << i << "," << ev.forward()[0] << std::endl;
 					ev.backward();
 
 					optimizer.update();
@@ -77,11 +79,11 @@ int main(int /*argc*/, char* /*argv*/[])
 		auto x5 = nnk::sigmoid(l4.forward(x4));
 		auto x6 = nnk::sigmoid(l5.forward(x5));
 
-		pretrain(l1, x1, x2, 100, 10000, "cache_layer1.nan");
-		pretrain(l2, x2, x3, 100, 10000, "cache_layer2.nan");
-		pretrain(l3, x3, x4, 100, 10000, "cache_layer3.nan");
-		pretrain(l4, x4, x5, 100, 10000, "cache_layer4.nan");
-		pretrain(l5, x5, x6, 100, 10000, "cache_layer5.nan");
+		pretrain(l1, x1, x2, 100, 10000, "layer1.nan");
+		pretrain(l2, x2, x3, 100, 10000, "layer2.nan");
+		pretrain(l3, x3, x4, 100, 10000, "layer3.nan");
+		pretrain(l4, x4, x5, 100, 10000, "layer4.nan");
+		pretrain(l5, x5, x6, 100, 10000, "layer5.nan");
 	}
 	catch (std::exception& e)
 	{
