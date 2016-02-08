@@ -1,6 +1,8 @@
 #pragma once
 #include "expression.hpp"
 #include "variable_expression.hpp"
+#include "binary_writer.hpp"
+#include "binary_reader.hpp"
 
 namespace nnk
 {
@@ -35,11 +37,6 @@ namespace nnk
 		{
 		}
 
-		const node_pointer& node() const
-		{
-			return node_;
-		}
-
 		const tensor_type& value() const
 		{
 			return node_->output();
@@ -50,9 +47,34 @@ namespace nnk
 			return node_->output();
 		}
 
+		const tensor_type& grad() const
+		{
+			return node_->output_grad();
+		}
+
+		tensor_type& grad()
+		{
+			return node_->output_grad();
+		}
+
+		void zero_grads()
+		{
+			node_->zero_grads();
+		}
+
 		expression<scalar_type> expr() const
 		{
 			return expression<scalar_type>(node_);
+		}
+
+		void save(binary_writer& writer) const
+		{
+			writer.write(value());
+		}
+
+		void load(binary_reader& reader)
+		{
+			reader.read(value());
 		}
 
 	private:

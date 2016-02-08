@@ -33,10 +33,36 @@ namespace nnk
 			bias_.value() = tensor_type(output_dimension);
 		}
 
+		virtual void save(binary_writer& writer) const override
+		{
+			writer.write(input_dimension_);
+			writer.write(output_dimension_);
+			weight_.save(writer);
+			bias_.save(writer);
+		}
+
+		virtual void load(binary_reader& reader) override
+		{
+			reader.read(input_dimension_);
+			reader.read(output_dimension_);
+			weight_.load(reader);
+			bias_.load(reader);
+		}
+
 		virtual void enumerate_parameters(optimizer_base& optimizer) override
 		{
 			optimizer.add_parameter(weight_);
 			optimizer.add_parameter(bias_);
+		}
+
+		std::size_t input_dimension() const
+		{
+			return input_dimension_;
+		}
+
+		std::size_t output_dimension() const
+		{
+			return output_dimension_;
 		}
 
 		variable<scalar_type>& weight()

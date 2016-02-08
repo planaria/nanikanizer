@@ -30,21 +30,21 @@ TEST_CASE("matrix_product")
 
 	ev.backward({ 1.0, 1.0, 1.0, 1.0 });
 
-	REQUIRE(x1.node()->output_grad().size() == 6);
-	CHECK(x1.node()->output_grad()[0] == Approx(3.0));
-	CHECK(x1.node()->output_grad()[1] == Approx(7.0));
-	CHECK(x1.node()->output_grad()[2] == Approx(11.0));
-	CHECK(x1.node()->output_grad()[3] == Approx(3.0));
-	CHECK(x1.node()->output_grad()[4] == Approx(7.0));
-	CHECK(x1.node()->output_grad()[5] == Approx(11.0));
+	REQUIRE(x1.grad().size() == 6);
+	CHECK(x1.grad()[0] == Approx(3.0));
+	CHECK(x1.grad()[1] == Approx(7.0));
+	CHECK(x1.grad()[2] == Approx(11.0));
+	CHECK(x1.grad()[3] == Approx(3.0));
+	CHECK(x1.grad()[4] == Approx(7.0));
+	CHECK(x1.grad()[5] == Approx(11.0));
 
-	REQUIRE(x2.node()->output_grad().size() == 6);
-	CHECK(x2.node()->output_grad()[0] == Approx(5.0));
-	CHECK(x2.node()->output_grad()[1] == Approx(5.0));
-	CHECK(x2.node()->output_grad()[2] == Approx(7.0));
-	CHECK(x2.node()->output_grad()[3] == Approx(7.0));
-	CHECK(x2.node()->output_grad()[4] == Approx(9.0));
-	CHECK(x2.node()->output_grad()[5] == Approx(9.0));
+	REQUIRE(x2.grad().size() == 6);
+	CHECK(x2.grad()[0] == Approx(5.0));
+	CHECK(x2.grad()[1] == Approx(5.0));
+	CHECK(x2.grad()[2] == Approx(7.0));
+	CHECK(x2.grad()[3] == Approx(7.0));
+	CHECK(x2.grad()[4] == Approx(9.0));
+	CHECK(x2.grad()[5] == Approx(9.0));
 }
 
 TEST_CASE("matrix_transpose")
@@ -71,11 +71,11 @@ TEST_CASE("matrix_transpose")
 
 	ev.backward({ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 });
 
-	REQUIRE(x.node()->output_grad().size() == 6);
-	CHECK(x.node()->output_grad()[0] == Approx(1.0));
-	CHECK(x.node()->output_grad()[1] == Approx(1.0));
-	CHECK(x.node()->output_grad()[2] == Approx(1.0));
-	CHECK(x.node()->output_grad()[3] == Approx(1.0));
-	CHECK(x.node()->output_grad()[4] == Approx(1.0));
-	CHECK(x.node()->output_grad()[5] == Approx(1.0));
+	REQUIRE(x.grad().size() == 6);
+	CHECK(x.grad()[0] == Approx(1.0));
+	CHECK(x.grad()[1] == Approx(1.0));
+	CHECK(x.grad()[2] == Approx(1.0));
+	CHECK(x.grad()[3] == Approx(1.0));
+	CHECK(x.grad()[4] == Approx(1.0));
+	CHECK(x.grad()[5] == Approx(1.0));
 }

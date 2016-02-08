@@ -12,7 +12,7 @@ namespace nnk
 
 		typedef T scalar_type;
 		typedef std::valarray<scalar_type> tensor_type;
-		typedef variable_expression_node<scalar_type> variable_type;
+		typedef variable<scalar_type> variable_type;
 		typedef optimizer_impl_base<scalar_type> optimizer_impl_type;
 		typedef std::unique_ptr<optimizer_impl_type> optimizer_impl_ptr;
 
@@ -29,27 +29,12 @@ namespace nnk
 
 		virtual void update() override
 		{
-			optimizer_->update(variable_.output(), variable_.output_grad());
-		}
-
-		const tensor_type& value() const
-		{
-			return variable_.value();
-		}
-
-		tensor_type& value()
-		{
-			return variable_.value();
-		}
-
-		const tensor_type& grad() const
-		{
-			return variable_.output_grad();
+			optimizer_->update(variable_.value(), variable_.grad());
 		}
 
 	private:
 
-		variable_type& variable_;
+		variable_type variable_;
 		optimizer_impl_ptr optimizer_;
 
 	};

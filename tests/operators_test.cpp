@@ -16,8 +16,8 @@ TEST_CASE("negate")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 1);
-	CHECK(x.node()->output_grad()[0] == Approx(-1.0));
+	REQUIRE(x.grad().size() == 1);
+	CHECK(x.grad()[0] == Approx(-1.0));
 }
 
 TEST_CASE("add")
@@ -36,11 +36,11 @@ TEST_CASE("add")
 
 	ev.backward();
 
-	REQUIRE(x1.node()->output_grad().size() == 1);
-	CHECK(x1.node()->output_grad()[0] == Approx(1.0));
+	REQUIRE(x1.grad().size() == 1);
+	CHECK(x1.grad()[0] == Approx(1.0));
 
-	REQUIRE(x2.node()->output_grad().size() == 1);
-	CHECK(x2.node()->output_grad()[0] == Approx(1.0));
+	REQUIRE(x2.grad().size() == 1);
+	CHECK(x2.grad()[0] == Approx(1.0));
 }
 
 TEST_CASE("subtract")
@@ -59,11 +59,11 @@ TEST_CASE("subtract")
 
 	ev.backward();
 
-	REQUIRE(x1.node()->output_grad().size() == 1);
-	CHECK(x1.node()->output_grad()[0] == Approx(1.0));
+	REQUIRE(x1.grad().size() == 1);
+	CHECK(x1.grad()[0] == Approx(1.0));
 
-	REQUIRE(x2.node()->output_grad().size() == 1);
-	CHECK(x2.node()->output_grad()[0] == Approx(-1.0));
+	REQUIRE(x2.grad().size() == 1);
+	CHECK(x2.grad()[0] == Approx(-1.0));
 }
 
 TEST_CASE("multiply")
@@ -82,11 +82,11 @@ TEST_CASE("multiply")
 
 	ev.backward();
 
-	REQUIRE(x1.node()->output_grad().size() == 1);
-	CHECK(x1.node()->output_grad()[0] == Approx(3.0));
+	REQUIRE(x1.grad().size() == 1);
+	CHECK(x1.grad()[0] == Approx(3.0));
 
-	REQUIRE(x2.node()->output_grad().size() == 1);
-	CHECK(x2.node()->output_grad()[0] == Approx(2.0));
+	REQUIRE(x2.grad().size() == 1);
+	CHECK(x2.grad()[0] == Approx(2.0));
 }
 
 TEST_CASE("divide")
@@ -105,9 +105,9 @@ TEST_CASE("divide")
 
 	ev.backward();
 
-	REQUIRE(x1.node()->output_grad().size() == 1);
-	CHECK(x1.node()->output_grad()[0] == Approx(1.0 / 3.0));
+	REQUIRE(x1.grad().size() == 1);
+	CHECK(x1.grad()[0] == Approx(1.0 / 3.0));
 
-	REQUIRE(x2.node()->output_grad().size() == 1);
-	CHECK(x2.node()->output_grad()[0] == Approx(-2.0 / 9.0));
+	REQUIRE(x2.grad().size() == 1);
+	CHECK(x2.grad()[0] == Approx(-2.0 / 9.0));
 }
