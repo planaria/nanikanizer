@@ -16,8 +16,8 @@ TEST_CASE("sigmoid")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 1);
-	CHECK(x.node()->output_grad()[0] == Approx(0.25));
+	REQUIRE(x.grad().size() == 1);
+	CHECK(x.grad()[0] == Approx(0.25));
 }
 
 TEST_CASE("tanh")
@@ -35,8 +35,8 @@ TEST_CASE("tanh")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 1);
-	CHECK(x.node()->output_grad()[0] == Approx(0.75));
+	REQUIRE(x.grad().size() == 1);
+	CHECK(x.grad()[0] == Approx(0.75));
 }
 
 TEST_CASE("relu")
@@ -55,7 +55,7 @@ TEST_CASE("relu")
 
 	ev.backward({ 1.0, 1.0 });
 
-	REQUIRE(x.node()->output_grad().size() == 2);
-	CHECK(x.node()->output_grad()[0] == Approx(0.0));
-	CHECK(x.node()->output_grad()[1] == Approx(1.0));
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(0.0));
+	CHECK(x.grad()[1] == Approx(1.0));
 }

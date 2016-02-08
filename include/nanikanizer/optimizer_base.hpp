@@ -1,5 +1,6 @@
 #pragma once
 #include "optimizer_impl_holder_base.hpp"
+#include "variable.hpp"
 
 namespace nnk
 {
@@ -21,7 +22,7 @@ namespace nnk
 		template <class T>
 		void add_parameter(variable<T>& param)
 		{
-			holders_.push_back(create_holder(*param.node()));
+			holders_.push_back(create_holder(param));
 		}
 
 		void zero_grads()
@@ -39,10 +40,10 @@ namespace nnk
 	protected:
 
 		virtual std::unique_ptr<optimizer_impl_holder_base>
-			create_holder(variable_expression_node<float>& variable) const = 0;
+			create_holder(variable<float>& variable) const = 0;
 
 		virtual std::unique_ptr<optimizer_impl_holder_base>
-			create_holder(variable_expression_node<double>& variable) const = 0;
+			create_holder(variable<double>& variable) const = 0;
 
 	private:
 

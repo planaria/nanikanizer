@@ -14,6 +14,7 @@
 #include <boost/function_output_iterator.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
+#include <boost/cast.hpp>
 
 #include "expression.hpp"
 #include "variable.hpp"

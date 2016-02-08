@@ -16,9 +16,9 @@ TEST_CASE("sum")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 2);
-	CHECK(x.node()->output_grad()[0] == Approx(1.0));
-	CHECK(x.node()->output_grad()[1] == Approx(1.0));
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(1.0));
+	CHECK(x.grad()[1] == Approx(1.0));
 }
 
 TEST_CASE("norm")
@@ -36,9 +36,9 @@ TEST_CASE("norm")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 2);
-	CHECK(x.node()->output_grad()[0] == Approx(2.0 / std::sqrt(13.0)));
-	CHECK(x.node()->output_grad()[1] == Approx(3.0 / std::sqrt(13.0)));
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(2.0 / std::sqrt(13.0)));
+	CHECK(x.grad()[1] == Approx(3.0 / std::sqrt(13.0)));
 }
 
 TEST_CASE("norm_sq")
@@ -56,7 +56,7 @@ TEST_CASE("norm_sq")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 2);
-	CHECK(x.node()->output_grad()[0] == Approx(4.0));
-	CHECK(x.node()->output_grad()[1] == Approx(6.0));
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(4.0));
+	CHECK(x.grad()[1] == Approx(6.0));
 }

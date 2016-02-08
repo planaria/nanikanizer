@@ -165,6 +165,8 @@
     <ClInclude Include="..\include\nanikanizer\add_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\bidirectional_linear_layer.hpp" />
     <ClInclude Include="..\include\nanikanizer\binary_operator_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\binary_reader.hpp" />
+    <ClInclude Include="..\include\nanikanizer\binary_writer.hpp" />
     <ClInclude Include="..\include\nanikanizer\cifar_util.hpp" />
     <ClInclude Include="..\include\nanikanizer\constant_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\convolution_2d_expression.hpp" />

@@ -17,9 +17,9 @@ TEST_CASE("abs")
 
 	ev.backward({ 1.0, 1.0 });
 
-	REQUIRE(x.node()->output_grad().size() == 2);
-	CHECK(x.node()->output_grad()[0] == Approx(1.0));
-	CHECK(x.node()->output_grad()[1] == Approx(-1.0));
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(1.0));
+	CHECK(x.grad()[1] == Approx(-1.0));
 }
 
 TEST_CASE("square")
@@ -37,8 +37,8 @@ TEST_CASE("square")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 1);
-	CHECK(x.node()->output_grad()[0] == Approx(6.0));
+	REQUIRE(x.grad().size() == 1);
+	CHECK(x.grad()[0] == Approx(6.0));
 }
 
 TEST_CASE("sqrt")
@@ -56,6 +56,6 @@ TEST_CASE("sqrt")
 
 	ev.backward();
 
-	REQUIRE(x.node()->output_grad().size() == 1);
-	CHECK(x.node()->output_grad()[0] == Approx(1.0 / 6.0));
+	REQUIRE(x.grad().size() == 1);
+	CHECK(x.grad()[0] == Approx(1.0 / 6.0));
 }

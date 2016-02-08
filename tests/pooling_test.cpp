@@ -25,23 +25,23 @@ TEST_CASE("max_pooling_2d")
 
 	ev.backward({ 1.0, 1.0, 1.0, 1.0 });
 
-	REQUIRE(x.node()->output_grad().size() == 16);
-	CHECK(x.node()->output_grad()[0] == Approx(0.0));
-	CHECK(x.node()->output_grad()[1] == Approx(0.0));
-	CHECK(x.node()->output_grad()[2] == Approx(0.0));
-	CHECK(x.node()->output_grad()[3] == Approx(0.0));
-	CHECK(x.node()->output_grad()[4] == Approx(0.0));
-	CHECK(x.node()->output_grad()[5] == Approx(1.0));
-	CHECK(x.node()->output_grad()[6] == Approx(0.0));
-	CHECK(x.node()->output_grad()[7] == Approx(1.0));
-	CHECK(x.node()->output_grad()[8] == Approx(0.0));
-	CHECK(x.node()->output_grad()[9] == Approx(0.0));
-	CHECK(x.node()->output_grad()[10] == Approx(0.0));
-	CHECK(x.node()->output_grad()[11] == Approx(0.0));
-	CHECK(x.node()->output_grad()[12] == Approx(0.0));
-	CHECK(x.node()->output_grad()[13] == Approx(1.0));
-	CHECK(x.node()->output_grad()[14] == Approx(0.0));
-	CHECK(x.node()->output_grad()[15] == Approx(1.0));
+	REQUIRE(x.grad().size() == 16);
+	CHECK(x.grad()[0] == Approx(0.0));
+	CHECK(x.grad()[1] == Approx(0.0));
+	CHECK(x.grad()[2] == Approx(0.0));
+	CHECK(x.grad()[3] == Approx(0.0));
+	CHECK(x.grad()[4] == Approx(0.0));
+	CHECK(x.grad()[5] == Approx(1.0));
+	CHECK(x.grad()[6] == Approx(0.0));
+	CHECK(x.grad()[7] == Approx(1.0));
+	CHECK(x.grad()[8] == Approx(0.0));
+	CHECK(x.grad()[9] == Approx(0.0));
+	CHECK(x.grad()[10] == Approx(0.0));
+	CHECK(x.grad()[11] == Approx(0.0));
+	CHECK(x.grad()[12] == Approx(0.0));
+	CHECK(x.grad()[13] == Approx(1.0));
+	CHECK(x.grad()[14] == Approx(0.0));
+	CHECK(x.grad()[15] == Approx(1.0));
 }
 
 TEST_CASE("sum_pooling_2d")
@@ -68,21 +68,21 @@ TEST_CASE("sum_pooling_2d")
 
 	ev.backward({ 1.0, 1.0, 1.0, 1.0 });
 
-	REQUIRE(x.node()->output_grad().size() == 16);
-	CHECK(x.node()->output_grad()[0] == Approx(1.0));
-	CHECK(x.node()->output_grad()[1] == Approx(1.0));
-	CHECK(x.node()->output_grad()[2] == Approx(1.0));
-	CHECK(x.node()->output_grad()[3] == Approx(1.0));
-	CHECK(x.node()->output_grad()[4] == Approx(1.0));
-	CHECK(x.node()->output_grad()[5] == Approx(1.0));
-	CHECK(x.node()->output_grad()[6] == Approx(1.0));
-	CHECK(x.node()->output_grad()[7] == Approx(1.0));
-	CHECK(x.node()->output_grad()[8] == Approx(1.0));
-	CHECK(x.node()->output_grad()[9] == Approx(1.0));
-	CHECK(x.node()->output_grad()[10] == Approx(1.0));
-	CHECK(x.node()->output_grad()[11] == Approx(1.0));
-	CHECK(x.node()->output_grad()[12] == Approx(1.0));
-	CHECK(x.node()->output_grad()[13] == Approx(1.0));
-	CHECK(x.node()->output_grad()[14] == Approx(1.0));
-	CHECK(x.node()->output_grad()[15] == Approx(1.0));
+	REQUIRE(x.grad().size() == 16);
+	CHECK(x.grad()[0] == Approx(1.0));
+	CHECK(x.grad()[1] == Approx(1.0));
+	CHECK(x.grad()[2] == Approx(1.0));
+	CHECK(x.grad()[3] == Approx(1.0));
+	CHECK(x.grad()[4] == Approx(1.0));
+	CHECK(x.grad()[5] == Approx(1.0));
+	CHECK(x.grad()[6] == Approx(1.0));
+	CHECK(x.grad()[7] == Approx(1.0));
+	CHECK(x.grad()[8] == Approx(1.0));
+	CHECK(x.grad()[9] == Approx(1.0));
+	CHECK(x.grad()[10] == Approx(1.0));
+	CHECK(x.grad()[11] == Approx(1.0));
+	CHECK(x.grad()[12] == Approx(1.0));
+	CHECK(x.grad()[13] == Approx(1.0));
+	CHECK(x.grad()[14] == Approx(1.0));
+	CHECK(x.grad()[15] == Approx(1.0));
 }

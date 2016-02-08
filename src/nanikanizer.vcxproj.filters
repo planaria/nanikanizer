@@ -28,6 +28,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{5ba222d1-723a-4a85-9c21-881625a5b63f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\io">
+      <UniqueIdentifier>{da33b538-58ca-4a83-9c40-211c183f5abd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -181,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="..\include\nanikanizer\bidirectional_linear_layer.hpp">
       <Filter>include\layer\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\binary_writer.hpp">
+      <Filter>include\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\binary_reader.hpp">
+      <Filter>include\io</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
