@@ -29,6 +29,7 @@
 #include "square_expression.hpp"
 #include "sqrt_expression.hpp"
 #include "sum_expression.hpp"
+#include "minmax_expression.hpp"
 #include "norm_expression.hpp"
 #include "sigmoid_expression.hpp"
 #include "tanh_expression.hpp"

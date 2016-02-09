@@ -167,6 +167,7 @@
     <ClInclude Include="..\include\nanikanizer\binary_operator_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\binary_reader.hpp" />
     <ClInclude Include="..\include\nanikanizer\binary_writer.hpp" />
+    <ClInclude Include="..\include\nanikanizer\block_operator_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\cifar_util.hpp" />
     <ClInclude Include="..\include\nanikanizer\constant_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\convolution_2d_expression.hpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\include\nanikanizer\matrix_product_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\matrix_transpose_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\max_pooling_2d_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\minmax_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\multiply_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\nanikanizer.hpp" />
     <ClInclude Include="..\include\nanikanizer\negate_expression.hpp" />
