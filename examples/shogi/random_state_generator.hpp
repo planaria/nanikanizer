@@ -16,34 +16,41 @@ namespace shogi
 		{
 		}
 
-		void generate(float* data)
+		void next()
+		{
+			action_buffer_.clear();
+			enumerate_action(game_, std::back_inserter(action_buffer_));
+
+			std::uniform_int<std::size_t> distribution(0, action_buffer_.size() - 1);
+			std::size_t index = distribution(generator_);
+			const action& act = action_buffer_[index];
+
+			game_.apply(act);
+
+			if (game_.state().is_finished())
+				game_.reset();
+		}
+
+		void randomize()
 		{
 			while (true)
 			{
-				bool use = std::uniform_real<>(0.0, 1.0)(generator_) < sample_rate_;
+				next();
 
-				if (use)
-					apply_state(data, game_.state(), game_.turn());
-
-				if (game_.state().is_finished())
-				{
-					game_.reset();
-				}
-				else
-				{
-					action_buffer_.clear();
-					enumerate_action(game_, std::back_inserter(action_buffer_));
-
-					std::uniform_int<std::size_t> distribution(0, action_buffer_.size() - 1);
-					std::size_t index = distribution(generator_);
-					const action& act = action_buffer_[index];
-
-					game_.apply(act);
-				}
-
-				if (use)
+				if (std::uniform_real<>(0.0, 1.0)(generator_) < sample_rate_)
 					break;
 			}
+		}
+
+		const game& get() const
+		{
+			return game_;
+		}
+
+		void generate(float* data)
+		{
+			randomize();
+			apply_state(data, game_.state(), game_.turn());
 		}
 
 		void generate(float* data, std::size_t size)
