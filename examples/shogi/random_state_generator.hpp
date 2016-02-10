@@ -11,7 +11,7 @@ namespace shogi
 	{
 	public:
 
-		explicit random_state_generator(double sample_rate = 0.01)
+		explicit random_state_generator(double sample_rate = 0.001)
 			: sample_rate_(sample_rate)
 		{
 		}
