@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B5D1BBF0-4C47-4E74-B021-35BAA3F5F008}</ProjectGuid>
+    <ProjectGuid>{A34BF61B-5D99-4035-8A4D-84C1B151662F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>nanikanizer</RootNamespace>
+    <RootNamespace>shogi</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -58,19 +58,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\props\Common.props" />
+    <Import Project="..\..\props\Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\props\Common.props" />
+    <Import Project="..\..\props\Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\props\Common.props" />
+    <Import Project="..\..\props\Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\props\Common.props" />
+    <Import Project="..\..\props\Common.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -158,67 +158,28 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\nanikanizer\abs_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\adadelta_optimizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\adagrad_optimizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\adam_optimizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\add_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\bidirectional_linear_layer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\binary_operator_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\binary_reader.hpp" />
-    <ClInclude Include="..\include\nanikanizer\binary_writer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\block_operator_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\cifar_util.hpp" />
-    <ClInclude Include="..\include\nanikanizer\constant_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\convolution_2d_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\depth_concat_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\divide_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\evaluator.hpp" />
-    <ClInclude Include="..\include\nanikanizer\expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\expression_node.hpp" />
-    <ClInclude Include="..\include\nanikanizer\expression_node_base.hpp" />
-    <ClInclude Include="..\include\nanikanizer\id_util.hpp" />
-    <ClInclude Include="..\include\nanikanizer\layer_base.hpp" />
-    <ClInclude Include="..\include\nanikanizer\linear_layer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\math_util.hpp" />
-    <ClInclude Include="..\include\nanikanizer\matrix_product_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\matrix_transpose_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\max_pooling_2d_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\minmax_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\multiply_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\nanikanizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\negate_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\norm_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\optimizer_adapter.hpp" />
-    <ClInclude Include="..\include\nanikanizer\optimizer_base.hpp" />
-    <ClInclude Include="..\include\nanikanizer\optimizer_impl_base.hpp" />
-    <ClInclude Include="..\include\nanikanizer\optimizer_impl_holder.hpp" />
-    <ClInclude Include="..\include\nanikanizer\optimizer_impl_holder_base.hpp" />
-    <ClInclude Include="..\include\nanikanizer\pooling_2d_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\relu_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\rmsprop_optimizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\sgd_optimizer.hpp" />
-    <ClInclude Include="..\include\nanikanizer\cross_entropy_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\sigmoid_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\softmax_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\sqrt_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\square_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\subtract_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\sum_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\sum_pooling_2d_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\tanh_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\unary_operator_expression.hpp" />
-    <ClInclude Include="..\include\nanikanizer\variable.hpp" />
-    <ClInclude Include="..\include\nanikanizer\variable_expression.hpp" />
+    <ClInclude Include="action.hpp" />
+    <ClInclude Include="apply_state.hpp" />
+    <ClInclude Include="enumerate_action.hpp" />
+    <ClInclude Include="game.hpp" />
+    <ClInclude Include="game_state.hpp" />
+    <ClInclude Include="piece.hpp" />
+    <ClInclude Include="piece_type.hpp" />
+    <ClInclude Include="random_state_generator.hpp" />
+    <ClInclude Include="util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\boost.1.60.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.60.0.0\build\native\boost.targets')" />
+    <Import Project="..\..\packages\boost.1.60.0.0\build\native\boost.targets" Condition="Exists('..\..\packages\boost.1.60.0.0\build\native\boost.targets')" />
+    <Import Project="..\..\packages\boost_filesystem-vc140.1.60.0.0\build\native\boost_filesystem-vc140.targets" Condition="Exists('..\..\packages\boost_filesystem-vc140.1.60.0.0\build\native\boost_filesystem-vc140.targets')" />
+    <Import Project="..\..\packages\boost_system-vc140.1.60.0.0\build\native\boost_system-vc140.targets" Condition="Exists('..\..\packages\boost_system-vc140.1.60.0.0\build\native\boost_system-vc140.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\boost.1.60.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.60.0.0\build\native\boost.targets'))" />
+    <Error Condition="!Exists('..\..\packages\boost.1.60.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\boost.1.60.0.0\build\native\boost.targets'))" />
+    <Error Condition="!Exists('..\..\packages\boost_filesystem-vc140.1.60.0.0\build\native\boost_filesystem-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\boost_filesystem-vc140.1.60.0.0\build\native\boost_filesystem-vc140.targets'))" />
+    <Error Condition="!Exists('..\..\packages\boost_system-vc140.1.60.0.0\build\native\boost_system-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\boost_system-vc140.1.60.0.0\build\native\boost_system-vc140.targets'))" />
   </Target>
 </Project>

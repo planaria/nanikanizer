@@ -191,5 +191,11 @@
     <ClInclude Include="..\include\nanikanizer\binary_reader.hpp">
       <Filter>include\io</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\block_operator_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\minmax_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

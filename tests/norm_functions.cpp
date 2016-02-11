@@ -21,6 +21,46 @@ TEST_CASE("sum")
 	CHECK(x.grad()[1] == Approx(1.0));
 }
 
+TEST_CASE("min")
+{
+	nnk::variable<double> x = { 2.0, 3.0 };
+
+	auto y = min(x.expr());
+
+	nnk::evaluator<double> ev(y);
+
+	auto result = ev.forward();
+
+	REQUIRE(result.size() == 1);
+	CHECK(result[0] == Approx(2.0));
+
+	ev.backward();
+
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(1.0));
+	CHECK(x.grad()[1] == Approx(0.0));
+}
+
+TEST_CASE("max")
+{
+	nnk::variable<double> x = { 2.0, 3.0 };
+
+	auto y = max(x.expr());
+
+	nnk::evaluator<double> ev(y);
+
+	auto result = ev.forward();
+
+	REQUIRE(result.size() == 1);
+	CHECK(result[0] == Approx(3.0));
+
+	ev.backward();
+
+	REQUIRE(x.grad().size() == 2);
+	CHECK(x.grad()[0] == Approx(0.0));
+	CHECK(x.grad()[1] == Approx(1.0));
+}
+
 TEST_CASE("norm")
 {
 	nnk::variable<double> x = { 2.0, 3.0 };

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="piece.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="piece_type.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="util.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="game_state.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="action.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="enumerate_action.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="apply_state.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="random_state_generator.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{89a373e7-c719-446d-bf78-fe6360d178cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
