@@ -194,6 +194,7 @@
     <ClInclude Include="..\include\nanikanizer\optimizer_impl_base.hpp" />
     <ClInclude Include="..\include\nanikanizer\optimizer_impl_holder.hpp" />
     <ClInclude Include="..\include\nanikanizer\optimizer_impl_holder_base.hpp" />
+    <ClInclude Include="..\include\nanikanizer\padding_2d_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\pooling_2d_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\relu_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\rmsprop_optimizer.hpp" />

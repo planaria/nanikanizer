@@ -41,6 +41,7 @@
 #include "convolution_2d_expression.hpp"
 #include "max_pooling_2d_expression.hpp"
 #include "sum_pooling_2d_expression.hpp"
+#include "padding_2d_expression.hpp"
 #include "depth_concat_expression.hpp"
 
 #include "linear_layer.hpp"

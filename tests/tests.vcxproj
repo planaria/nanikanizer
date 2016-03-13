@@ -145,6 +145,7 @@
     <ClCompile Include="activation_functions.cpp" />
     <ClCompile Include="bidirectional_linear_layer_test.cpp" />
     <ClCompile Include="norm_functions.cpp" />
+    <ClCompile Include="padding_test.cpp" />
     <ClCompile Include="unary_functions_test.cpp" />
     <ClCompile Include="linear_layer_test.cpp" />
     <ClCompile Include="matrix_test.cpp" />

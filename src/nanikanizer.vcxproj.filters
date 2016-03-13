@@ -197,5 +197,8 @@
     <ClInclude Include="..\include\nanikanizer\minmax_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\padding_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,6 +36,9 @@
     <ClCompile Include="bidirectional_linear_layer_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="padding_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
