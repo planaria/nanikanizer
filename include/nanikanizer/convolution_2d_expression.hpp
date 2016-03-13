@@ -35,8 +35,8 @@ namespace nnk
 			BOOST_ASSERT(input_height >= 1);
 			BOOST_ASSERT(input_width >= 1);
 			BOOST_ASSERT(input_depth >= 1);
-			BOOST_ASSERT(filter_height >= 2);
-			BOOST_ASSERT(filter_width >= 2);
+			BOOST_ASSERT(filter_height >= 1);
+			BOOST_ASSERT(filter_width >= 1);
 			BOOST_ASSERT(input_height >= filter_height);
 			BOOST_ASSERT(input_width >= filter_width);
 
