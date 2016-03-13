@@ -39,10 +39,10 @@ namespace nnk
 			BOOST_ASSERT(input_height >= 1);
 			BOOST_ASSERT(input_width >= 1);
 			BOOST_ASSERT(input_depth >= 1);
-			BOOST_ASSERT(padding_top >= 1);
-			BOOST_ASSERT(padding_left >= 1);
-			BOOST_ASSERT(padding_bottom >= 1);
-			BOOST_ASSERT(padding_right >= 1);
+			BOOST_ASSERT(padding_top >= 0);
+			BOOST_ASSERT(padding_left >= 0);
+			BOOST_ASSERT(padding_bottom >= 0);
+			BOOST_ASSERT(padding_right >= 0);
 
 			input_stride_ = input_width * input_depth;
 			input_size_ = input_height * input_stride_;
