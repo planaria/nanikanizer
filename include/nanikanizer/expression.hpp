@@ -49,7 +49,7 @@ namespace nnk
 
 		static const node_pointer& zero_node()
 		{
-			static node_pointer node = std::make_shared<constant_expression_node<T>>();
+			static node_pointer node = std::make_shared<constant_expression_node<T>>(std::valarray<scalar_type>{ scalar_type() });
 			return node;
 		}
 
