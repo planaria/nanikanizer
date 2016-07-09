@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <nanikanizer/nanikanizer.hpp>
 
-TEST_CASE("convolution")
+TEST_CASE("convolution_2d")
 {
 	nnk::variable<double> x =
 	{

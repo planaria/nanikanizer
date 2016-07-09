@@ -13,7 +13,7 @@ An neural network library for C++
 - Sigmoid, Tanh, ReLU, Softmax
 - Cross-Entropy Error
 - Matrix Production, Matrix Transpose
-- Convolution, Padding
+- Convolution, Padding, Spacing
 - Max-Pooling, Sum-Pooling
 - Depth Concat
 

@@ -43,6 +43,7 @@
 #include "sum_pooling_2d_expression.hpp"
 #include "padding_2d_expression.hpp"
 #include "depth_concat_expression.hpp"
+#include "spacing_2d_expression.hpp"
 
 #include "linear_layer.hpp"
 #include "bidirectional_linear_layer.hpp"

@@ -42,6 +42,9 @@
     <ClCompile Include="convolution_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="spacing_2d_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
