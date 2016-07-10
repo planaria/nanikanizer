@@ -200,6 +200,9 @@
     <ClInclude Include="..\include\nanikanizer\spacing_2d_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\skipping_2d_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

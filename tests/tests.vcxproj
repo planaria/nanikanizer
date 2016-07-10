@@ -147,6 +147,7 @@
     <ClCompile Include="convolution_test.cpp" />
     <ClCompile Include="norm_functions.cpp" />
     <ClCompile Include="padding_test.cpp" />
+    <ClCompile Include="skipping_2d_test.cpp" />
     <ClCompile Include="spacing_2d_test.cpp" />
     <ClCompile Include="unary_functions_test.cpp" />
     <ClCompile Include="linear_layer_test.cpp" />

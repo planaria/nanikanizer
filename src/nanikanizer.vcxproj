@@ -198,6 +198,7 @@
     <ClInclude Include="..\include\nanikanizer\sgd_optimizer.hpp" />
     <ClInclude Include="..\include\nanikanizer\cross_entropy_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\sigmoid_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\skipping_2d_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\softmax_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\spacing_2d_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\sqrt_expression.hpp" />
