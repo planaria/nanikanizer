@@ -61,7 +61,7 @@ namespace nnk
 
 			this->output() = spacing_value_;
 
-#pragma omp parallel for schedule(static)
+			#pragma omp parallel for schedule(static)
 			for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 			{
 				std::size_t input_index = i * input_size_;
@@ -89,7 +89,7 @@ namespace nnk
 			BOOST_ASSERT(base_->output().size() % input_size_ == 0);
 			std::size_t count = base_->output().size() / input_size_;
 
-#pragma omp parallel for schedule(static)
+			#pragma omp parallel for schedule(static)
 			for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(count); ++i)
 			{
 				std::size_t input_index = i * input_size_;

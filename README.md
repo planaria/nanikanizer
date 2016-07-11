@@ -15,7 +15,7 @@ An neural network library for C++
 - Matrix Production, Matrix Transpose
 - Convolution, Padding, Spacing, Skipping
 - Max-Pooling, Sum-Pooling
-- Depth Concat
+- Depth Concat, Depth Mean
 
 ### Optimizers
 - SGD

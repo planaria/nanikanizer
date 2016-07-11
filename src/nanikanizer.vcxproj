@@ -168,6 +168,7 @@
     <ClInclude Include="..\include\nanikanizer\cifar_util.hpp" />
     <ClInclude Include="..\include\nanikanizer\constant_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\convolution_2d_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\depth_mean_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\depth_concat_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\divide_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\evaluator.hpp" />

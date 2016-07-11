@@ -48,6 +48,9 @@
     <ClCompile Include="skipping_2d_test.cpp">
       <Filter>src\tests</Filter>
     </ClCompile>
+    <ClCompile Include="depth_mean_test.cpp">
+      <Filter>src\tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
