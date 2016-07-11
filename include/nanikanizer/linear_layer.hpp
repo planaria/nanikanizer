@@ -20,6 +20,9 @@ namespace nnk
 			: input_dimension_(input_dimension)
 			, output_dimension_(output_dimension)
 		{
+			BOOST_ASSERT(input_dimension >= 1);
+			BOOST_ASSERT(output_dimension >= 1);
+
 			std::mt19937 engine;
 			std::normal_distribution<scalar_type> distribution(
 				static_cast<scalar_type>(0.0),
