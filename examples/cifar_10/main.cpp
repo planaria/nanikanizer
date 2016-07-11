@@ -31,8 +31,6 @@ int main(int /*argc*/, char* /*argv*/[])
 
 		auto ids = nnk::make_ids(id_size, 0.0f, 1.0f);
 
-		typedef std::pair<std::string, std::shared_ptr<nnk::optimizer_base>> named_optimizer_type;
-
 		nnk::linear_layer<float> l1(27, 6);
 		nnk::linear_layer<float> l2(54, 12);
 		nnk::linear_layer<float> l3(108, 64);
