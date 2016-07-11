@@ -57,4 +57,30 @@ namespace nnk
 
 	};
 
+	template <class T>
+	bool operator ==(const expression<T>& lhs, const expression<T>& rhs)
+	{
+		return lhs.root() == rhs.root();
+	}
+
+	template <class T>
+	bool operator !=(const expression<T>& lhs, const expression<T>& rhs)
+	{
+		return lhs.root() != rhs.root();
+	}
+
+}
+
+namespace std
+{
+
+	template <class T>
+	struct hash<nnk::expression<T>>
+	{
+		std::size_t operator ()(const nnk::expression<T>& e)
+		{
+			return hash<nnk::expression<T>::node_pointer>()(e.root());
+		}
+	};
+
 }
