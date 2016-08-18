@@ -35,4 +35,23 @@ namespace nnk
 		return lhs;
 	}
 
+	template <class T>
+	expression<T> operator *(const expression<T>& lhs, T rhs)
+	{
+		return lhs * expression<T>({ rhs });
+	}
+
+	template <class T>
+	expression<T> operator *(T lhs, const expression<T>& rhs)
+	{
+		return expression<T>({ lhs }) * rhs;
+	}
+
+	template <class T>
+	expression<T>& operator *=(expression<T>& lhs, T rhs)
+	{
+		lhs = lhs * rhs;
+		return lhs;
+	}
+
 }
