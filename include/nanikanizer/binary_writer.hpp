@@ -12,6 +12,11 @@ namespace nnk
 		{
 		}
 
+		void write(bool value)
+		{
+			write(value ? 1 : 0);
+		}
+
 		void write(char value)
 		{
 			write(static_cast<std::int64_t>(value));

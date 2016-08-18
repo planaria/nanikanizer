@@ -12,6 +12,13 @@ namespace nnk
 		{
 		}
 
+		void read(bool& value)
+		{
+			std::int64_t temp;
+			read(temp);
+			value = !!temp;
+		}
+
 		void read(char& value)
 		{
 			std::int64_t temp;

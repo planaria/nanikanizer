@@ -16,6 +16,7 @@ An neural network library for C++
 - Convolution, Padding, Spacing, Skipping
 - Max-Pooling, Sum-Pooling
 - Depth Concat, Depth Mean
+- Dropout
 
 ### Optimizers
 - SGD

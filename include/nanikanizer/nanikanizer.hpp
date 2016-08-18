@@ -8,6 +8,7 @@
 #include <valarray>
 #include <unordered_map>
 
+#include <boost/dynamic_bitset.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <boost/range/adaptor/reversed.hpp>
@@ -46,9 +47,11 @@
 #include "sum_pooling_2d_expression.hpp"
 #include "depth_concat_expression.hpp"
 #include "depth_mean_expression.hpp"
+#include "dropout_expression.hpp"
 
 #include "linear_layer.hpp"
 #include "bidirectional_linear_layer.hpp"
+#include "dropout_layer.hpp"
 
 #include "sgd_optimizer.hpp"
 #include "adagrad_optimizer.hpp"

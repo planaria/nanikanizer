@@ -171,6 +171,8 @@
     <ClInclude Include="..\include\nanikanizer\depth_mean_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\depth_concat_expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\divide_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\dropout_expression.hpp" />
+    <ClInclude Include="..\include\nanikanizer\dropout_layer.hpp" />
     <ClInclude Include="..\include\nanikanizer\evaluator.hpp" />
     <ClInclude Include="..\include\nanikanizer\expression.hpp" />
     <ClInclude Include="..\include\nanikanizer\expression_node.hpp" />

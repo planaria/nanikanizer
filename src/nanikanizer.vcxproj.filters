@@ -206,6 +206,12 @@
     <ClInclude Include="..\include\nanikanizer\depth_mean_expression.hpp">
       <Filter>include\expression\expressions</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\dropout_layer.hpp">
+      <Filter>include\layer\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\nanikanizer\dropout_expression.hpp">
+      <Filter>include\expression\expressions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
