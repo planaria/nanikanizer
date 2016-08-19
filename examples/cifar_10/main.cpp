@@ -31,60 +31,84 @@ int main(int /*argc*/, char* /*argv*/[])
 
 		auto ids = nnk::make_ids(id_size, 0.0f, 1.0f);
 
-		nnk::linear_layer<float> l1(27, 6);
-		nnk::linear_layer<float> l2(54, 12);
-		nnk::linear_layer<float> l3(108, 64);
-		nnk::linear_layer<float> l4(576, 64);
-		nnk::linear_layer<float> l5(576, 32);
+		nnk::linear_layer<float> l1(27, 32);
+		nnk::linear_layer<float> l2(288, 32);
+		nnk::linear_layer<float> l3(288, 32);
+		nnk::linear_layer<float> l4(288, 32);
+		nnk::linear_layer<float> l5(288, 32);
 		nnk::linear_layer<float> l6(288, 32);
-		nnk::linear_layer<float> l7(32, 10);
+		nnk::linear_layer<float> l7(512, 512);
+		nnk::linear_layer<float> l8(512, id_size);
 
-		std::size_t batch_size = 1024;
+		nnk::dropout_layer<float> drop;
+
+		std::size_t batch_size = 128;
 
 		nnk::variable<float> x0;
 		nnk::variable<float> y;
 
 		nnk::expression<float> x = x0.expr();
+
 		// 32 * 32 * 3
-		x = nnk::convolution_2d(x, 32, 32, 3, 3, 3);
-		// 30 * 30 * 27
+		x = nnk::padding_2d(x, 32, 32, 3, 1, 1);
+		// 34 * 34 * 3
+		x = nnk::convolution_2d(x, 34, 34, 3, 3, 3);
+		// 32 * 32 * 27
 		x = nnk::relu(l1.forward(x));
-		// 30 * 30 * 6
-		x = nnk::convolution_2d(x, 30, 30, 6, 3, 3);
-		// 28 * 28 * 54
+
+		// 32 * 32 * 32
+		x = nnk::padding_2d(x, 32, 32, 32, 1, 1);
+		// 34 * 34 * 32
+		x = nnk::convolution_2d(x, 34, 34, 32, 3, 3);
+		// 32 * 32 * 288
 		x = nnk::relu(l2.forward(x));
-		// 28 * 28 * 12
-		x = nnk::max_pooling_2d(x, 28, 28, 12, 2, 2);
-		// 14 * 14 * 12
-		x = nnk::convolution_2d(x, 14, 14, 12, 3, 3);
-		// 12 * 12 * 108
+
+		// 32 * 32 * 32
+		x = nnk::max_pooling_2d(x, 32, 32, 32, 2, 2);
+
+		// 16 * 16 * 32
+		x = nnk::padding_2d(x, 16, 16, 32, 1, 1);
+		// 18 * 18 * 32
+		x = nnk::convolution_2d(x, 18, 18, 32, 3, 3);
+		// 16 * 16 * 288
 		x = nnk::relu(l3.forward(x));
-		// 12 * 12 * 64
-		x = nnk::convolution_2d(x, 12, 12, 64, 3, 3);
-		// 10 * 10 * 576
+
+		// 16 * 16 * 32
+		x = nnk::padding_2d(x, 16, 16, 32, 1, 1);
+		// 18 * 18 * 32
+		x = nnk::convolution_2d(x, 18, 18, 32, 3, 3);
+		// 16 * 16 * 288
 		x = nnk::relu(l4.forward(x));
-		// 10 * 10 * 64
-		x = nnk::max_pooling_2d(x, 10, 10, 64, 2, 2);
-		// 5 * 5 * 64
-		x = nnk::convolution_2d(x, 5, 5, 64, 3, 3);
-		// 3 * 3 * 576
+
+		// 16 * 16 * 32
+		x = nnk::max_pooling_2d(x, 16, 16, 32, 2, 2);
+
+		// 8 * 8 * 32
+		x = nnk::padding_2d(x, 8, 8, 32, 1, 1);
+		// 10 * 10 * 32
+		x = nnk::convolution_2d(x, 10, 10, 32, 3, 3);
+		// 8 * 8 * 288
 		x = nnk::relu(l5.forward(x));
-		// 3 * 3 * 32 = 288
+
+		// 8 * 8 * 32
+		x = nnk::padding_2d(x, 8, 8, 32, 1, 1);
+		// 10 * 10 * 32
+		x = nnk::convolution_2d(x, 10, 10, 32, 3, 3);
+		// 8 * 8 * 288
 		x = nnk::relu(l6.forward(x));
-		// 32
-		x = nnk::softmax(l7.forward(x), id_size);
+
+		// 8 * 8 * 32
+		x = nnk::max_pooling_2d(x, 8, 8, 32, 2, 2);
+
+		// 4 * 4 * 32 = 512
+		x = drop.forward(x);
+		// 512
+		x = nnk::relu(l7.forward(x));
+		// 10
+		x = nnk::softmax(l8.forward(x), id_size);
 		// 10
 
-		auto reg =
-			nnk::sum(nnk::abs(l1.weight().expr())) +
-			nnk::sum(nnk::abs(l2.weight().expr())) +
-			nnk::sum(nnk::abs(l3.weight().expr())) +
-			nnk::sum(nnk::abs(l4.weight().expr())) +
-			nnk::sum(nnk::abs(l5.weight().expr())) +
-			nnk::sum(nnk::abs(l6.weight().expr())) +
-			nnk::sum(nnk::abs(l7.weight().expr()));
-
-		auto loss = nnk::cross_entropy(x - y.expr()) + reg * nnk::expression<float>({ 0.1f });
+		auto loss = nnk::cross_entropy(x - y.expr());
 
 		auto get_answer = [&](std::size_t index)
 		{
@@ -115,6 +139,8 @@ int main(int /*argc*/, char* /*argv*/[])
 
 		for (std::size_t i = 0; i < 100; ++i)
 		{
+			drop.train() = true;
+
 			x0.value().resize(batch_size * nnk::cifar_10::whole_size);
 			y.value().resize(batch_size * id_size);
 
@@ -141,6 +167,8 @@ int main(int /*argc*/, char* /*argv*/[])
 
 				optimizer.update();
 			}
+
+			drop.train() = false;
 
 			std::size_t count_ok = 0;
 
