@@ -1,5 +1,10 @@
 #pragma once
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+
 #include <cstdint>
 #include <fstream>
 #include <algorithm>
@@ -7,6 +12,10 @@
 #include <random>
 #include <valarray>
 #include <unordered_map>
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include <boost/dynamic_bitset.hpp>
 #include <boost/graph/adjacency_list.hpp>
