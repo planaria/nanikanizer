@@ -169,9 +169,13 @@ int main(int /*argc*/, char* /*argv*/[])
 		if (boost::filesystem::exists(filename))
 			ai.load(filename);
 
+		shogi::random_state_generator gen;
+
 		while (true)
 		{
-			shogi::game g;
+			gen.randomize();
+
+			shogi::game g = gen.get();
 
 			std::vector<shogi::game> states;
 
