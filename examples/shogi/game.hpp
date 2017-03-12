@@ -175,7 +175,7 @@ namespace shogi
 				new_piece = piece(promoted(new_piece.type()), new_piece.side());
 
 			auto count_it = state_count_.find(state);
-			if (count_it != state_count_.end() && count_it->second == 3)
+			if (count_it != state_count_.end() /*&& count_it->second == 3*/)
 				return false;
 
 			return true;

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <random>
 #include <nanikanizer/nanikanizer.hpp>
 
 int main(int /*argc*/, char* /*argv*/[])
