@@ -21,6 +21,7 @@ namespace shogi
 			, l4_(750, 500)
 			, l5_(500, 250)
 			, l6_(250, 1)
+			, opt_(0.0001)
 		{
 			opt_.add_parameter(l1_);
 			opt_.add_parameter(l2_);
@@ -66,7 +67,7 @@ namespace shogi
 			opt_.zero_grads();
 		}
 
-		float train(const game& g1, const game& g2, float weight)
+		float train(const game& g1, const game& g2)
 		{
 			auto e1 = forward(g1);
 			auto e2 = forward(g2);
@@ -74,7 +75,7 @@ namespace shogi
 			auto loss = nnk::square(e1 + e2);
 			nnk::evaluator<float> ev(loss);
 			ev.forward();
-			ev.backward({ weight });
+			ev.backward();
 
 			return loss.root()->output()[0];
 		}
@@ -132,11 +133,11 @@ namespace shogi
 			apply_state(&input.value()[0], g.state(), g.turn());
 
 			auto e = input.expr();
-			e = nnk::sigmoid(l1_.forward(e));
-			e = nnk::sigmoid(l2_.forward(e));
-			e = nnk::sigmoid(l3_.forward(e));
-			e = nnk::sigmoid(l4_.forward(e));
-			e = nnk::sigmoid(l5_.forward(e));
+			e = nnk::relu(l1_.forward(e));
+			e = nnk::relu(l2_.forward(e));
+			e = nnk::relu(l3_.forward(e));
+			e = nnk::relu(l4_.forward(e));
+			e = nnk::relu(l5_.forward(e));
 			e = nnk::tanh(l6_.forward(e));
 
 			return e;
@@ -159,6 +160,8 @@ int main(int /*argc*/, char* /*argv*/[])
 {
 	try
 	{
+		std::cout << std::fixed << std::setprecision(3);
+
 		shogi::shogi_ai ai;
 
 		boost::filesystem::path filename = "shogi.dat";
@@ -172,14 +175,21 @@ int main(int /*argc*/, char* /*argv*/[])
 
 			std::vector<shogi::game> states;
 
-			for (std::size_t i = 0; i < 200; ++i)
+			for (std::size_t i = 0; i < 1000; ++i)
 			{
 				float value = ai.evaluate(g);
+
 				if (g.turn())
-					value = -value;
+					std::cout << value;
+
+				std::cout << std::endl;
 
 				std::cout << g.state();
-				std::cout << "score: " << value << std::endl;
+
+				if (!g.turn())
+					std::cout << value;
+
+				std::cout << std::endl;
 
 				states.push_back(g);
 
@@ -192,14 +202,16 @@ int main(int /*argc*/, char* /*argv*/[])
 				g = next_g;
 			}
 
-			float weight = 1.0f / static_cast<float>(states.size() - 1);
+			float sum = 0.0f;
 
 			ai.zero_grads();
 
 			for (std::size_t i = 0; i < states.size() - 1; ++i)
-				ai.train(states[i], states[i + 1], weight);
+				sum += ai.train(states[i], states[i + 1]);
 
 			ai.update();
+
+			std::cout << "loss: " << sum << std::endl;
 
 			ai.save(filename);
 		}
