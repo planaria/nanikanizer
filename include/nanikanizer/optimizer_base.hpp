@@ -27,14 +27,16 @@ namespace nnk
 
 		void zero_grads()
 		{
-			for (const auto& holder : holders_)
-				holder->zero_grads();
+			#pragma omp parallel for schedule(dynamic)
+			for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(holders_.size()); ++i)
+				holders_[i]->zero_grads();
 		}
 
 		void update()
 		{
-			for (const auto& holder : holders_)
-				holder->update();
+			#pragma omp parallel for schedule(dynamic)
+			for (std::ptrdiff_t i = 0; i < static_cast<std::ptrdiff_t>(holders_.size()); ++i)
+				holders_[i]->update();
 		}
 
 	protected:
