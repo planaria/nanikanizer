@@ -79,7 +79,7 @@ namespace std
 	{
 		std::size_t operator ()(const nnk::expression<T>& e)
 		{
-			return hash<nnk::expression<T>::node_pointer>()(e.root());
+			return hash<typename nnk::expression<T>::node_pointer>()(e.root());
 		}
 	};
 

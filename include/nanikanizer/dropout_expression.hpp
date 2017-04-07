@@ -41,7 +41,7 @@ namespace nnk
 				if (filter_.size() != base_->output().size())
 					filter_.resize(base_->output().size());
 
-				std::uniform_real<> random;
+				std::uniform_real_distribution<> random;
 
 				for (std::size_t i = 0; i < filter_.size(); ++i)
 					filter_.set(i, ratio_ < random(generator_));

@@ -29,7 +29,7 @@ namespace nnk
 			reader.read(*train_);
 		}
 
-		virtual void enumerate_parameters(optimizer_base& optimizer) override
+		virtual void enumerate_parameters(optimizer_base& /*optimizer*/) override
 		{
 		}
 
