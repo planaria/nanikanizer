@@ -14,6 +14,12 @@ namespace shogi
 		explicit random_state_generator(double sample_rate = 0.001)
 			: sample_rate_(sample_rate)
 		{
+			std::array<std::uint32_t, std::mt19937::state_size> seeds;
+
+			std::random_device dev;
+			std::generate(seeds.begin(), seeds.end(), std::ref(dev));
+
+			generator_.seed(std::seed_seq(seeds.begin(), seeds.end()));
 		}
 
 		void next()
