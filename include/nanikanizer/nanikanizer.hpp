@@ -1,10 +1,5 @@
 #pragma once
 
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4244)
-#endif
-
 #include <cstdint>
 #include <fstream>
 #include <algorithm>
@@ -13,15 +8,11 @@
 #include <valarray>
 #include <unordered_map>
 
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-
 #include <boost/dynamic_bitset.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/topological_sort.hpp>
 #include <boost/range/adaptor/reversed.hpp>
-#include <boost/function_output_iterator.hpp>
+#include <boost/iterator/function_output_iterator.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
 #include <boost/cast.hpp>
